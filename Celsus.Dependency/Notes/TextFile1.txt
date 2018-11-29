@@ -35,6 +35,8 @@
 
 * celsusappgit@outlook.com GIT
 
+* Web Sites http://cms.celsus.webnode.com.tr/ fena değil
+
 * Documentation
 	
 	Local Path  C:\Users\efeo\Documents\GitHub\CelsusHelp_Sphinx
