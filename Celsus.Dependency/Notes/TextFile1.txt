@@ -34,3 +34,18 @@
 * Tracking ID UA-129865696-1, account senekayazilimebdys@gmail.com
 
 * celsusappgit@outlook.com GIT
+
+* Documentation
+	
+	Local Path  C:\Users\efeo\Documents\GitHub\CelsusHelp_Sphinx
+	To Build	C:\Users\efeo\Documents\GitHub\CelsusHelp_Sphinx\docs>sphinx-build -b html . _build
+	URL https://readthedocs.org/projects/celsushelp-sphinx/builds/
+	Login celsusmanagement@outlook.com 
+	GIT https://github.com/celsusappgit/CelsusHelp_Sphinx.git
+
+	To build: Open Local Path
+		      Build
+			  Git Desktop > Push
+
+    To update web site: Open Local Path and edit documents
+						Git Desktop > Push
