@@ -1,0 +1,204 @@
+﻿<UserControl x:Class="Celsus.Client.Controls.Setup.Database.DatabaseSetupMainControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:converters="clr-namespace:Celsus.Client.Types.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mat="clr-namespace:Telerik.Windows.Controls.MaterialControls;assembly=Telerik.Windows.Controls" 
+             xmlns:local="clr-namespace:Celsus.Client.Controls.Setup.Database"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:telerikControls="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls"
+             xmlns:loc="clr-namespace:Celsus.Client.Types"
+             xmlns:types="clr-namespace:Celsus.Client.Shared.Types;assembly=Celsus.Client.Shared"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance local:DatabaseSetupMainControlModel}"
+            d:DesignHeight="1900" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <converters:HalfConverter x:Key="HalfConverter"></converters:HalfConverter>
+        <converters:PositionConverter x:Key="PositionConverter"></converters:PositionConverter>
+        <converters:LineMiddle x:Key="LineMiddle"></converters:LineMiddle>
+        <converters:LineMiddleVertical x:Key="LineMiddleVertical"></converters:LineMiddleVertical>
+    </UserControl.Resources>
+    <ScrollViewer VerticalAlignment="Stretch" BorderThickness="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" telerikControls:StyleManager.Theme="Fluent" Margin="0,0,0,0">
+        <telerik:RadBusyIndicator   IsBusy="{Binding IsBusy}" Style="{StaticResource RadBusyIndicator}">
+            <Grid Background="{StaticResource Back01_02}">
+                <Border Style="{StaticResource BorderContent2}">
+                    <StackPanel>
+                        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,0,0,24">
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding DatabaseHelper.Status}" Value="{x:Static types:DatabaseHelperStatusEnum.DontHaveConnectionInfo}">
+                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <mat:Shadow Background="White" ShadowDepth="Depth2"/>
+                            <Border Padding="0" Background="{StaticResource Back01_01}">
+
+                                <DockPanel>
+                                    <Border Background="{StaticResource Accent07_03}">
+                                        <Border Padding="6,0" >
+                                        </Border>
+                                    </Border>
+                                    <Border DockPanel.Dock="Top" Margin="24,24,24,12"  >
+                                        <TextBlock Text="{loc:Loc SQLServerError}" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
+                                    </Border>
+                                    <StackPanel DockPanel.Dock="Top" Grid.IsSharedSizeScope="True" Margin="24,12,24,24">
+                                        <TextBlock TextWrapping="WrapWithOverflow" Margin="0,6"  Foreground="{StaticResource Fore01_03}">
+                                    <Run Text="{loc:Loc CelsusNeedsAnyEditionOfMicrosoftSQLServe}"></Run>
+                                    <LineBreak></LineBreak>
+                                    <LineBreak></LineBreak>
+                                    <Run Text="{loc:Loc WeDontHaveDatabaseConnectionInformationT}"></Run>
+                                    <!--<LineBreak></LineBreak>
+                                    <LineBreak></LineBreak>-->
+                                    <!--<Run Text="{loc:Loc WeHaveDatabaseConnectionInformationButWe}"></Run>
+                                    <LineBreak></LineBreak>
+                                    <LineBreak></LineBreak>-->
+                                    <!--<Run Text="{loc:Loc WeHaveDatabaseConnectionInformationAndWe}"></Run>-->
+                                        </TextBlock>
+                                        <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                                            <telerik:RadButton Style="{DynamicResource FormButtonInner}" Margin="0" Command="{Binding EnterConnectionParamatersCommand}" Content="{loc:Loc EnterConnectionInfo}" >
+                                            </telerik:RadButton>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DockPanel>
+
+                            </Border>
+                        </Grid>
+                        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,0,0,24">
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding DatabaseHelper.Status}" Value="{x:Static types:DatabaseHelperStatusEnum.DontHaveConnectionInfo}">
+                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding DatabaseHelper.Status}" Value="{x:Static types:DatabaseHelperStatusEnum.MasterDatabaseIsNotReachable}">
+                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <mat:Shadow Background="White" ShadowDepth="Depth2"/>
+                            <DockPanel>
+                                <Border DockPanel.Dock="Bottom" Padding="24,12" Background="{StaticResource Back01_03}" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" Visibility="{Binding InstallStatusVisibility}">
+                                    <ContentPresenter TextElement.FontFamily="Montserrat Light" TextElement.FontSize="12" Content="{Binding InstallStatus}"></ContentPresenter>
+                                </Border>
+                                <Border Padding="0" Background="{StaticResource Back01_01}">
+
+                                    <DockPanel>
+                                        <Border Background="{StaticResource Accent07_03}">
+                                            <Border Padding="6,0" >
+                                            </Border>
+                                        </Border>
+                                        <Border DockPanel.Dock="Top" Margin="24,24,24,12"  >
+                                            <TextBlock Text="{loc:Loc SQLServerError}" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
+                                        </Border>
+                                        <StackPanel DockPanel.Dock="Top" Grid.IsSharedSizeScope="True" Margin="24,12,24,24">
+                                            <TextBlock TextWrapping="WrapWithOverflow" Margin="0,6"  Foreground="{StaticResource Fore01_03}">
+                                <Run Text="{loc:Loc IfYouDontHaveMicrosoftSQLServer2016ThisW}"></Run>
+                                <LineBreak></LineBreak>
+                                <LineBreak></LineBreak>
+                                <Run Text="{loc:Loc ToİnstallMicrosoftSQLServer2016ExpressEd}"></Run>
+                                            </TextBlock>
+                                            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                                                <telerik:RadButton Style="{DynamicResource FormButtonInner}" Margin="0" Command="{Binding InstallSQLCommand}" Content="{loc:Loc InstallMicrosoftSQLServer2016ExpressEdit}" >
+                                                </telerik:RadButton>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DockPanel>
+
+                                </Border>
+                            </DockPanel>
+                        </Grid>
+                        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,0,0,24">
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding DatabaseHelper.Status}" Value="{x:Static types:DatabaseHelperStatusEnum.CelsusDatabaseVersionOld}">
+                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding DatabaseHelper.Status}" Value="{x:Static types:DatabaseHelperStatusEnum.CelsusDatabaseNotExists}">
+                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding DatabaseHelper.Status}" Value="{x:Static types:DatabaseHelperStatusEnum.CelsusDatabaseNotExists}">
+                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <mat:Shadow Background="White" ShadowDepth="Depth2"/>
+                            <DockPanel>
+                                <Border DockPanel.Dock="Bottom" Padding="24,12" Background="{StaticResource Back01_03}" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" Visibility="{Binding UpdateStatusVisibility}">
+                                    <ContentPresenter TextElement.FontFamily="Montserrat Light" TextElement.FontSize="12" Content="{Binding UpdateStatus}"></ContentPresenter>
+                                </Border>
+                                <Border Padding="0" Background="{StaticResource Back01_01}">
+
+                                    <DockPanel>
+                                        <Border Background="{StaticResource Accent07_03}">
+                                            <Border Padding="6,0" >
+                                            </Border>
+                                        </Border>
+                                        <Border DockPanel.Dock="Top" Margin="24,24,24,12"  >
+                                            <TextBlock Text="Celsus Database Version Error" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
+                                        </Border>
+                                        <StackPanel DockPanel.Dock="Top" Grid.IsSharedSizeScope="True" Margin="24,12,24,24">
+                                            <TextBlock TextWrapping="WrapWithOverflow" Margin="0,6"  Foreground="{StaticResource Fore01_03}" Text="{loc:Loc CelsusDatabaseIsOutdatedUpdate}">
+
+                                            </TextBlock>
+                                            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                                                <telerik:RadButton Style="{DynamicResource FormButtonInner}" Margin="0" Command="{Binding UpdateCelsusDatabaseCommand}" Content="{loc:Loc UpdateCelsusDatabase}" >
+                                                </telerik:RadButton>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DockPanel>
+
+                                </Border>
+                            </DockPanel>
+                        </Grid>
+                        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,0,0,24">
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding DatabaseHelper.Status}" Value="{x:Static types:DatabaseHelperStatusEnum.CelsusDatabaseVersionOk}">
+                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <mat:Shadow Background="White" ShadowDepth="Depth2"/>
+                            <Border Padding="0" Background="{StaticResource Back01_01}">
+
+                                <DockPanel>
+                                    <Border Background="{StaticResource Accent02_03}">
+                                        <Border Padding="6,0" >
+                                        </Border>
+                                    </Border>
+                                    <Border DockPanel.Dock="Top" Margin="24,24,24,12"  >
+                                        <TextBlock Text="{loc:Loc CelsusDatabaseOk}" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
+                                    </Border>
+                                    <StackPanel DockPanel.Dock="Top" Grid.IsSharedSizeScope="True" Margin="24,12,24,24">
+                                        <TextBlock TextWrapping="WrapWithOverflow" Margin="0,6"  Foreground="{StaticResource Fore01_03}" Text="{loc:Loc CelsusDatabaseIsUpdatedAndOk}">
+
+                                        </TextBlock>
+                                        <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                                            <telerik:RadButton Style="{DynamicResource FormButtonInner}" Margin="0" Command="{Binding SetAsDatabaseRoleCommand}" Content="{loc:Loc SetAsDatabaseRole}" >
+                                            </telerik:RadButton>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DockPanel>
+
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </telerik:RadBusyIndicator>
+    </ScrollViewer>
+</UserControl>

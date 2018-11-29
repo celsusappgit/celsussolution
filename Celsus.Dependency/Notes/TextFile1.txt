@@ -1,0 +1,36 @@
+﻿* Sql Express  2017 Advanced kurulması lazım.
+
+* Örnek Regex: ([a-zA-Z0-9\s_\\.\-\(\):])+(.pdf)$
+
+* Örnek CRON: 1 9-18 * * 1-5
+
+* Windows Service için TopShelf kullanıldı.
+
+* Celsus.Dependency > Workflows altında örnek Workflow var. Import From File butonu ile sisteme yüklenebilir.
+
+* Azure account celsusmanagement@outlook.com
+
+* ReadTheDocs account celsusmanagement@outlook.com
+
+* Azure ftp account celcusftp
+
+* More info https://diging.atlassian.net/wiki/spaces/DCH/pages/5275668/Tutorial+Text+Extraction+and+OCR+with+Tesseract+and+ImageMagick
+
+* To extract embedded text from a PDF, we can use an application called pdftotext (part of the Xpdf package). From the terminal, execute the following command:
+  pdftotext /path/to/my/document.pdf myoutputfile.txt
+
+* Convert PDF to images
+  C:\Users\efeo\Downloads\ImageMagick-7.0.8-12-portable-Q16-x64\convert.exe -density 300 c:\AkisLog\A.pdf -depth 8 -strip -background white -alpha off c:\AkisLog\a.tiff
+
+* OCR with Tesseract
+  "C:\Program Files (x86)\Tesseract-OCR\tesseract.exe" "c:\AkisLog\c.tiff" "c:\AkisLog\c" --tessdata-dir "C:\Program Files (x86)\Tesseract-OCR\tessdata" -l tur pdf
+
+* 3 Rol var, Arama x N, Worker x N, SQL x 1
+
+* Key 1 de975f5d4e9d4121b21fac6928b73c54
+
+* Key 2 dfb665f3779d40abb7f642a56b474203
+
+* Tracking ID UA-129865696-1, account senekayazilimebdys@gmail.com
+
+* celsusappgit@outlook.com GIT

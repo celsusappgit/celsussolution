@@ -1,0 +1,482 @@
+language:en
+language:tr
+key:ActivateSerial
+[Activate Serial]
+[Anahtar ile Aktive Et]
+key:ActiveSources
+[Active Sources]
+[Aktif Kaynaklar]
+key:AddDatabaseRoleToThisComputer
+[Add Database Role To This Computer]
+[Bu Bilgisayara Veri Tabanı Rolünü Ata]
+key:AddIndexerRoleToThisComputer
+[Add Indexer Role To This Computer]
+[Bu Bilgisayara İndeksleme Rolünü Ata]
+key:AddNewSource
+[Add New Source]
+[Yeni Kaynak Ekle]
+key:AddNewWorkflow
+[Add New Workflow]
+[Yeni İş Akışı Ekle]
+key:AllComponentsForIndexerRoleIsIntalledYou
+[All components for Indexer Role is intalled. You can set this computer as Indexer Role.]
+[Dizinleyici rolünün tüm bileşenleri kurulmuş durumda. Bu bilgisayara İndeksleme rolünü verebilirsiniz.]
+key:CannotGetRoles
+[Cannot get roles]
+[Roller alınamadı]
+key:CelsusContains3RolesAllRolesCanBeInstall
+[Celsus contains 3 roles. All roles can be installed same computer or you can install roles on different computers.]
+[Celsus 3 rol içerir. Tüm roller aynı bilgisayara yüklenebilir veya farklı bilgisayarlara roller yükleyebilirsiniz.]
+key:CelsusDatabaseIsOutdatedUpdate
+[Celsus database is outdated. To update schema plase click Update Celsus Database button.]
+[Celsus veritabanı güncel değil. Veri tabanını güncelleştirmek için Güncelleş düğmesini kullanın.]
+key:CelsusDatabaseIsUpdatedAndOk
+[Celsus database is updated and everything seems ok.]
+[Celsus veritabanı güncel ve her şey yolunda görünüyor.]
+key:CelsusDatabaseOk
+[Celsus Database Ok]
+[Celsus Veritabanı Sorunsuz Durumda]
+key:CelsusNeedsAnyEditionOfMicrosoftSQLServe
+[Celsus needs any edition of Microsoft SQL Server 2016 to operate. If you have Microsoft SQL Server 2016 you can enter connection parameters. To enter connection paramaters please click Enter Connection Paramaters button.]
+[Celsus için Microsoft SQL Server 2016 herhangi bir sürümü gerekir. Microsoft SQL Server 2016 varsa, bağlantı parametrelerini girebilirsiniz. Bağlantı parametrelerini girmek Için lütfen bağlantı parametrelerini gir düğmesini tıklatın.]
+key:CelsusTopologyInformation
+[Celsus Topology Information]
+[Roller]
+key:ComputerName
+[Computer Name]
+[Bilgisayar Adı]
+key:CreateNewSource
+[Create New Source]
+[Yeni Kaynak Ekle]
+key:CreateNewWorkflow
+[Create New Workflow]
+[Yeni İş Akışı Oluştur]
+key:CustomFileType
+[Custom File Type]
+[Özel Dosya Türü]
+key:Database
+[Database]
+[Veri Tabanı]
+key:DatabaseConnectionParameters
+[Database Connection Parameters]
+[Veri Tabanı Bağlantı Parametreleri]
+key:DatabaseError
+[Database Error]
+[Veri Tabanı Hatası]
+key:DatabaseRole
+[Database Role]
+[Veri Tabanı Rolü]
+key:DatabaseRoleIsNotInstalledOnAnyComputers
+[Database Role is not installed on any computers in your company. You can install Database Role to this computer or any other computer in your company.]
+[Veritabanı rolü şirketinizindeki herhangi bir bilgisayarda yüklü değil. Bu bilgisayara veya şirketinize başka bir bilgisayara veritabanı rolü yükleyebilirsiniz.]
+key:DatabaseSetupMainControl
+[Database Setup]
+[Veri Tabanı Kurulumu]
+key:DatabaseStoresAllInformationAboutCelsusT
+[Database stores all information about Celsus. There must be only one database in a Celsus topology. Having more than one database role will cause errors.]
+[Veri Tabanı Celsus hakkında tüm bilgileri depolar. Celsus topolojisi içinde yalnızca bir veritabanı olmalıdır. Birden fazla veritabanı rolü olması hatalara neden olur.]
+key:DocumentContent
+[Document Content]
+[Belge İçeriği]
+key:DocumentViewerControl
+[Document Content]
+[Belge İçeriği]
+key:Done0
+[Done {0}]
+[{0} tamamlandı]
+key:DontHaveLicense
+[This product is not licensed.]
+[Bu ürün lisanslı değildir.]
+key:DontHaveLicenseSubMessage
+[You can use buttons to resolve issue.]
+[Aşağıdaki butonları kullanarak sistemi kullanmaya devam edebilirsiniz.]
+key:Downloaded100
+[{0} downloaded {1}/100]
+[{0}. İndirilen {1}/100]
+key:Downloading0
+[Downloading {0}]
+[{0} indiriliyor]
+key:EditProperties
+[Edit Properties]
+[Özellikleri Düzenle]
+key:EditWorkflows
+[Edit Workflows]
+[İş Akışlarını Düzenleme]
+key:E-Mail
+[e-Mail]
+[e-Posta]
+key:en
+[English]
+[İngilizce]
+key:EnterConnectionInfo
+[Enter Connection Parameters]
+[Bağlantı Parametrelerini Gir]
+key:EnterLicenseKey
+[Enter License Key]
+[Lisans Anahtarı Girin]
+key:EnterOrganizationNameIfYouUseThisApplica
+[Enter organization name. If you use this application for personal, please enter your name and surname]
+[Kuruluş adını girin. Bu uygulamayı kişisel olarak kullanırsanız, lütfen adınızı ve soyadını giriniz]
+key:EnterSerialControl
+[Activate Celsus]
+[Aktive Et]
+key:EnterSerialKey
+[Enter Serial Key]
+[Aktive Et]
+key:EnterSerialKeySentToYouItShouldBeSomehin
+[Enter serial key sent to you. It should be somehing like xxxxxx-xxxxxx-xxxxxx-xxxxxx-xxxxxx-xxxxxx]
+[Size gönderilen seri anahtarı girin. Bu xxxxxx-xxxxxx-xxxxxx-xxxxxx-xxxxxx-xxxxxx gibi bişi olmalıdır]
+key:EnterYouGivenName
+[Enter you given name]
+[Size verilen adı girin]
+key:EnterYourE-mailAddress
+[Enter your e-mail address]
+[E-posta adresinizi girin]
+key:EnterYourSurname
+[Enter your surname]
+[Soyadınızı girin]
+key:ErrorFileCount
+[Error File Count]
+[Hata Alınmış Dosyası Sayısı]
+key:ErrorInSearch
+[Error in search]
+[Arama hatası]
+key:ErrorOccuredErrorCode
+[Error occured. Error code {0}]
+[Hata oluştu. Hata kodu {0}]
+key:ErrorSettingTrialActivationData
+[Error setting trial activation data]
+[Deneme etkinleştirme verilerini ayarlama hatası]
+key:EveryhingSeemsOk
+[Everyhing seems ok]
+[Everyhing ok görünüyor]
+key:EverythingSeemsOk
+[Everything seems ok]
+[Her şey yolunda görünüyor]
+key:Extracting
+[Extracting {0}]
+[{0} açılıyor]
+key:FileType
+[File Type]
+[Dosya Türü]
+key:FirstName
+[First Name]
+[Ad]
+key:GetTrialLicense
+[Get Trial License]
+[Deneme Sürümü Al]
+key:HaveLicense
+[You are using activated copy of this product.]
+[Bu ürün lisanslı şekilde kullanılmaktadır.]
+key:HaveLicenseSubMessage
+[You have already actived this product with a valid license key.]
+[Geçerli bir ürün anahtarı ile bu ürünü aktive etmiş durumdasınız.]
+key:HaveTrialLicense
+[You have trial license]
+[Deneme sürümünü kullanıyorsunuz]
+key:HaveTrialLicenseSubMessage
+[Your trial license will expire on {0}. If you have serial key you can enter or you can purchase a new license.]
+[Deneme lisansınızın süresi {0} tarihinde sona erecek. Seri anahtarınız varsa, girebilir veya yeni bir lisans satın alabilirsiniz.]
+key:IfYouDidntInstallDatabaseRoleToAnyComput
+[If you didn't install Database Role to any computer in your company you can install Database Role to this computer or any other computer in your company.]
+[Eğer veritabanı rolünü şirketinizin herhangi bir bilgisayara yüklemediyseniz, bu bilgisayara veya şirketinize başka bir bilgisayara veritabanı rolü yükleyebilirsiniz.]
+key:IfYouDontHaveMicrosoftSQLServer2016ThisW
+[If you don't have Microsoft SQL Server 2016, this wizard can install Microsoft SQL Server 2016 Express Edition for you.]
+[Microsoft SQL Server 2016 yoksa, bu sihirbaz Microsoft SQL Server 2016 Express Edition 'ı sizin için yükleyebilir.]
+key:IfYouInstalledDatabaseRoleInAnyComputers
+[If you installed database role in any computers in your company you can enter database connection information.]
+[Şirket içindeki herhangi bir bilgisayarda veritabanı rolü yüklediyseniz, veritabanı bağlantı bilgilerini girebilirsiniz.]
+key:ImageMagickComponent
+[ImageMagick Component]
+[ImageMagick Bileşeni]
+key:ImageMagickIsInstalled
+[ImageMagick is installed.]
+[ImageMagick yüklü.]
+key:ImageMagickNotInstalledOnThisYouCanInsta
+[ImageMagick not installed on this. You can install ImageMagick to this computer]
+[ImageMagick bu yüklü değil. ImageMagick 'i bu bilgisayara yükleyebilirsiniz]
+key:IndexerCrawlsSourcesAndDoesOCROperationO
+[Indexer crawls sources and does OCR operation on files. There must be only one Indexer in a Celsus topology. Having more than one Indexer role will cause errors.]
+[Dizinleyici kaynakları geziniyor ve dosyalarda OCR işlemi yapar. Celsus topolojisi içinde yalnızca bir dizinleyici olmalıdır. Birden fazla dizinleyici rolü olması hatalara neden olur.]
+key:IndexerRole
+[Indexer Role]
+[İndeksleme Rolü]
+key:IndexerRoleComputerAndViewerRoleComputer
+[Indexer Role computer and Viewer Role computers should have connection to Database Role computer.]
+[Dizin Oluşturucusu rolü bilgisayar ve Görüntüleyici rolü bilgisayarların veritabanı rolü bilgisayarına bağlantısı olmalıdır.]
+key:IndexerRoleIsNotInstalledOnAnyComputersI
+[Indexer Role is not installed on any computers in your company. You can install Indexer Role to this computer or any other computer in your company.]
+[Dizinleyici rolü şirketinizin herhangi bir bilgisayarda yüklü değil. Bu bilgisayara veya şirketinize başka bir bilgisayara Dizin Oluşturucusu rolü yükleyebilirsiniz.]
+key:IndexerSetupMainControl
+[Indexer Role Setup]
+[İndeksleme Rolü Kurulumu]
+key:IndexerStatus
+[Indexer Status]
+[Dizin Oluşturucu Durumu]
+key:InstallImageMagickToThisComputer
+[Install ImageMagick To This Computer]
+[Bu Bilgisayara ImageMagick Kur]
+key:InstallMicrosoftSQLServer2016ExpressEdit
+[Install Microsoft SQL Server 2016 Express Edition]
+[Microsoft SQL Server 2016 Express Edition Kur]
+key:InstallServiceToThisComputer
+[Assign Service Role To This Computer]
+[Bu Bilgisayara Servis Rolünü Ata]
+key:InstallTesseractToThisComputer
+[Install Tesseract To This Computer]
+[Tesseract 'ı bu bilgisayara yükleyin]
+key:InstallXPdfToolsToThisComputer
+[Install XPdfTools To This Computer]
+[Bu bilgisayara XPdfTools yükleyin]
+key:IPAddresses
+[IP Addresses]
+[IP adresleri]
+key:IsActive
+[Is Active]
+[Aktif Mi]
+key:IsLicensed
+[IsLicensed]
+[Lisanslı Mı]
+key:Language
+[Language]
+[Dil]
+key:LastName
+[Last Name]
+[Soyad]
+key:LastStartedDate
+[Last Started Date]
+[Son Başlatılan Tarih]
+key:LicenseCheckControl
+[Licensing]
+[Lisanslama]
+key:Licensing
+[Licensing]
+[Lisanslama]
+key:ManageRolesControl
+[Roles Management]
+[Rol Yönetimi]
+key:Metadatas
+[Metadata]
+[Metaveri]
+key:MoreThanOneDatabaseRoleInstalled
+[More than one Database Role installed.]
+[Birden fazla veritabanı rolü yüklü.]
+key:MoreThanOneIndexerRoleInstalled
+[More than one Indexer Role installed.]
+[Birden fazla Dizin Oluşturucusu rolü yüklü.]
+key:Name
+[Name]
+[Adı]
+key:NeedALicense
+[You need a valid license to use Celsus on this computer.]
+[Bu bilgisayarda Celsus'u kullanmak için geçerli bir lisansa ihtiyacınız var.]
+key:OmittedFileCount
+[Omitted File Count]
+[Göz Ardı Edilmiş Dosya Sayısı]
+key:OneOrMoreRolesIsMissing
+[One or more roles is missing]
+[Bir veya daha fazla rol eksik]
+key:OpenDetails
+[Open Details]
+[Detayları Göster]
+key:OrganizationName
+[Organization Name]
+[Şirket Adı]
+key:Password
+[Password]
+[Şifre]
+key:Path
+[Folder]
+[Klasör]
+key:PersonelSettings
+[Personal Settings]
+[Kişisel Ayarlar]
+key:PleaseCheckIfDatabaseIsRunningAndCheckIf
+[Please check if database is running and check if this computer have access to database server. You can check the connection information.]
+[Lütfen veritabanı çalışıyor ve bu bilgisayarın veritabanı sunucusuna erişimi olup olmadığını kontrol edin. Bağlantı bilgisini denetleyebilirsiniz.]
+key:PleaseEnterAnySearchTerm
+[Please enter any search term]
+[Arama kriteri giriniz]
+key:PurchaseNewLicense
+[Purchase New License]
+[Yeni Lisans Al]
+key:RolesError
+[Roles Error]
+[RolesError]
+key:Search
+[Search]
+[Arama]
+key:SearchControl
+[Search]
+[Arama]
+key:Searchtext
+[Search text]
+[Arama cümlesi]
+key:SelectFolder
+[Select Folder]
+[Klasör Seç]
+key:Serial
+[Serial]
+[Seri Numarası]
+key:ServerNameOrIP
+[Server Name or IP]
+[ServerNameOrIP]
+key:ServiceComponent
+[Service Component]
+[Servis Bileşeni]
+key:ServiceInstalledOnThisComputerButItIsOld
+[Service installed on this computer but it is old. You can update Service with using button below.]
+[Hizmet bu bilgisayarda yüklü ama eski. Aşağıdaki düğmesini kullanarak hizmeti güncelleyebilirsiniz.]
+key:ServiceIsInstalled
+[Service is installed.]
+[Hizmeti yüklü.]
+key:ServiceNotInstalledOnThisYouCanInstallSe
+[Service not installed on this computer. You can install Service to this computer]
+[Hizmet bu bilgisayarda yüklü değil. Bu bilgisayara hizmet yükleyebilirsiniz.]
+key:ServiceStatus
+[Service Status]
+[Servis Durumu]
+key:SetAsDatabaseRole
+[Set As Database Role]
+[Bu Bilgisayara Veri Tabanı Rolünü Ata]
+key:SetAsIndexerRole
+[Set As Indexer Role]
+[Bu Bilgisayara Indexer Rolünü Ata]
+key:Setup
+[Setup]
+[Ayarlar]
+key:SetupIsRunningDoNotCloseThisWindowItWill
+[Setup is running. Do not close this window. It will take long time to install. Please be patient.]
+[Kur çalışıyor. Bu pencereyi kapatmayın. Yüklemek için uzun zaman alacaktır. Lütfen sabırlı olun.]
+key:SetupMainControl
+[Setup]
+[Ayarlar]
+key:SourceItemControl
+[Source]
+[Kaynak]
+key:Sources
+[Sources]
+[Kaynaklar]
+key:SourcesManagementControl
+[Sources Management]
+[Kaynak Yönetimi]
+key:SQLServerError
+[SQL Server Error]
+[SQL Server Hatası]
+key:SQLServerSetupFile
+[SQL Server Setup File]
+[SQL Server Kurulum Dosyası]
+key:SuccessfullyProcessedFileCount
+[Successfully Processed File Count]
+[Başarıyla İşlenen Dosya Sayısı]
+key:SystemMonitor
+[System Monitor]
+[Sistem Monitörü]
+key:SystemMonitorControl
+[System Monitor]
+[Sistem Monitörü]
+key:TesseractComponent
+[Tesseract Component]
+[Tesseract Bileşeni]
+key:TesseractIsInstalled
+[Tesseract is installed.]
+[Tesseract yüklü.]
+key:TesseractNotInstalledOnThisYouCanInstall
+[Tesseract not installed on this. You can install Tesseract to this computer]
+[Tesseract bu yüklü değil. Tesseract'ı bu bilgisayara yükleyebilirsiniz]
+key:ThereIsNoItemsFoundForSearchTerm
+[There is no items found for search term]
+[Arama terimi için hiçbir öğe bulunamadı]
+key:ThereIsOneComputerInstalledDatabaseRoleY
+[There is one computer installed Database Role. You can see computer information below.]
+[Bir bilgisayar veritabanı rolü yüklü. Aşağıdaki bilgisayar bilgilerini görebilirsiniz.]
+key:ThereIsOneComputerInstalledIndexerRoleYo
+[There is one computer installed Indexer Role. You can see computer information below.]
+[Bir bilgisayar Dizin Oluşturucusu rolü yüklü. Aşağıdaki bilgisayar bilgilerini görebilirsiniz.]
+key:ThisIsTheFirstTimeYouUseCelsusCelsusNeed
+[This is the first time you use Celsus. Celsus needs some roles to be installed to operate. You can continue with clicking Open Detail button.]
+[Bu Celsus'u ilk kez kullanışınız. Celsus'un çalışması için bazı rollere ihtiyacı var. Detaylar düğmesiile işlemlere devam edebilirsiniz.]
+key:ToInstallDatabaseRoleToThisComputerClick
+[To install Database Role to this computer, click Add Database Role To This Computer button below.]
+[Bu bilgisayara veritabanı rolü yüklemek Için aşağıdaki bilgisayar düğmesine veritabanı rolü Ekle 'yi tıklatın.]
+key:ToInstallImageMagickToThisComputerClickI
+[To install ImageMagick to this computer, click Install ImageMagick button below.]
+[ImageMagick 'i bu bilgisayara yüklemek Için aşağıdaki ImageMagick düğmesini yükle 'yi tıklatın.]
+key:ToInstallIndexerRoleToThisComputerClickA
+[To install Indexer Role to this computer, click Add Indexer Role To This Computer button below.]
+[Bu bilgisayara Dizin Oluşturucusu rolü yüklemek Için aşağıdaki bilgisayar düğmesine Dizin Oluşturucu rolü Ekle 'yi tıklatın.]
+key:ToİnstallMicrosoftSQLServer2016ExpressEd
+[To install Microsoft SQL Server 2016 Express Edition on this computer please click Install Microsoft SQL Server 2016 Express Edition button.]
+[Microsoft SQL Server 2016 Express Edition bu bilgisayara yüklemek Için lütfen Microsoft SQL Server 2016 Express Edition 'ı Yükle düğmesini tıklatın.]
+key:ToInstallServiceToThisComputerClickInsta
+[To install Service to this computer, click Install Service button below.]
+[Bu bilgisayara hizmet yüklemek için aşağıdaki butonu kullanın.]
+key:ToInstallTesseractToThisComputerClickIns
+[To install Tesseract to this computer, click Install Tesseract button below.]
+[Bu bilgisayara Tesseract yüklemek için aşağıdaki butonu kullanın.]
+key:ToInstallXPdfToolsToThisComputerClickIns
+[To install XPdfTools to this computer, click Install XPdfTools button below.]
+[Bu bilgisayara XPdfTools yüklemek için aşağıdaki butonu kullanın.]
+key:ToLearnAboutConfigureTheWindowsFirewallT
+[To learn about Configure the Windows Firewall to Allow SQL Server Access please check this]
+[Windows Güvenlik Duvarı'nı SQL Server erişimine izin verecek şekilde yapılandırma hakkında bilgi edinmek için lütfen bakınız]
+key:Topology
+[Roles]
+[Roller]
+key:TotalDirectoryCount
+[Total Directory Count]
+[Toplam Dizin Sayısı]
+key:TotalFileCount
+[Total File Count]
+[Toplam Dosya Sayısı]
+key:tr
+[Turkish]
+[Türkçe]
+key:TrialLicenseInfo
+[You have trial license. It is unlimited]
+[Deneme sürümünü kullanıyorsunuz.]
+key:UpdateCelsusDatabase
+[Update Celsus Database]
+[Celsus Veri Tabanını Güncelle]
+key:UseIntegratedSecurity
+[Use Integrated Security]
+[Entegre Güvenlik Kullan]
+key:Username
+[Username]
+[Kullanıcı Adı]
+key:ViewerRole
+[Viewer Role]
+[Görüntüleyici rolü]
+key:ViewersCanSearchDatabaseYouCanHaveMoreTh
+[Viewers can search database. You can have more than one viewers in your topology.]
+[Görüntüleyiciler veritabanda arama yapabilir. Topolojinizde birden fazla izleyici olabilir.]
+key:WeCouldntGetRolesInformationFromDatabase
+[We couldn't get roles information from database.]
+[Veri tabanından rol bilgilerini alamadık.]
+key:WeDontHaveDatabaseConnectionInformation
+[We don't have database connection information.]
+[Veritabanı bağlantı bilgilerımız yok.]
+key:WeDontHaveDatabaseConnectionInformationT
+[We don't have database connection information. To enter connection paramaters please click Enter Connection Paramaters button.]
+[Veritabanı bağlantı bilgilerımiz yok. Bağlantı parametrelerini girmek Için lütfen bağlantı parametreleri düğmesini kullanın.]
+key:WeHaveDatabaseConnectionInformationAndWe
+[We have database connection information and we can access to the database.]
+[Biz veritabanı bağlantı bilgileri var ve biz veritabanına erişebiliyoruz.]
+key:WeHaveDatabaseConnectionInformationButWe
+[We have database connection information but we cannot access to the database. To enter connection paramaters please click Enter Connection Paramaters button.]
+[Veritabanı bağlantı bilgilerine sahibiz ancak veritabanına erişemiyoruz. Bağlantı parametrelerini girmek Için lütfen bağlantı parametreleri düğmesini kullanın.]
+key:Workflows
+[Workflows]
+[İş Akışları]
+key:WorkflowToExecute
+[Workflow To Execute]
+[Yürütülecek İş Akışı]
+key:XPdfToolsComponent
+[XPdfTools Component]
+[XPdfTools Bileşeni]
+key:XPdfToolsIsInstalled
+[XPdfTools is installed.]
+[XPdfTools yüklü.]
+key:XPdfToolsNotInstalledOnThisYouCanInstall
+[XPdfTools not installed on this. You can install XPdfTools to this computer]
+[XPdfTools bu yüklü değil. Bu bilgisayara XPdfTools yükleyebilirsiniz]

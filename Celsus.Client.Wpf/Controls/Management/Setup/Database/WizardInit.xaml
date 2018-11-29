@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Celsus.Client.Wpf.Controls.Management.Setup.WizardInit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Celsus.Client.Wpf.Controls.Management.Setup"
+             mc:Ignorable="d"
+             HorizontalAlignment="Center" 
+             >
+    <DockPanel>
+        <TextBlock Style="{StaticResource TextBlockTitle02}" Text="First Step"></TextBlock>
+        <StackPanel Style="{StaticResource StackPanel01}">
+            <FlowDocumentScrollViewer>
+                <FlowDocument IsOptimalParagraphEnabled="True" IsHyphenationEnabled="True">
+                    <Section FontSize="14" FontFamily="Segoe UI" Foreground="#565656">
+                        <Paragraph>
+                            Celsus needs Microsoft SQL Server Express to work properly. You don't need to know technical details about what is  Microsoft SQL Server Express but if you don't have Microsoft SQL Server Express installed, you can install it easily.
+                        </Paragraph>
+                        <Paragraph>
+                            First, we will check if Microsoft SQL Server Express is installed on this server.
+                        </Paragraph>
+                    </Section>
+                </FlowDocument>
+            </FlowDocumentScrollViewer>
+        </StackPanel>
+    </DockPanel>
+</UserControl>

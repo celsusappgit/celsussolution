@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Celsus.Client.Wpf.Controls.Management.Setup.WizardSQL"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Celsus.Client.Wpf.Controls.Management.Setup"
+             mc:Ignorable="d" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             >
+    <Border Style="{StaticResource BorderPage}">
+        <DockPanel Style="{StaticResource DockPanelPage}">
+            <Border Style="{StaticResource BorderPageHeader}">
+                <TextBlock Style="{StaticResource TextBlockTitleOfPage}" Text="Database Setup Wizard"></TextBlock>
+            </Border>
+            <Border Style="{StaticResource BorderPageFooter}">
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" >
+                    <telerik:RadButton Content="Close" x:Name="BtnClose" Style="{DynamicResource TopButton}" Click="Close"  >
+                    </telerik:RadButton>
+                    <telerik:RadButton Content="&lt; Back" x:Name="BtnBack" Style="{DynamicResource TopButton}" Click="Back"  >
+                    </telerik:RadButton>
+                    <telerik:RadButton Content="Next >" x:Name="BtnNext" Style="{DynamicResource TopButton}" Click="Next"  >
+                    </telerik:RadButton>
+                    
+                </StackPanel>
+            </Border>
+            <ContentControl Margin="0,0" x:Name="ContentControl">
+
+            </ContentControl>
+        </DockPanel>
+    </Border>
+</UserControl>

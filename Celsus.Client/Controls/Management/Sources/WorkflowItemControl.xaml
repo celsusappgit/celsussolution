@@ -1,0 +1,165 @@
+﻿<UserControl x:Class="Celsus.Client.Controls.Management.Sources.WorkflowItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:local="clr-namespace:Celsus.Client.Controls.Management.Sources"
+             xmlns:types="clr-namespace:Celsus.Client.Types"
+             xmlns:workflowTypes="clr-namespace:Celsus.Client.Shared.Types.Workflow;assembly=Celsus.Client.Shared"
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
+             xmlns:telerik1="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mat="clr-namespace:Telerik.Windows.Controls.MaterialControls;assembly=Telerik.Windows.Controls" 
+             xmlns:loc="clr-namespace:Celsus.Client.Types"
+             d:DataContext="{d:DesignInstance local:WorkflowItemControlModel}"
+             mc:Ignorable="d" 
+             >
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
+    <Grid Background="{StaticResource Back01_02}">
+        <Border Style="{StaticResource BorderContent2}">
+            <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" >
+                <mat:Shadow Background="White" ShadowDepth="Depth2"/>
+                <Border Padding="0" Background="{StaticResource Back01_01}" >
+                    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" Style="{StaticResource RadBusyIndicator}">
+                        <DockPanel >
+                            <Border DockPanel.Dock="Top" Margin="24,24,24,12"  >
+                                <TextBlock Text="{loc:Loc CreateNewWorkflow}" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
+                            </Border>
+                            <Border DockPanel.Dock="Bottom" Padding="24,12" Background="{StaticResource Back01_03}" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" Visibility="{Binding StatusVisibility}">
+                                <ContentPresenter TextElement.FontFamily="Montserrat Light" TextElement.FontSize="12" Content="{Binding Status}"></ContentPresenter>
+                            </Border>
+                            <Border DockPanel.Dock="Bottom" Padding="24,12" BorderBrush="{StaticResource Back01_03}" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" HorizontalAlignment="Right">
+                                <WrapPanel Orientation="Horizontal" Grid.IsSharedSizeScope="True" HorizontalAlignment="Right">
+                                    <!--<telerik:RadButton Style="{DynamicResource FormButtonInner}" Visibility="{Binding ActivateTrialLicenseVisibility}" Command="{Binding CloseWindowCommand}" >
+                                    <HeaderedContentControl Style="{DynamicResource HeaderedContentControlStyle2}">
+                                        <HeaderedContentControl.Header>
+                                            <Path Data="{DynamicResource Geoclose-circle}" Style="{StaticResource ButtonPath}" />
+                                        </HeaderedContentControl.Header>
+                                        <TextBlock Text="{types:Loc Close}" Style="{StaticResource ButtonTextBlock}" />
+                                    </HeaderedContentControl>
+                                </telerik:RadButton>-->
+                                    <telerik:RadButton Style="{DynamicResource FormButtonInner}" Command="{Binding SaveCommand}" >
+                                        <HeaderedContentControl Style="{DynamicResource HeaderedContentControlStyle2}">
+                                            <HeaderedContentControl.Header>
+                                                <Path Data="{DynamicResource Geoarrow-right-bold-circle}" Style="{StaticResource ButtonPath}" />
+                                            </HeaderedContentControl.Header>
+                                            <TextBlock Text="{types:Loc Save}" Style="{StaticResource ButtonTextBlock}" />
+                                        </HeaderedContentControl>
+                                    </telerik:RadButton>
+                                </WrapPanel>
+                            </Border>
+                            <StackPanel DockPanel.Dock="Top" Grid.IsSharedSizeScope="True" Margin="24,12,24,24" HorizontalAlignment="Center">
+                                <Grid Style="{DynamicResource Grid01}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="{loc:Loc Name}" Style="{DynamicResource Label01}"/>
+                                    <telerik:RadMaskedTextInput Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding Name}"  />
+                                    <Path Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource Accent01_03}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3" Visibility="{Binding NameErrorVisibility}"></Path>
+                                </Grid>
+                                <Grid Style="{DynamicResource Grid01}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="{loc:Loc FileType}" Style="{DynamicResource Label01}"/>
+                                    <telerik:RadComboBox Grid.Column="1" Style="{DynamicResource RadComboBox01}" ItemsSource="{Binding FileTypes, Mode=OneWay}" SelectedValue="{Binding SelectedFileType}"  />
+                                    <Path Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource Accent01_03}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3" Visibility="{Binding SelectedFileTypeErrorVisibility}"></Path>
+                                </Grid>
+                                <Grid Style="{DynamicResource Grid01}" Visibility="{Binding CustomFileTypeVisibility}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="{loc:Loc CustomFileType}" Style="{DynamicResource Label01}"/>
+                                    <telerik:RadMaskedTextInput Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding CustomFileType}" />
+                                    <Path Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource Accent01_03}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3" Visibility="{Binding CustomFileTypeErrorVisibility}"></Path>
+                                </Grid>
+                                <Grid Style="{DynamicResource Grid01}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="{loc:Loc WorkflowToExecute}" Style="{DynamicResource Label01}"/>
+                                    <telerik:RadComboBox Grid.Column="1" Style="{DynamicResource RadComboBox01}" ItemsSource="{Binding Workflows, Mode=OneWay}" SelectedValuePath="InternalTypeFullName" SelectedValue="{Binding SelectedWorkflowInternalTypeName, Mode=TwoWay}" >
+                                        <telerik:RadComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border>
+                                                    <TextBlock Text="{Binding Name}"></TextBlock>
+                                                </Border>
+                                            </DataTemplate>
+                                        </telerik:RadComboBox.ItemTemplate>
+                                    </telerik:RadComboBox>
+                                    <Path Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource Accent01_03}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3" Visibility="{Binding SelectedWorkflowErrorVisibility}"></Path>
+                                </Grid>
+                                <Grid Style="{DynamicResource Grid01}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="{loc:Loc IsActive}" Style="{DynamicResource Label01}"/>
+                                    <CheckBox Grid.Column="1" Style="{DynamicResource CheckBox01}" IsChecked="{Binding Path=IsActive, Mode=TwoWay}"/>
+
+                                </Grid>
+
+                                <ItemsControl ItemsSource="{Binding WorkflowOptions}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Style="{DynamicResource Grid01}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                                    <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Grid.Column="0" Content="{Binding Name}" Style="{DynamicResource Label01}"/>
+                                                <Grid Grid.Column="1"  >
+                                                    <CheckBox IsChecked="{Binding Path=Value, Mode=TwoWay}">
+                                                        <CheckBox.Style>
+                                                            <Style TargetType="CheckBox" BasedOn="{StaticResource CheckBox01}">
+                                                                <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding TypeName}" Value="NullableBool">
+                                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </CheckBox.Style>
+                                                    </CheckBox>
+
+                                                    <telerik:RadMaskedTextInput Value="{Binding Value}"  >
+                                                        <telerik:RadMaskedTextInput.Style>
+                                                            <Style TargetType="telerik:RadMaskedTextInput" BasedOn="{StaticResource RadMaskedTextInput01}">
+                                                                <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding TypeName}" Value="string">
+                                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </telerik:RadMaskedTextInput.Style>
+                                                    </telerik:RadMaskedTextInput>
+
+                                                </Grid>
+                                                <Path Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource Accent01_03}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3" Visibility="{Binding ErrorVisibility}"></Path>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+
+                            </StackPanel>
+                        </DockPanel>
+                    </telerik:RadBusyIndicator>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

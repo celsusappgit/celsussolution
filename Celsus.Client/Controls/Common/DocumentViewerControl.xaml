@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Celsus.Client.Controls.Common.DocumentViewerControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Celsus.Client.Controls.Common"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:types="clr-namespace:Celsus.Client.Types"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance local:DocumentViewerControlModel}">
+    <Grid Background="{StaticResource Back01_05}">
+        <!--<Border Style="{StaticResource BorderContent}">-->
+            <!--<Border Padding="0" Background="{StaticResource Back01_01}" VerticalAlignment="Top" HorizontalAlignment="Stretch">-->
+                <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" Style="{StaticResource RadBusyIndicator}">
+                    <DockPanel >
+                        <Border DockPanel.Dock="Top" Margin="24,24,24,12"  >
+                            <TextBlock Text="{Binding Title}" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
+                        </Border>
+                        <Grid>
+                            <telerik:TxtDataProvider RichTextBox="{Binding ElementName=radRichTextBox}" Text="{Binding Path=TextContent, Mode=TwoWay, IsAsync=True}"></telerik:TxtDataProvider>
+                            <telerik:RadRichTextBox x:Name="radRichTextBox" IsSpellCheckingEnabled="False" LayoutMode="Paged" IsFocusable="False" IsReadOnly="True" Background="#FBFBFB" />
+                        </Grid>
+                    </DockPanel>
+                </telerik:RadBusyIndicator>
+            <!--</Border>-->
+        <!--</Border>-->
+    </Grid>
+</UserControl>

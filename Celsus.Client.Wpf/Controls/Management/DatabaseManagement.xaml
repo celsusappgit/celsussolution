@@ -1,0 +1,317 @@
+﻿<UserControl x:Class="Celsus.Client.Wpf.Controls.Management.DatabaseManagement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Celsus.Client.Wpf.Controls.Management"
+             xmlns:converters="clr-namespace:Celsus.Client.Wpf.Types.Converters"
+             xmlns:setup="clr-namespace:Celsus.Client.Wpf.Controls.Management.Setup"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:controls="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls"
+             HorizontalAlignment="Center" VerticalAlignment="Top" Grid.IsSharedSizeScope="True">
+    <UserControl.Resources>
+        <converters:BooleanAndConverter x:Key="BooleanAndConverter"></converters:BooleanAndConverter>
+
+        <DataTemplate x:Key="headerTemplate">
+            <Border MinHeight="80" MinWidth="400" HorizontalAlignment="Stretch" Margin="-7">
+                <Grid>
+                    <TextBlock Text="Installation Guide"  Margin="7,7,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" FontFamily="Segoe UI"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="sideHeaderTemplate">
+            <Border Background="{telerik:Windows8Resource ResourceKey=AccentBrush}" Margin="0" Width="120" Height="358"/>
+        </DataTemplate>
+        
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="A"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="A"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="1">
+            <StackPanel Grid.IsSharedSizeScope="True" Grid.Column="1" >
+                <StackPanel Orientation="Horizontal" Visibility="{Binding CheckSQLServerVisibility}" >
+
+                    <DockPanel Background="{StaticResource  BackLightest}"  >
+
+                        <Border DockPanel.Dock="Top" Style="{DynamicResource BorderCommands}">
+                            <DockPanel Style="{DynamicResource TopDockPanel}">
+                                <telerik:RadButton Content="Check SQL Server" Style="{DynamicResource TopButton}" Click="CheckSQLServer_Click" >
+                                    <telerik:RadButton.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource BooleanAndConverter}" >
+                                            <Binding Path="CheckSQLServerEnabled"/>
+                                            <Binding Path="ConnectionInfo.IsOK"/>
+                                        </MultiBinding>
+                                    </telerik:RadButton.IsEnabled>
+                                </telerik:RadButton>
+                                <TextBlock Text="Check SQL Server" Style="{DynamicResource TextBlockTitle01}"/>
+                            </DockPanel>
+                        </Border>
+                        <Border Style="{DynamicResource BorderContent}" DockPanel.Dock="Top">
+                            <StackPanel>
+                                <DockPanel DataContext="{Binding ConnectionInfo}">
+                                    <Grid Style="{DynamicResource Grid01}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                            <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Content="Server" Style="{DynamicResource Label01}"/>
+                                        <telerik:RadMaskedTextInput Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding Path=Server, Mode=TwoWay}"/>
+                                    </Grid>
+                                    <!--<Grid Style="{DynamicResource Grid01}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                            <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Database Name" Style="{DynamicResource Label01}"/>
+                        <telerik:RadMaskedTextInput Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding Path=InitialCatalog, Mode=TwoWay}"/>
+                    </Grid>-->
+                                    <Grid Style="{DynamicResource Grid01}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                            <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Content="Use Integrated Security" Style="{DynamicResource Label01}"/>
+                                        <CheckBox Grid.Column="1" Style="{DynamicResource CheckBox01}" IsChecked="{Binding Path=IntegratedSecurity, Mode=TwoWay}"/>
+                                    </Grid>
+                                    <Grid Style="{DynamicResource Grid01}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                            <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Content="Username" Style="{DynamicResource Label01}"/>
+                                        <telerik:RadMaskedTextInput Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding Path=UserID, Mode=TwoWay}" IsEnabled="{Binding UserIDEnabled}"/>
+                                    </Grid>
+                                    <Grid Style="{DynamicResource Grid01}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                            <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Content="Password" Style="{DynamicResource Label01}"/>
+                                        <telerik:RadMaskedTextInput Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding Path=Password, Mode=TwoWay}" IsEnabled="{Binding PasswordEnabled}"/>
+                                    </Grid>
+
+
+                                </DockPanel>
+                            </StackPanel>
+
+                        </Border>
+
+                    </DockPanel>
+                    
+                    <FlowDocumentScrollViewer DockPanel.Dock="Right" Margin="12,0" BorderBrush="Transparent" BorderThickness="0" Grid.Column="2" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
+                        <FlowDocument IsOptimalParagraphEnabled="True" IsHyphenationEnabled="True" Background="#FFFFF6">
+                            <Section FontSize="14" FontFamily="Segoe UI" Foreground="#565656">
+                                <Paragraph>
+                                    Celsus needs Microsoft SQL Server Express to work properly. You don't need to know technical details about what is  Microsoft SQL Server Express but if you don't have Microsoft SQL Server Express installed, you can install it easily.
+                                </Paragraph>
+                                <Paragraph>
+                                    First, use Check SQL Server button to check if Microsoft SQL Server Express is installed on this server.
+                                </Paragraph>
+                            </Section>
+                        </FlowDocument>
+                    </FlowDocumentScrollViewer>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,24,0,0"  Visibility="{Binding InstallSQLServerVisibility}" >
+
+                    <DockPanel Background="{StaticResource  BackLightest}" >
+                        <Border DockPanel.Dock="Top" Style="{DynamicResource BorderCommands}">
+                            <DockPanel Style="{DynamicResource TopDockPanel}">
+                                <telerik:RadButton Content="Install SQL Server" Style="{DynamicResource TopButton}" Click="InstallSQLServer_Click" IsEnabled="{Binding InstallSQLServerEnabled}" />
+                                <TextBlock Text="Install SQL Server" Style="{DynamicResource TextBlockTitle01}"/>
+                            </DockPanel>
+                        </Border>
+                        <Border Style="{DynamicResource BorderContent}" DockPanel.Dock="Top">
+                            <DockPanel DataContext="{Binding ConnectionInfo}">
+                                <Grid Style="{DynamicResource Grid01}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="Download" Style="{DynamicResource Label01}"/>
+                                    <telerik:RadProgressBar  Grid.Column="1" x:Name="RadProgressBar1" Minimum="0" Maximum="100" IsIndeterminate="False" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid Style="{DynamicResource Grid01}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="Install" Style="{DynamicResource Label01}"/>
+                                    <telerik:RadProgressBar  Grid.Column="1" x:Name="RadProgressBarInstallSQLServer" Minimum="0" Maximum="100" IsIndeterminate="False" VerticalAlignment="Center"/>
+                                </Grid>
+                            </DockPanel>
+                        </Border>
+
+                    </DockPanel>
+                    
+                    <FlowDocumentScrollViewer DockPanel.Dock="Right" Margin="12,0" BorderBrush="Transparent" BorderThickness="0" Grid.Column="2" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
+                        <FlowDocument IsOptimalParagraphEnabled="True" IsHyphenationEnabled="True" Background="#FFFFF6">
+                            <Section FontSize="14" FontFamily="Segoe UI" Foreground="#565656">
+                                <Paragraph>
+                                    Celsus needs Microsoft SQL Server Express to work properly. You don't need to know technical details about what is  Microsoft SQL Server Express but if you don't have Microsoft SQL Server Express installed, you can install it easily.
+                                </Paragraph>
+                                <Paragraph>
+                                    First, use Check SQL Server button to check if Microsoft SQL Server Express is installed on this server.
+                                </Paragraph>
+                            </Section>
+                        </FlowDocument>
+                    </FlowDocumentScrollViewer>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,24,0,0"  Visibility="{Binding CheckCelsusDatabaseVisibility}" >
+
+                    <DockPanel Background="{StaticResource  BackLightest}" >
+                        <Border DockPanel.Dock="Top" Style="{DynamicResource BorderCommands}">
+                            <DockPanel Style="{DynamicResource TopDockPanel}">
+                                <telerik:RadButton Content="Check Database" Style="{DynamicResource TopButton}" Click="CheckDatabase_Click" IsEnabled="{Binding CheckCelsusDatabaseEnabled}"/>
+                                <TextBlock Text="Check Celsus Database" Style="{DynamicResource TextBlockTitle01}"/>
+                            </DockPanel>
+                        </Border>
+                        <Border Style="{DynamicResource BorderContent}" DockPanel.Dock="Top">
+                            <DockPanel>
+                                <Grid Style="{DynamicResource Grid01}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="" Style="{DynamicResource Label01}"/>
+                                    <telerik:RadProgressBar  Grid.Column="1" x:Name="RadProgressBarCheckDatabase"  Minimum="0" Maximum="100" IsIndeterminate="False" VerticalAlignment="Center"/>
+                                </Grid>
+                            </DockPanel>
+                        </Border>
+
+                    </DockPanel>
+                    
+                    <FlowDocumentScrollViewer DockPanel.Dock="Right" Margin="12,0" BorderBrush="Transparent" BorderThickness="0" Grid.Column="2" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
+                        <FlowDocument IsOptimalParagraphEnabled="True" IsHyphenationEnabled="True" Background="#FFFFF6">
+                            <Section FontSize="14" FontFamily="Segoe UI" Foreground="#565656">
+                                <Paragraph>
+                                    You have Microsoft SQL Server Express installed. Now it is time to check Celsus database exists and it is the latest version.
+                                </Paragraph>
+                                <Paragraph>
+                                    Please use Check Database button to proceed.
+                                </Paragraph>
+                            </Section>
+                        </FlowDocument>
+                    </FlowDocumentScrollViewer>
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal" Margin="0,24,0,0" Visibility="{Binding InstallCelsusDatabaseVisibility}">
+
+                    <DockPanel Background="{StaticResource  BackLightest}"    >
+                        <Border DockPanel.Dock="Top" Style="{DynamicResource BorderCommands}">
+                            <DockPanel Style="{DynamicResource TopDockPanel}">
+                                <telerik:RadButton Content="Install Database" Style="{DynamicResource TopButton}" Click="InstallDatabase_Click" IsEnabled="{Binding InstallCelsusDatabaseEnabled}"/>
+                                <TextBlock Text="Install Celsus Database" Style="{DynamicResource TextBlockTitle01}"/>
+                            </DockPanel>
+                        </Border>
+                        <Border Style="{DynamicResource BorderContent}" DockPanel.Dock="Top">
+                            <DockPanel DataContext="{Binding ConnectionInfo}">
+                                <Grid Style="{DynamicResource Grid01}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Column="1" x:Name="TxtInstallDatabase"></TextBox>
+                                </Grid>
+                            </DockPanel>
+                        </Border>
+
+                    </DockPanel>
+                    
+                    <FlowDocumentScrollViewer DockPanel.Dock="Right" Margin="12,0" BorderBrush="Transparent" BorderThickness="0" Grid.Column="2" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
+                        <FlowDocument IsOptimalParagraphEnabled="True" IsHyphenationEnabled="True" Background="#FFFFF6">
+                            <Section FontSize="14" FontFamily="Segoe UI" Foreground="#565656">
+                                <Paragraph>
+                                    You have Microsoft SQL Server Express installed. Now it is time to check Celsus database exists and it is the latest version.
+                                </Paragraph>
+                                <Paragraph>
+                                    Please use Check Database button to proceed.
+                                </Paragraph>
+                            </Section>
+                        </FlowDocument>
+                    </FlowDocumentScrollViewer>
+                </StackPanel>
+
+                
+                
+            </StackPanel>
+
+            <ItemsControl x:Name="LbLogs" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                                <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,8,0" Text="{Binding Level}" VerticalAlignment="Center" Foreground="DarkOrange" FontSize="14"></TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Margin="0,0,8,0" Text="{Binding Message}" VerticalAlignment="Center" Foreground="#232323" FontSize="14"></TextBlock>
+                            <Label Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Padding="4,1" Margin="0" Foreground="DarkGray" FontSize="14" HorizontalAlignment="Left" Content="Details" ToolTip="{Binding Exception}" Visibility="{Binding ExceptionVisibility}" ></Label>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+        <setup:WizardSQL ></setup:WizardSQL>
+        <!--<telerik:RadWizard x:Name="wizard" Width="600" Height="400" >
+            <telerik:RadWizard.WizardPages>
+                <telerik:WelcomeWizardPage Title="Database Setup Wizard" IsSideHeaderVisible="False" ButtonsVisibilityMode="Next,Help" AllowHelp="True" IsTitleVisible="True" SideHeaderWidth="120" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SideHeaderTemplate="{StaticResource sideHeaderTemplate}" HeaderTemplate="{StaticResource headerTemplate}">
+                    <Grid>
+                        <FlowDocumentScrollViewer Margin="0" BorderBrush="Transparent" BorderThickness="0" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
+                            <FlowDocument IsOptimalParagraphEnabled="True" IsHyphenationEnabled="True">
+                                <Section FontSize="14" FontFamily="Segoe UI" Foreground="#565656">
+                                    <Paragraph>
+                                        Celsus needs Microsoft SQL Server Express to work properly. You don't need to know technical details about what is  Microsoft SQL Server Express but if you don't have Microsoft SQL Server Express installed, you can install it easily.
+                                    </Paragraph>
+                                    <Paragraph>
+                                        First, we will check if Microsoft SQL Server Express is installed on this server.
+                                    </Paragraph>
+                                </Section>
+                            </FlowDocument>
+                        </FlowDocumentScrollViewer>
+                    </Grid>
+                </telerik:WelcomeWizardPage>
+                <telerik:WizardPage x:Name="progressPage" Title="Checkin Microsoft SQL Server Express" IsSideHeaderVisible="False" ButtonsVisibilityMode="Help,Next,Cancel" AllowHelp="True" IsTitleVisible="True" SideHeaderWidth="120" SideHeaderTemplate="{StaticResource sideHeaderTemplate}"  HeaderTemplate="{StaticResource headerTemplate}" >
+                    <Grid>
+                        <FlowDocumentScrollViewer Margin="0" BorderBrush="Transparent" BorderThickness="0" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
+                            <FlowDocument IsOptimalParagraphEnabled="True" IsHyphenationEnabled="True">
+                                <Section FontSize="14" FontFamily="Segoe UI" Foreground="#565656">
+                                    <Paragraph>
+                                        Please wait while the detecting if SQL Server Express is installed on this server.
+                                    </Paragraph>
+                                </Section>
+                            </FlowDocument>
+                        </FlowDocumentScrollViewer>
+                        <telerik:RadBusyIndicator IsBusy="True" Content="" BusyContent="" IsIndeterminate="True" Foreground="Red" Background="Red" Width="350" VerticalAlignment="Center"/>
+                    </Grid>
+                </telerik:WizardPage>
+                <telerik:CompletionWizardPage  Title="Telerik Wizard" IsSideHeaderVisible="False" ButtonsVisibilityMode="Help,Finish" SideHeaderWidth="120" AllowHelp="True" IsTitleVisible="True" SideHeaderTemplate="{StaticResource sideHeaderTemplate}"  HeaderTemplate="{StaticResource headerTemplate}">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="The installation wizard simulation is complete. Thank you for using Telerik Controls!" VerticalAlignment="Top" FontFamily="Segoe UI" FontSize="12"/>
+                        <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Page 3 of 3" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontSize="12"/>
+                    </Grid>
+                </telerik:CompletionWizardPage>
+            </telerik:RadWizard.WizardPages>
+        </telerik:RadWizard>-->
+    </Grid>
+
+</UserControl>

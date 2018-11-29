@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="Celsus.Client.Controls.Licensing.RequestTrialLicenseControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mat="clr-namespace:Telerik.Windows.Controls.MaterialControls;assembly=Telerik.Windows.Controls" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:local="clr-namespace:Celsus.Client.Controls.Licensing"
+             xmlns:types="clr-namespace:Celsus.Client.Types"
+             xmlns:telerik1="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:loc="clr-namespace:Celsus.Client.Types"
+             d:DataContext="{d:DesignInstance local:RequestTrialLicenseControlModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="{StaticResource Back01_02}">
+        <Border Style="{StaticResource BorderContent2}">
+            <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" >
+                <mat:Shadow Background="White" ShadowDepth="Depth2"/>
+                <Border Padding="0" Background="{StaticResource Back01_01}" >
+                    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" Style="{StaticResource RadBusyIndicator}">
+                        <DockPanel >
+                            <Border DockPanel.Dock="Top" Margin="24,24,24,12"  >
+                                <TextBlock Text="Trial License Information" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
+                            </Border>
+                            <Border DockPanel.Dock="Bottom" Padding="24,12" Background="{StaticResource Back01_03}" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" Visibility="{Binding StatusVisibility}">
+                                <ContentPresenter TextElement.FontFamily="Montserrat Light" TextElement.FontSize="12" Content="{Binding Status}"></ContentPresenter>
+                            </Border>
+                            <Border DockPanel.Dock="Bottom" Padding="24,12" BorderBrush="{StaticResource Back01_03}" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" HorizontalAlignment="Center">
+                                <WrapPanel Orientation="Horizontal" Grid.IsSharedSizeScope="True" HorizontalAlignment="Right">
+
+                                    <!--<telerik:RadButton Style="{DynamicResource FormButtonInner}" Visibility="{Binding ActivateTrialLicenseVisibility}" Command="{Binding CloseWindowCommand}" >
+                                    <HeaderedContentControl Style="{DynamicResource HeaderedContentControlStyle2}">
+                                        <HeaderedContentControl.Header>
+                                            <Path Data="{DynamicResource Geoclose-circle}" Style="{StaticResource ButtonPath}" />
+                                        </HeaderedContentControl.Header>
+                                        <TextBlock Text="{types:Loc Close}" Style="{StaticResource ButtonTextBlock}" />
+                                    </HeaderedContentControl>
+                                </telerik:RadButton>-->
+                                    <telerik:RadButton Style="{DynamicResource FormButtonInner}" Visibility="{Binding ActivateTrialLicenseVisibility}" Command="{Binding ActivateTrialLicenseCommand}" >
+                                        <HeaderedContentControl Style="{DynamicResource HeaderedContentControlStyle2}">
+                                            <HeaderedContentControl.Header>
+                                                <Path Data="{DynamicResource Geoav-timer}" Style="{StaticResource ButtonPath}" />
+                                            </HeaderedContentControl.Header>
+                                            <TextBlock Text="{types:Loc GetTrialLicense}" Style="{StaticResource ButtonTextBlock}" />
+                                        </HeaderedContentControl>
+                                    </telerik:RadButton>
+
+                                </WrapPanel>
+                            </Border>
+                            <StackPanel DockPanel.Dock="Top" Grid.IsSharedSizeScope="True" Margin="24,12,24,24" HorizontalAlignment="Center">
+                                <Grid Style="{DynamicResource Grid01}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="{loc:Loc FirstName}" Style="{DynamicResource Label01}"/>
+                                    <telerik:RadMaskedTextInput Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding FirstName}"  />
+                                    <Path Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource Accent01_03}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3" Visibility="{Binding FirstNameErrorVisibility}"></Path>
+                                </Grid>
+                                <Grid Style="{DynamicResource Grid01}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="{loc:Loc LastName}" Style="{DynamicResource Label01}"/>
+                                    <telerik:RadMaskedTextInput x:Name="TxtLastName" Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding LastName}" />
+                                    <Path x:Name="TxtLastNameError" Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource Accent01_03}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3" Visibility="{Binding LastNameErrorVisibility}"></Path>
+                                </Grid>
+                                <Grid Style="{DynamicResource Grid01}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="{loc:Loc E-Mail}" Style="{DynamicResource Label01}"/>
+                                    <telerik:RadMaskedTextInput x:Name="TxtEMail" Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding EMail}"/>
+                                    <Path x:Name="TxtEMailError" Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource Accent01_03}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3" Visibility="{Binding EMailErrorVisibility}"></Path>
+                                </Grid>
+                                <Grid Style="{DynamicResource Grid01}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="{loc:Loc OrganizationName}" Style="{DynamicResource Label01}"/>
+                                    <telerik:RadMaskedTextInput x:Name="TxtOrganization" Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding Organization}" />
+                                    <Path x:Name="TxtOrganizationError" Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource Accent01_03}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3" Visibility="{Binding OrganizationErrorVisibility}"></Path>
+                                </Grid>
+
+
+
+                            </StackPanel>
+                        </DockPanel>
+                    </telerik:RadBusyIndicator>
+                </Border>
+            </Grid>
+
+        </Border>
+    </Grid>
+</UserControl>

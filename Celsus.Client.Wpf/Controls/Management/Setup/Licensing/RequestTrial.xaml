@@ -1,0 +1,129 @@
+﻿<UserControl x:Class="Celsus.Client.Wpf.Controls.Management.Setup.Licensing.RequestTrial"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:maskedInput="clr-namespace:Telerik.Windows.Controls.MaskedInput;assembly=Telerik.Windows.Controls.Input"
+             xmlns:converters="clr-namespace:Celsus.Client.Wpf.Types.Converters"
+             xmlns:local="clr-namespace:Celsus.Client.Wpf.Controls.Management"
+             xmlns:main="clr-namespace:Celsus.Client.Wpf.Controls.Main"
+             mc:Ignorable="d" 
+             >
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
+    </UserControl.Resources>
+    <Border Style="{StaticResource BorderPageAuto}">
+        <DockPanel Style="{StaticResource DockPanelPage}">
+            <Border Style="{StaticResource BorderPageHeader}">
+                <DockPanel Style="{DynamicResource TopDockPanel}">
+                    
+                    <TextBlock Text="Request Trial License" Style="{DynamicResource TextBlockTitleOfPage}"/>
+                </DockPanel>
+            </Border>
+            <telerik:RadBusyIndicator x:Name="RadBusyIndicator" Style="{StaticResource RadBusyIndicator}">
+                <StackPanel>
+                    <main:MessageBorder MessageBoxImage="Information" >
+                        <main:MessageBorder.InnerContent>
+                            <TextBlock TextWrapping="WrapWithOverflow"  FontSize="14" FontFamily="Segoe UI" Foreground="#565656" TextAlignment="Justify"  >
+                    You need to enter a valid license. If you don't have <Run Style="{StaticResource ClickRun}">click here</Run> to get a 30 day trial license.
+                            </TextBlock>
+                        </main:MessageBorder.InnerContent>
+                    </main:MessageBorder>
+                    <main:MessageControl State="Info">
+                        <TextBlock TextWrapping="WrapWithOverflow"  FontSize="14" FontFamily="Segoe UI" Foreground="#565656" TextAlignment="Justify"  >
+                    You need to enter a valid license. If you don't have <Run Style="{StaticResource ClickRun}">click here</Run> to get a 30 day trial license.
+                        </TextBlock>
+                    </main:MessageControl>
+                    <FlowDocumentScrollViewer Margin="24,24,24,0" >
+                        <FlowDocument IsOptimalParagraphEnabled="True" IsHyphenationEnabled="True" Background="#F7F7D4">
+                            <Section FontSize="14" FontFamily="Segoe UI" >
+                                <Paragraph Foreground="#565656">
+                                    Please enter all of the information below and click Request button. Then we will generate a 30 day full functional trial license for you.
+                                </Paragraph>
+                            </Section>
+                        </FlowDocument>
+                    </FlowDocumentScrollViewer>
+
+                    <Border Style="{DynamicResource BorderContent}">
+                        <StackPanel Grid.IsSharedSizeScope="True">
+                            <Grid Style="{DynamicResource Grid01}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                    <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="First Name" Style="{DynamicResource Label03}"/>
+                                <telerik:RadMaskedTextInput Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" x:Name="TxtFirstName"  />
+                                <Path x:Name="TxtFirstNameError" Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource SecondaryDark}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3"></Path>
+                            </Grid>
+                            <Grid Style="{DynamicResource Grid01}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                    <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="Last Name" Style="{DynamicResource Label03}"/>
+                                <telerik:RadMaskedTextInput x:Name="TxtLastName" Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}"  />
+                                <Path x:Name="TxtLastNameError" Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource SecondaryDark}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3"></Path>
+                            </Grid>
+                            <Grid Style="{DynamicResource Grid01}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                    <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="e-Mail" Style="{DynamicResource Label03}"/>
+                                <telerik:RadMaskedTextInput x:Name="TxtEMail" Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" />
+                                <Path x:Name="TxtEMailError" Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource SecondaryDark}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3"></Path>
+                            </Grid>
+                            <Grid Style="{DynamicResource Grid01}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                    <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="Organization Name" Style="{DynamicResource Label03}"/>
+                                <telerik:RadMaskedTextInput x:Name="TxtOrganization" Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}"  />
+                                <Path x:Name="TxtOrganizationError" Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource SecondaryDark}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3"></Path>
+                            </Grid>
+
+                            <Grid Style="{DynamicResource Grid01}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                    <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <telerik:RadButton Content="Request" Grid.Column="1" Style="{DynamicResource  FormButtonInner}" Click="Save"  x:Name="BtnRequest"/>
+                            </Grid>
+                            
+                        </StackPanel>
+                    </Border>
+
+                    <FlowDocumentScrollViewer x:Name="TxtOk" Margin="24,0,24,24" >
+                        <FlowDocument IsOptimalParagraphEnabled="True" IsHyphenationEnabled="True" Background="#D4F1D4">
+                            <Section FontSize="14" FontFamily="Segoe UI" >
+                                <Paragraph Foreground="#565656">
+                                    We have successfully started your trial license. You can close this window and start using Celcus. 
+                                </Paragraph>
+                            </Section>
+                        </FlowDocument>
+                    </FlowDocumentScrollViewer>
+
+                    <FlowDocumentScrollViewer x:Name="TxtError" Margin="24,0,24,24" >
+                        <FlowDocument IsOptimalParagraphEnabled="True" IsHyphenationEnabled="True" Background="#F1D4D4">
+                            <Section FontSize="14" FontFamily="Segoe UI" >
+                                <Paragraph Foreground="#565656">
+                                    Error occured while creating trial license. Error code is <Run x:Name="ErrorCode"></Run>
+                                </Paragraph>
+                            </Section>
+                        </FlowDocument>
+                    </FlowDocumentScrollViewer>
+
+                </StackPanel>
+            </telerik:RadBusyIndicator>
+        </DockPanel>
+    </Border>
+</UserControl>
+
+    

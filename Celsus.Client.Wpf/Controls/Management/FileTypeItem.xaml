@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="Celsus.Client.Wpf.Controls.Management.FileTypeItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:local="clr-namespace:Celsus.Client.Wpf.Controls.Management"
+             mc:Ignorable="d" 
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="800" MinHeight="600" Background="{StaticResource  BackLightest}">
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Style="{DynamicResource BorderCommands}">
+            <DockPanel Style="{DynamicResource TopDockPanel}">
+                <telerik:RadButton Content="Save" Style="{DynamicResource TopButton}" Click="Save_Click"/>
+                <telerik:RadButton Content="Cancel" Style="{DynamicResource TopButton}" Click="Close_Click"/>
+                <TextBlock Text="Add New File Type" Style="{DynamicResource TextBlockTitle01}"/>
+            </DockPanel>
+        </Border>
+        <Border Style="{DynamicResource BorderContent}">
+            <DockPanel Grid.IsSharedSizeScope="True">
+                <Grid Style="{DynamicResource Grid01}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Name" Style="{DynamicResource Label01}"/>
+                    <telerik:RadMaskedTextInput Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding Path=Name, Mode=TwoWay}"/>
+                </Grid>
+                <Grid Style="{DynamicResource Grid01}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Regex" Style="{DynamicResource Label01}"/>
+                    <telerik:RadMaskedTextInput Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding Path=Regex, Mode=TwoWay}"/>
+                </Grid>
+                <Grid Style="{DynamicResource Grid01}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Is Active" Style="{DynamicResource Label01}"/>
+                    <CheckBox Grid.Column="1" Style="{DynamicResource CheckBox01}" IsChecked="{Binding Path=IsActive, Mode=TwoWay}"/>
+
+                </Grid>
+                <Border Style="{DynamicResource BorderContentInner}">
+                    <DockPanel>
+                        <Border DockPanel.Dock="Top" Style="{DynamicResource BorderCommandsInner}">
+                            <DockPanel Style="{DynamicResource TopDockPanel}">
+                                <telerik:RadButton Content="Import From File" Style="{DynamicResource TopButtonInner}" Click="ImportFromFile"/>
+                                <telerik:RadButton Content="Export To File" Style="{DynamicResource TopButtonInner}" Click="ExportToFile"/>
+                                <TextBlock Text="Workflow" Style="{DynamicResource TextBlockTitle01Inner}"/>
+                            </DockPanel>
+                        </Border>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="400"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <DockPanel Grid.Column="0" x:Name="DpToolbox">
+                                <TextBlock DockPanel.Dock="Top" Text="Aktiviteler" Style="{StaticResource TextBlockTitle01InnerInner}"></TextBlock>
+                                <Border x:Name="BrdActivities"></Border>
+                            </DockPanel>
+
+                            <GridSplitter Grid.Column="1" Width="4" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext"></GridSplitter>
+
+                            <Border x:Name="BrdDesigner" Grid.Column="2"></Border>
+
+                            <GridSplitter Grid.Column="3" Width="4" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext"></GridSplitter>
+
+                            <DockPanel Grid.Column="4" x:Name="DpProperties" >
+                                <TextBlock DockPanel.Dock="Top" Text="Özellikler" Style="{StaticResource TextBlockTitle01InnerInner}"></TextBlock>
+                                <Border x:Name="BrdProperties"></Border>
+                            </DockPanel>
+                        </Grid>
+                        
+                    </DockPanel>
+                </Border>
+            </DockPanel>
+        </Border>
+    </DockPanel>
+</UserControl>

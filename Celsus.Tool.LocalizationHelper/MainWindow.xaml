@@ -1,0 +1,59 @@
+﻿<Window x:Class="Celsus.Tool.LocalizationHelper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Celsus.Tool.LocalizationHelper"
+        mc:Ignorable="d"
+       Title="MainWindow" Height="350" Width="1221" Loaded="Window_Loaded">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top">
+            <TextBox Margin="12" Name="TxtWord" MinWidth="300" FontSize="12" FontFamily="Consolas" Padding="6" HorizontalAlignment="Left"></TextBox>
+            <StackPanel Orientation="Horizontal" >
+                <Button Content="Read Clipboard And Add Word" Margin="12,0,12,0" Padding="12,4,12,4" Name="BtnReadAndAdd" IsEnabled="False" Click="BtnReadAndAdd_Click"></Button>
+                <Button Content="Add Word" Margin="12,0,12,0" Padding="12,4,12,4" Name="AddWord" Click="AddWord_Click" IsEnabled="False"></Button>
+                <Button Content="Save" Margin="12,0,12,0" Padding="12,4,12,4" Name="BtnSave" Click="BtnSave_Click" IsEnabled="False"></Button>
+                <Button Content="Find Same Words" Margin="12,0,12,0" Padding="12,4,12,4" Name="BtnFindSameWords" Click="BtnFindSameWords_Click" IsEnabled="True"></Button>
+                <!--<Button Content="Load File" Margin="12,0,12,12" Padding="12,4,12,4" Name="BtnLoadFile" Click="BtnLoadFile_Click"  IsEnabled="True"></Button>-->
+                <!--<Button Content="File Diff" Margin="12,0,12,12" Padding="12,4,12,4" Name="BtnFileDiff" Click="BtnFileDiff_Click"  IsEnabled="True"></Button>-->
+                <TextBox Margin="12" Name="TxtSearch" MinWidth="300" FontSize="12" FontFamily="Consolas" Padding="6" VerticalAlignment="Stretch" TextChanged="TxtSearch_TextChanged"></TextBox>
+            </StackPanel>
+        </StackPanel>
+        <ScrollViewer VerticalAlignment="Stretch" BorderThickness="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="12,0,12,12">
+            <ItemsControl Name="Ic" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Margin="0,12,0,0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True" Orientation="Horizontal"></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,0,6,6" Background="Transparent" Grid.IsSharedSizeScope="True" VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBox TextWrapping="Wrap" Text="{Binding Key}" VerticalAlignment="Top" BorderThickness="1" Padding="12" Margin="6,6,2,5" Background="{Binding Background}" AcceptsReturn="False" local:FocusHelper.EnsureFocus="{Binding IsFocused}" MinWidth="200" MaxWidth="200" FontSize="14"></TextBox>
+                            <ItemsControl Grid.Column="1" ItemsSource="{Binding TextInfos}" Margin="0,4"  >
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" SharedSizeGroup="GB"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBox Text="{Binding Text}" HorizontalAlignment="Stretch" TextWrapping="Wrap" Padding="6" Margin="0,0,0,0" MinWidth="300" MaxWidth="300" AcceptsReturn="True" local:FocusHelper.EnsureFocus="{Binding IsFocused}"></TextBox>
+                                            </Grid>
+                                            <TextBlock Text="{Binding Language}" HorizontalAlignment="Left" Padding="6" Margin="2,0,0,0" Opacity="0.3" VerticalAlignment="Center"></TextBlock>
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

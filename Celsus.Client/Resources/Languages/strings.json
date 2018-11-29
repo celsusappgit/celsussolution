@@ -1,0 +1,106 @@
+﻿[
+  {
+    "Key": "GetTrialLicense",
+    "TextInfos": [
+      {
+        "Language": "en",
+        "Text": "Get Trial License"
+      },
+      {
+        "Language": "tr",
+        "Text": "Deneme Sürümü Al"
+      }
+    ]
+  },
+  {
+    "Key": "EnterLicenseKey",
+    "TextInfos": [
+      {
+        "Language": "en",
+        "Text": "Enter License Key"
+      },
+      {
+        "Language": "tr",
+        "Text": "Lisans Anahtarı Girin"
+      }
+    ]
+  },
+  {
+    "Key": "PurchaseNewLicense",
+    "TextInfos": [
+      {
+        "Language": "en",
+        "Text": "Purchase New License"
+      },
+      {
+        "Language": "tr",
+        "Text": "Purchase New License"
+      }
+    ]
+  },
+  {
+    "Key": "HaveTrialLicense",
+    "TextInfos": [
+      {
+        "Language": "en",
+        "Text": "You have trial license"
+      },
+      {
+        "Language": "tr",
+        "Text": "Purchase New License"
+      }
+    ]
+  },
+  {
+    "Key": "NeedALicense",
+    "TextInfos": [
+      {
+        "Language": "en",
+        "Text": "You need a valid license to use Celsus on this computer."
+      },
+      {
+        "Language": "tr",
+        "Text": "You need a valid license to use Celsus on this computer."
+      }
+    ]
+  },
+  {
+    "Key": "TrialLicenseInfo",
+    "TextInfos": [
+      {
+        "Language": "en",
+        "Text": "You have trial license."
+      },
+      {
+        "Language": "tr",
+        "Text": "You need a valid license to use Celsus on this computer."
+      }
+    ]
+  },
+  {
+    "Key": "DocumentViewerControl",
+    "TextInfos": [
+      {
+        "Language": "en",
+        "Text": "Document Content"
+      },
+      {
+        "Language": "tr",
+        "Text": "Belge İçeriği"
+      }
+    ]
+  },
+  {
+    "Key": "SearchControl",
+    "TextInfos": [
+      {
+        "Language": "en",
+        "Text": "Search"
+      },
+      {
+        "Language": "tr",
+        "Text": "Arama"
+      }
+    ]
+  }
+]

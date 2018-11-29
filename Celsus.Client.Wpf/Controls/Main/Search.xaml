@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="Celsus.Client.Wpf.Controls.Main.Search"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:Celsus.Client.Wpf.Types.Converters"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:controls="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             HorizontalAlignment="Center" VerticalAlignment="Top" MinWidth="800" MinHeight="600" Background="{StaticResource  BackLightest}">
+    <UserControl.Resources>
+        
+        <converters:NullToBooleanConverter x:Key="NullToBooleanConverter"></converters:NullToBooleanConverter>
+        
+        <DataTemplate x:Key="ScrollItemsDataTemplate">
+            <DockPanel Height="40">
+                <Path DockPanel.Dock="Left" Height="18" Margin="24,0" Stretch="UniformToFill" Data="M3,14V4A2,2 0 0,1 5,2H11L13,4H19A2,2 0 0,1 21,6V14A2,2 0 0,1 19,16H13V18H14A1,1 0 0,1 15,19H22V21H15A1,1 0 0,1 14,22H10A1,1 0 0,1 9,21H2V19H9A1,1 0 0,1 10,18H11V16H5A2,2 0 0,1 3,14Z" Fill="{StaticResource AccentDark}"></Path>
+                <TextBlock Text="{Binding Name}" 
+							   TextWrapping="Wrap" 
+							   FontSize="12"
+							   VerticalAlignment="Center" Padding="6 0"
+                               FontWeight="Medium"
+							   HorizontalAlignment="Left" 
+							   TextAlignment="Center" />
+            </DockPanel>
+        </DataTemplate>
+
+        <ItemsPanelTemplate x:Key="RadListBoxItemsPanel">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        </ItemsPanelTemplate>
+
+        <Style TargetType="controls:RadListBoxItem" x:Key="HorizontalItemsStyle">
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="Padding" Value="3" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style>
+        
+    </UserControl.Resources>
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Style="{DynamicResource BorderCommands}">
+            <DockPanel Style="{DynamicResource TopDockPanel}">
+                <telerik:RadButton Content="{Binding ShowOptionsText}" Style="{DynamicResource TopButton}"  Click="ShowOptions"/>
+                <telerik:RadButton Content="Switch to Advanced Mode" Style="{DynamicResource TopButton}"  />
+                <TextBlock Text="Search" Style="{DynamicResource TextBlockTitle01}"/>
+            </DockPanel>
+        </Border>
+        <telerik:RadBusyIndicator x:Name="RadBusyIndicator" Style="{StaticResource RadBusyIndicator}">
+            <Border Style="{DynamicResource BorderContent}">
+                <DockPanel>
+                    <Border DockPanel.Dock="Top" Margin="0,0,0,12" Padding="12" Visibility="{Binding ShowOptionsVisibility}" Background="{StaticResource BackLight}">
+                        <StackPanel>
+                            <CheckBox  Style="{DynamicResource CheckBox01}" Content="Seach in file contents" IsChecked="{Binding SearchInFileContents}"></CheckBox>
+                            <CheckBox  Style="{DynamicResource CheckBox01}" Content="Seach in file names" IsChecked="{Binding SearchInFileNames}"></CheckBox>
+                            <CheckBox  Style="{DynamicResource CheckBox01}" Content="Seach in file metadata" IsChecked="{Binding SearchInFileMetadata}"></CheckBox>
+                        </StackPanel>
+                    </Border>
+                    <telerik:RadMaskedTextInput x:Name="TxtSearch" KeyUp="RadMaskedTextInput_KeyUp" AcceptsReturn="False" DockPanel.Dock="Top" EmptyContent="Search text" Style="{DynamicResource RadMaskedTextInput02}" Value="{Binding Path=SearchText, Mode=OneWayToSource}" Margin="0,0,0,24"/>
+                    <telerik:RadGridView 
+                                ItemsSource="{Binding SearchResult}"
+                                SelectionMode="Single"
+                                AutoGenerateColumns="False"
+                                IsReadOnly="True" RowIndicatorVisibility="Collapsed" CanUserFreezeColumns="False"
+                                ShowGroupPanel="False"
+                >
+                        <telerik:RadGridView.Style>
+                            <Style TargetType="telerik:RadGridView">
+                                <Setter Property="BorderThickness" Value="0"></Setter>
+                                <Setter Property="FontWeight" Value="Light"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=ItemsSource, Converter={StaticResource NullToBooleanConverter}}" Value="True">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <TextBlock TextAlignment="Center" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Margin="48" FontSize="18" Foreground="{StaticResource AccentDark}">Please type your search text and press Enter.</TextBlock>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=ItemsSource, Converter={StaticResource NullToBooleanConverter}}" Value="False" />
+                                            <Condition Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}" Value="0" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <TextBlock TextAlignment="Center" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Margin="48" FontSize="18" Foreground="{StaticResource AccentDark}">
+                                                        <Run Text="{Binding NoItemsText01, Mode=OneWay}" />
+                                                        <Run FontWeight="SemiBold" Text="{Binding NoItemsContent, Mode=OneWay}" /><Run Text="{Binding NoItemsText02, Mode=OneWay}" />
+                                                    </TextBlock>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+
+                            </Style>
+                        </telerik:RadGridView.Style>
+                        <telerik:RadGridView.Columns>
+                            <telerik:GridViewDataColumn Header="Id" DataMemberBinding="{Binding Id}"></telerik:GridViewDataColumn>
+                            <telerik:GridViewDataColumn Header="Name" DataMemberBinding="{Binding Name}"></telerik:GridViewDataColumn>
+                            <telerik:GridViewDataColumn Header="FullPath" DataMemberBinding="{Binding FullPath}"></telerik:GridViewDataColumn>
+                        </telerik:RadGridView.Columns>
+                    </telerik:RadGridView>
+                </DockPanel>
+            </Border>
+        </telerik:RadBusyIndicator>
+
+
+    </DockPanel>
+</UserControl>

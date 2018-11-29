@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="Celsus.Client.Controls.Management.Sources.WorkflowManagementControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Celsus.Client.Controls.Management.Sources"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:loc="clr-namespace:Celsus.Client.Types"
+             xmlns:telerikControls="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls"
+             xmlns:mat="clr-namespace:Telerik.Windows.Controls.MaterialControls;assembly=Telerik.Windows.Controls" 
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="1000"
+             d:DataContext="{d:DesignInstance local:WorkflowManagementControlModel}">
+    <ScrollViewer VerticalAlignment="Stretch" BorderThickness="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" telerikControls:StyleManager.Theme="Fluent" Margin="0,0,0,0">
+        <Grid Background="{StaticResource Back01_02}">
+            <Border Style="{StaticResource BorderPage}">
+                <DockPanel Style="{StaticResource DockPanelPage}">
+                    <Border Style="{StaticResource BorderPageHeader}" Padding="0,12">
+                        <DockPanel Style="{DynamicResource TopDockPanel}">
+                            <telerik:RadButton Content="{loc:Loc AddNewWorkflow}" Style="{DynamicResource TopButtonForPage}" Command="{Binding AddNewWorkflowCommand}" />
+                            <TextBlock Text="{loc:Loc Workflows}" Style="{DynamicResource TextBlockTitleOfPage}" Margin="0,18"/>
+                        </DockPanel>
+                    </Border>
+
+                    <Border Style="{DynamicResource BorderContent}" Margin="0" Padding="0">
+                        <ItemsControl ItemsSource="{Binding Workflows}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,0,0,24" >
+                                        <mat:Shadow Background="White" ShadowDepth="Depth2"/>
+                                        <Border Padding="0" Background="{StaticResource Back01_01}" >
+                                            <DockPanel>
+                                                <!--<Border Background="{StaticResource Accent02_03}">
+                                                <Border Padding="6,0" >
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        </Style>
+                                                    </Border.Style>
+                                                </Border>
+                                            </Border>
+                                            <Border Background="{StaticResource Accent07_03}">
+                                                <Border Padding="6,0" >
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        </Style>
+                                                    </Border.Style>
+                                                </Border>
+                                            </Border>-->
+                                                <Border Style="{StaticResource BorderForPath}">
+                                                    <Border Padding="24,12" >
+                                                        <Path Width="32" Stretch="UniformToFill" VerticalAlignment="Top" Margin="0,24,0,0" Fill="{StaticResource Accent04_03}" >
+                                                            <Path.Style>
+                                                                <Style TargetType="Path" BasedOn="{StaticResource sitemap}">
+                                                                    <Setter Property="Opacity" Value="1"></Setter>
+
+                                                                </Style>
+                                                            </Path.Style>
+                                                        </Path>
+                                                    </Border>
+                                                </Border>
+                                                <Border DockPanel.Dock="Right" Padding="0"   >
+                                                    <Grid Margin="0,0,12,0">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition></RowDefinition>
+                                                            <RowDefinition></RowDefinition>
+                                                            <RowDefinition></RowDefinition>
+                                                        </Grid.RowDefinitions>
+                                                        <Border Grid.Row="1" Padding="20,0" Background="#22001100" CornerRadius="32">
+                                                            <TextBlock Text="{Binding WorkflowDto.OrderNo}" Style="{StaticResource TextBlockTitle01}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
+                                                        </Border>
+                                                    </Grid>
+                                                </Border>
+                                                <Border DockPanel.Dock="Top" Margin="24,24,24,0"  >
+                                                    <TextBlock Text="{Binding WorkflowDto.Name}" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
+                                                </Border>
+
+
+
+                                                <StackPanel DockPanel.Dock="Top" Grid.IsSharedSizeScope="True" Margin="24,12,24,24">
+                                                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding WorkflowDto.FileType}"></TextBlock>
+
+                                                    <!--<TextBlock TextWrapping="WrapWithOverflow" Text="{Binding WorkflowDto.InternalTypeName}"></TextBlock>-->
+                                                    <StackPanel Orientation="Horizontal">
+
+                                                        <telerik:RadButton Margin="0,12,2,2" Command="{Binding EditCommand}" Content="Edit" >
+                                                            <telerik:RadButton.Style>
+                                                                <Style TargetType="telerik:RadButton" BasedOn="{StaticResource FormButtonInner}">
+                                                                    <Setter Property="Visibility" Value="Visible"></Setter>
+
+                                                                </Style>
+                                                            </telerik:RadButton.Style>
+                                                        </telerik:RadButton>
+
+
+                                                    </StackPanel>
+
+
+
+                                                </StackPanel>
+                                            </DockPanel>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+
+                </DockPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

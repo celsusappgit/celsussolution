@@ -1,0 +1,129 @@
+﻿<UserControl x:Class="Celsus.Client.Controls.Management.Sources.SourceItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:mat="clr-namespace:Telerik.Windows.Controls.MaterialControls;assembly=Telerik.Windows.Controls" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:loc="clr-namespace:Celsus.Client.Types"
+             xmlns:local="clr-namespace:Celsus.Client.Controls.Management.Sources"
+             xmlns:types="clr-namespace:Celsus.Client.Types"
+             xmlns:telerik1="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             d:DataContext="{d:DesignInstance local:SourceItemControlModel}"
+             mc:Ignorable="d" 
+             >
+    <Grid Background="{StaticResource Back01_02}">
+        <Border Style="{StaticResource BorderContent2}">
+
+            <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" >
+                <mat:Shadow Background="White" ShadowDepth="Depth2"/>
+                <Border Padding="0" Background="{StaticResource Back01_01}">
+                    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" Style="{StaticResource RadBusyIndicator}">
+                        <DockPanel >
+                            <Border DockPanel.Dock="Top" Margin="24,24,24,12"  >
+                                <Grid>
+                                    <TextBlock Text="{loc:Loc CreateNewSource}" Margin="0">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockTitle01}">
+                                                <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsNew}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock Text="{Binding Title}" Margin="0">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockTitle01}">
+                                                <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsNew}" Value="False">
+                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Border>
+                            <Border DockPanel.Dock="Bottom" Padding="24,12" Background="{StaticResource Back01_03}" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" Visibility="{Binding StatusVisibility}">
+                                <ContentPresenter TextElement.FontFamily="Montserrat Light" TextElement.FontSize="12" Content="{Binding Status}"></ContentPresenter>
+                            </Border>
+                            <Border DockPanel.Dock="Bottom" Padding="24,12" BorderBrush="{StaticResource Back01_03}" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" HorizontalAlignment="Right">
+                                <WrapPanel Orientation="Horizontal" Grid.IsSharedSizeScope="True" HorizontalAlignment="Right">
+                                    <!--<telerik:RadButton Style="{DynamicResource FormButtonInner}" Visibility="{Binding ActivateTrialLicenseVisibility}" Command="{Binding CloseWindowCommand}" >
+                                    <HeaderedContentControl Style="{DynamicResource HeaderedContentControlStyle2}">
+                                        <HeaderedContentControl.Header>
+                                            <Path Data="{DynamicResource Geoclose-circle}" Style="{StaticResource ButtonPath}" />
+                                        </HeaderedContentControl.Header>
+                                        <TextBlock Text="{types:Loc Close}" Style="{StaticResource ButtonTextBlock}" />
+                                    </HeaderedContentControl>
+                                </telerik:RadButton>-->
+                                    <telerik:RadButton Style="{DynamicResource FormButtonInner}" Command="{Binding SaveCommand}" >
+                                        <HeaderedContentControl Style="{DynamicResource HeaderedContentControlStyle2}">
+                                            <HeaderedContentControl.Header>
+                                                <Path Data="{DynamicResource Geoarrow-right-bold-circle}" Style="{StaticResource ButtonPath}" />
+                                            </HeaderedContentControl.Header>
+                                            <TextBlock Text="{types:Loc Save}" Style="{StaticResource ButtonTextBlock}" />
+                                        </HeaderedContentControl>
+                                    </telerik:RadButton>
+                                </WrapPanel>
+                            </Border>
+                            <StackPanel DockPanel.Dock="Top" Grid.IsSharedSizeScope="True" Margin="24,12,24,24" HorizontalAlignment="Center">
+                                <Grid Style="{DynamicResource Grid01}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="{loc:Loc Name}" Style="{DynamicResource Label01}"/>
+                                    <telerik:RadMaskedTextInput Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding Name}"  />
+                                    <Path Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource Accent01_03}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3" Visibility="{Binding NameErrorVisibility}"></Path>
+                                </Grid>
+                                <Grid Style="{DynamicResource Grid01}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="{loc:Loc Path}" Style="{DynamicResource Label01}"/>
+                                    <telerik:RadMaskedTextInput Grid.Column="1" Value="{Binding Path=Path, Mode=TwoWay}">
+                                        <telerik:RadMaskedTextInput.Style>
+                                            <Style TargetType="telerik:RadMaskedTextInput" BasedOn="{StaticResource RadMaskedTextInput01}">
+                                                <Setter Property="IsEnabled" Value="False" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsNew}" Value="True">
+                                                        <Setter Property="IsEnabled" Value="True"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </telerik:RadMaskedTextInput.Style>
+                                            
+                                    </telerik:RadMaskedTextInput>
+
+                                    <telerik:RadButton Grid.Column="2" Content="{loc:Loc SelectFolder}" Style="{DynamicResource FormButton}" Command="{Binding SelectFolderCommand}" />
+                                    <Path Grid.Column="3" Style="{StaticResource alert-circle}" Fill="{StaticResource Accent01_03}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3" Visibility="{Binding PathErrorVisibility}"></Path>
+                                </Grid>
+                                <Grid Style="{DynamicResource Grid01}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
+                                        <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="{loc:Loc IsActive}" Style="{DynamicResource Label01}"/>
+                                    <CheckBox Grid.Column="1" Style="{DynamicResource CheckBox01}" IsChecked="{Binding Path=IsActive, Mode=TwoWay}"/>
+
+                                </Grid>
+
+
+                            </StackPanel>
+                        </DockPanel>
+                    </telerik:RadBusyIndicator>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

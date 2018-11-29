@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="Celsus.Client.Wpf.Controls.Management.Setup.WizardCheckSqlServer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Celsus.Client.Wpf.Controls.Management.Setup"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <DockPanel>
+        <TextBlock Style="{StaticResource TextBlockTitle02}" Text="Detect Microsoft SQL Server Express"></TextBlock>
+        <telerik:RadBusyIndicator x:Name="RadBusyIndicator" Style="{StaticResource RadBusyIndicator}">
+            <StackPanel Style="{StaticResource StackPanel01}">
+                <FlowDocumentScrollViewer x:Name="TxtChecking" >
+                    <FlowDocument IsOptimalParagraphEnabled="True" IsHyphenationEnabled="True">
+                        <Section FontSize="14" FontFamily="Segoe UI" Foreground="#565656">
+                            <Paragraph>
+                                Checking Microsoft SQL Server is installed in this computer.
+                            </Paragraph>
+                        </Section>
+                    </FlowDocument>
+                </FlowDocumentScrollViewer>
+
+
+                <FlowDocumentScrollViewer x:Name="TxtOk">
+                    <FlowDocument IsOptimalParagraphEnabled="True" IsHyphenationEnabled="True">
+                        <Section FontSize="14" FontFamily="Segoe UI" >
+                            <Paragraph Foreground="#FF1E6E2D">
+                                Microsoft SQL Server is installed in this computer.
+                            </Paragraph>
+                            <Paragraph Foreground="#565656">
+                                Please proceed to next step to check if Celsus database exists in Microsoft SQL Server.
+                            </Paragraph>
+                        </Section>
+                    </FlowDocument>
+                </FlowDocumentScrollViewer>
+
+                <FlowDocumentScrollViewer x:Name="TxtError">
+                    <FlowDocument IsOptimalParagraphEnabled="True" IsHyphenationEnabled="True">
+                        <Section FontSize="14" FontFamily="Segoe UI" Foreground="#FF1E6E2D">
+                            <Paragraph Foreground="#FF9E324B">
+                                Microsoft SQL Server is not installed in this computer or we cannot reach it. Please choose next step and press Next to proceed.
+                            </Paragraph>
+                        </Section>
+                    </FlowDocument>
+                </FlowDocumentScrollViewer>
+                <StackPanel x:Name="SpErrorOptions" Margin="0,0,0,24">
+                    <telerik:RadRadioButton HorizontalAlignment="Left" Padding="8,4" Margin="18,4" Content="I want to enter connection parameters mannualy" Click="RadRadioButton_Click"></telerik:RadRadioButton>
+                    <telerik:RadRadioButton HorizontalAlignment="Left" Padding="8,4" Margin="18,4" Content="I'm sure we don't have Microsoft SQL Server installed. I want to install Microsoft SQL Server." Click="RadRadioButton_Click_1"></telerik:RadRadioButton>
+                </StackPanel>
+
+            </StackPanel>
+        </telerik:RadBusyIndicator>
+    </DockPanel>
+</UserControl>

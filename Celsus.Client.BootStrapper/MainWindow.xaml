@@ -1,0 +1,43 @@
+﻿<Window x:Class="Celsus.Client.BootStrapper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Celsus.Client.BootStrapper"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance local:MainWindowModel}"
+        Title="Celsus" SizeToContent="Width" WindowStartupLocation="CenterScreen" Height="400" MinWidth="600">
+    <Grid Background="{StaticResource Back01_02}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border Background="{StaticResource Back01_01}">
+            <Image Source="pack://application:,,,/Celsus.Wpf.Themes;component/Resources/Images/Logo01.png" Width="200" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+        </Border>
+        <HeaderedContentControl Grid.Column="1">
+            <HeaderedContentControl.Header>
+                <TextBlock Text="Celsus Loader" Style="{StaticResource TextBlockHeader01}"></TextBlock>
+            </HeaderedContentControl.Header>
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                    <telerik:RadButton Content="Activate Trial License" Style="{DynamicResource  FormButtonInner}" Visibility="{Binding ActivateTrialLicenseVisibility}" Command="{Binding ActivateTrialLicenseCommand}" />
+                    <telerik:RadButton Content="Enter License Key" Style="{DynamicResource  FormButtonInner}" Visibility="{Binding EnterLicenseKeyVisibility}"/>
+                    <telerik:RadButton Content="Purchase New License" Style="{DynamicResource  FormButtonInner}" Visibility="{Binding PurchaseNewLicenseVisibility}"/>
+                    <telerik:RadButton Content="Entend Your License" Style="{DynamicResource  FormButtonInner}" Visibility="{Binding EntendYourLicenseVisibility}"/>
+                    <telerik:RadButton Content="Get Help" Style="{DynamicResource  FormButtonInner}" Visibility="{Binding GetHelpVisibility}"/>
+                    <telerik:RadButton Content="Send Error Log" Style="{DynamicResource  FormButtonInner}" Visibility="{Binding SendErrorLogVisibility}"/>
+                    <telerik:RadButton Content="Contact Support" Style="{DynamicResource  FormButtonInner}" Visibility="{Binding ContactSupportVisibility}"/>
+                    <telerik:RadButton Content="Reset License Record" Style="{DynamicResource  FormButtonInner}" Visibility="{Binding ResetLicenseRecordVisibility}"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock FontFamily="Segoe UI Semilight" FontSize="16" Text="{Binding Status}"></TextBlock>
+                    <TextBlock FontFamily="Segoe UI Semilight" FontSize="16" Text="{Binding UpdateStatus}"></TextBlock>
+                </StackPanel>
+
+
+            </DockPanel>
+        </HeaderedContentControl>
+    </Grid>
+</Window>

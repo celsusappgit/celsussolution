@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="Celsus.Client.Wpf.Controls.Management.Setup.Service.InstallServices"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:converters="clr-namespace:Celsus.Client.Wpf.Types.Converters"
+             xmlns:local="clr-namespace:Celsus.Client.Wpf.Controls.Management"
+             mc:Ignorable="d" 
+             >
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
+    </UserControl.Resources>
+    <Border Style="{StaticResource BorderPage}">
+        <DockPanel Style="{StaticResource DockPanelPage}">
+            <Border Style="{StaticResource BorderPageHeader}">
+                <DockPanel Style="{DynamicResource TopDockPanel}">
+                    <telerik:RadButton Content="Save" Style="{DynamicResource TopButtonForPage}"  />
+                    <TextBlock Text="Install Service" Style="{DynamicResource TextBlockTitleOfPage}"/>
+                </DockPanel>
+            </Border>
+            <Border Style="{DynamicResource BorderContent}">
+                <DockPanel Grid.IsSharedSizeScope="True">
+                    <StackPanel>
+                        <StackPanel  x:Name="SpServiceOk">
+                            <Path Grid.Column="2" Style="{StaticResource checkbox-circle}" Fill="#FF309142" VerticalAlignment="Center" Height="64" Stretch="Uniform" Opacity="0.3"></Path>
+                            <TextBlock TextWrapping="WrapWithOverflow" Margin="0,12" FontSize="12" FontFamily="Segoe UI" Foreground="#FF309142" Text="Service is updated and running." TextAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel  x:Name="SpServiceOld">
+                            <Path Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource SecondaryDark}" VerticalAlignment="Center" Height="64" Stretch="Uniform" Opacity="0.3"></Path>
+                            <TextBlock TextWrapping="WrapWithOverflow" Margin="0,12" FontSize="12" FontFamily="Segoe UI" Foreground="{StaticResource SecondaryDark}" TextAlignment="Center">
+                                                        Service is running but it needs to be updated. To update <Run Style="{StaticResource ClickRun}" Background="Transparent" MouseLeftButtonUp="Upgrade">click here</Run>
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel  x:Name="SpServiceNo">
+                            <Path Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource SecondaryDark}" VerticalAlignment="Center" Height="64" Stretch="Uniform" Opacity="0.3"></Path>
+                            <TextBlock TextWrapping="WrapWithOverflow" Margin="0,12" FontSize="12" FontFamily="Segoe UI" Foreground="{StaticResource SecondaryDark}" TextAlignment="Center">
+                                                        Service is not installed. To install <Run Style="{StaticResource ClickRun}" MouseLeftButtonUp="Install" Background="Transparent">click here</Run>
+
+                            </TextBlock>
+                        </StackPanel>
+                        <ItemsControl x:Name="LbLogs" >
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,8,0" Text="{Binding Level}" VerticalAlignment="Center" Foreground="DarkOrange" FontSize="14"></TextBlock>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Margin="0,0,8,0" Text="{Binding Message}" VerticalAlignment="Center" Foreground="#232323" FontSize="14"></TextBlock>
+                                        <Label Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Padding="4,1" Margin="0" Foreground="DarkGray" FontSize="14" HorizontalAlignment="Left" Content="Details" ToolTip="{Binding Exception}" Visibility="{Binding ExceptionVisibility}" ></Label>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+        </DockPanel>
+    </Border>
+</UserControl>
+
+    

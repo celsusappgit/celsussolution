@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Celsus.Client.Wpf.Controls.Main.MessageBorder"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Celsus.Client.Wpf.Controls.Main"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             mc:Ignorable="d" 
+            >
+    <StackPanel Orientation="Horizontal" Background="#F1D4D4" x:Name="SpMain">
+        <Border Background="#11000000" >
+            <Grid>
+                <Path x:Name="PathAlert" Style="{StaticResource alert-circle}" Fill="{StaticResource SecondaryDark}" VerticalAlignment="Center" Width="48" Height="48" Stretch="Uniform" Opacity="0.3" Margin="12"></Path>
+                <Path x:Name="PathCheckBox" Style="{StaticResource checkbox-circle}" Fill="{StaticResource SecondaryDark}" VerticalAlignment="Center" Width="48" Height="48" Stretch="Uniform" Opacity="0.3" Margin="12"></Path>
+                <Path x:Name="PathInformation" Style="{StaticResource information}" Fill="{StaticResource SecondaryDark}" VerticalAlignment="Center" Width="48" Height="48" Stretch="Uniform" Opacity="0.3" Margin="12"></Path>
+            </Grid>
+        </Border>
+        <StackPanel Margin="12,6" VerticalAlignment="Center">
+            <ContentControl x:Name="ContentControl">
+                <StackPanel>
+                    <TextBlock x:Name="t" TextWrapping="WrapWithOverflow"  FontSize="14" FontFamily="Segoe UI" Foreground="#565656" TextAlignment="Justify"  >
+                    You need to enter a valid license. If you don't have <Run Style="{StaticResource ClickRun}">click here</Run> to get a 30 day trial license.
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                        <telerik:RadButton Content="Request" Grid.Column="1" Style="{DynamicResource  FormButtonMessage}" x:Name="BtnRequest"/>
+                    </StackPanel>
+                </StackPanel>
+            </ContentControl>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

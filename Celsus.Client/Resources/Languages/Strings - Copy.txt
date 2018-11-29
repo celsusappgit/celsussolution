@@ -1,0 +1,61 @@
+﻿language:en
+language:tr
+key:GetTrialLicense
+[Get Trial License]
+[Deneme Sürümü 
+Al]
+key:EnterLicenseKey
+[Enter License Key]
+[Lisans Anahtarı Girin]
+key:PurchaseNewLicense
+[Purchase New License]
+[Purchase New License]
+key:HaveTrialLicense
+[You have trial license]
+[You have trial license]
+key:NeedALicense
+[You need a valid license to use Celsus on this computer.]
+[You need a valid license to use Celsus on this computer.]
+key:TrialLicenseInfo
+[You have trial license. It is unlimited]
+[You need a valid license to use Celsus on this computer.]
+key:HaveTrialLicenseSubMessage
+[Your trial license will expire on {0}. If you have serial key you can enter or you can purchase a new license.]
+key:LicenseCheckControl
+[Licensing]
+key:EnterSerialControl
+[Activate Celsus]
+[Activate Celsus]
+key:SetupMainControl
+[Setup]
+[Setup]
+key:ManageRolesControl
+[Roles Management]
+[Roles Management]
+key:IndexerSetupMainControl
+[Indexer Role Setup]
+[Indexer Role Setup]
+key:DocumentViewerControl
+[Document Content]
+[Belge İçeriği]
+key:SearchControl
+[Search]
+[Arama]
+key:Search
+[Search]
+[Arama]
+key:Sources
+[Sources]
+[Kaynaklar]
+key:en
+[English]
+[İngilizce]
+key:tr
+[Turkish]
+[Türkçe]
+key:Setup
+[Setup]
+[Ayarlar]
+key:SystemMonitor
+[System Monitor]
+[Sistem Monitörü]

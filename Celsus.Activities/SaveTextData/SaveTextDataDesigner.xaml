@@ -1,0 +1,34 @@
+﻿<sap:ActivityDesigner x:Class="Celsus.Activities.SaveTextDataDesigner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+    xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+    xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+    xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation">
+    <sap:ActivityDesigner.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Celsus.Activities;component/Resources.xaml" ></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+
+            <sapc:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
+        </ResourceDictionary>
+
+
+    </sap:ActivityDesigner.Resources>
+    <Border Padding="12,12,12,0">
+        <StackPanel>
+            <StackPanel Style="{DynamicResource WfStackPanel01}">
+                <TextBlock Text="Source File Path" Style="{DynamicResource WfTextBlock01}"/>
+                <sapv:ExpressionTextBox
+                    Style="{StaticResource WfTextBox01}"
+                    HintText="Source File Path"
+                    Expression="{Binding Path=ModelItem.SourceFilePath, Mode=TwoWay, Converter={StaticResource ArgumentToExpressionConverter}, ConverterParameter=Out }"
+                    ExpressionType="s:String"
+                    OwnerActivity="{Binding Path=ModelItem}"
+                    UseLocationExpression="True"
+                    MaxLines="1" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</sap:ActivityDesigner>
