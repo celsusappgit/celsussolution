@@ -1,0 +1,188 @@
+/*
+    - Template Name: appy
+    - Template URI: http://appy.bitballoon.com/
+    - Author: Mohamed Kamel
+    - Author URI: https://www.facebook.com/M.Kamel090
+    - Description: appy This is html5 template for App Landing Page
+    - Version: 1.2
+    - Tags: HTML, Mobile App, Template, Landing Page , Responsive
+    - Thame Color - 2
+*/
+
+
+/* ----------------------------------------------------
+    CSS INDEX        
+
+    01. START BACKGROUND
+    02. START BORDER COLOR
+    03. START COLOR
+
+/* ----------------------------------------------------*/
+
+
+/*------------------------------
+    01. START BACKGROUND
+------------------------------*/
+
+.appy-menu.sticky,
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover,
+.pagination>li>a:focus,
+.pagination>li>a:hover,
+.pagination>li>span:focus,
+.pagination>li>span:hover,
+.preloader,
+.appy-menu.sticky,
+.appy-menu ul li .dropdown-menu,
+.overlay,
+#faq .panel .panel-heading,
+footer,
+.themes-colors span {
+    background-image: -moz-linear-gradient( -29deg, rgb(3, 46, 82) 0%, rgb(8, 168, 184) 100%);
+    background-image: -webkit-linear-gradient( -29deg, rgb(3, 46, 82) 0%, rgb(8, 168, 184) 100%);
+    background-image: -ms-linear-gradient( -29deg, rgb(3, 46, 82) 0%, rgb(8, 168, 184) 100%);
+}
+
+@media (max-width: 768px) {
+    .appy-menu {
+        background-image: -moz-linear-gradient( -29deg, rgb(3, 46, 82) 0%, rgb(8, 168, 184) 100%);
+        background-image: -webkit-linear-gradient( -29deg, rgb(3, 46, 82) 0%, rgb(8, 168, 184) 100%);
+        background-image: -ms-linear-gradient( -29deg, rgb(3, 46, 82) 0%, rgb(8, 168, 184) 100%);
+    }
+}
+
+.appy-menu.navbar-default .navbar-toggle .icon-bar,
+.btn-default:hover,
+#home_banner.index-style-2 .owl-carousel .owl-dots .owl-dot.active span,
+#testimonial .testimonial-slider .owl-dots .owl-dot.active span,
+#screenshots .screenshots-slider.owl-carousel .owl-nav .owl-prev:hover,
+#screenshots .screenshots-slider.owl-carousel .owl-nav .owl-next:hover,
+#price .price-table.feature:hover .btn-default.colored,
+#team .team-slider .owl-dots .owl-dot.active span,
+#recent-blog .blog-box .blog-img .blog-tags ul li a:hover,
+#recent-blog .recent-blog-slider .owl-dots .owl-dot.active span,
+#contact .btn-default,
+#subscribe .subcribe-form .btn,
+.comments-form .btn-default,
+.sidebar .search-form .btn,
+.sidebar .categories-widget ul li a:hover,
+.sidebar .categories-widget ul li a span,
+.sidebar .tags-widget ul li a {
+    background: #032e52;
+}
+
+.btn-default.blue:hover,
+#screenshots .screenshots-slider.owl-carousel .owl-nav .owl-prev,
+#screenshots .screenshots-slider.owl-carousel .owl-nav .owl-next,
+#price .price-table:hover .btn-default.blue,
+#team .team-slider .owl-dots .owl-dot span,
+#recent-blog .recent-blog-slider .owl-dots .owl-dot span,
+.sidebar .tags-widget ul li a:hover {
+    background: #08a8b8;
+}
+
+
+/*------------------------------
+    01. END BACKGROUND
+------------------------------*/
+
+
+/*------------------------------
+    02. START BORDER COLOR
+------------------------------*/
+
+.btn-default:hover,
+.btn-default.colored,
+.pagination>li>a,
+.pagination>li>span,
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover,
+.pagination>li>a:focus,
+.pagination>li>a:hover,
+.pagination>li>span:focus,
+.pagination>li>span:hover,
+#price .price-table.feature,
+#recent-blog .blog-box:hover .blog-details .btn,
+#subscribe .subcribe-form .btn,
+.sidebar .search-form .btn,
+#subscribe .subcribe-form input,
+.sidebar .search-form input,
+#testimonial .testimonial-slider .item .client-img,
+blockquote {
+    border-color: #032e52;
+}
+
+.btn-default.blue,
+#price .price-table {
+    border-color: #08a8b8;
+}
+
+
+/*------------------------------
+    02. END BORDER COLOR
+------------------------------*/
+
+
+/*------------------------------
+    03. START COLOR
+------------------------------*/
+
+.btn-default.colored,
+.pagination>li>a,
+.pagination>li>span,
+#home_banner .btn:hover,
+#price .price-table.feature,
+#download .btn-default:hover,
+#recent-blog .blog-box .blog-img .blog-tags ul li a,
+#recent-blog .blog-box:hover .blog-details .btn,
+#call-to-action .btn-default:hover,
+#contact .btn-default:hover,
+.blogs .blog-box .blog-details h3 a,
+.single-blog .blog-box h3,
+.sidebar .categories-widget ul li a,
+.sidebar .categories-widget ul li a:hover span,
+.sidebar .recent-posts-widget .recent-post-description h3 a,
+.sidebar .archives-widget ul li a,
+.sidebar .meta-widget ul li a {
+    color: #032e52;
+}
+
+.appy-menu ul li .dropdown-menu li.active a,
+.appy-menu .navbar-nav>.active>a,
+.appy-menu .navbar-nav>.active>a:focus,
+.appy-menu .navbar-nav>.active>a:hover,
+.appy-menu ul li a:hover {
+    color: #032e52 !important;
+}
+
+.btn-default.blue,
+.comments-form .form-control {
+    color: #08a8b8;
+}
+
+
+/*
+body,
+.section-heade h3,
+.section-heade p,
+#about .about-box h4,
+#about .about-box p,
+.one-feature h2,
+.one-feature p,
+#faq .panel .panel-collapse .panel-body {
+    color: #032e52;
+}
+*/
+
+
+/*------------------------------
+    03. END COLOR
+------------------------------*/

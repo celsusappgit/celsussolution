@@ -8,7 +8,7 @@
 
 * Celsus.Dependency > Workflows altında örnek Workflow var. Import From File butonu ile sisteme yüklenebilir.
 
-* Azure account celsusmanagement@outlook.com
+* Azure account celsusmanagement@outlook.com senekayazilim@ive.com
 
 * ReadTheDocs account celsusmanagement@outlook.com
 
