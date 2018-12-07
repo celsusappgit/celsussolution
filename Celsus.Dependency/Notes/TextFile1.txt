@@ -35,10 +35,14 @@
 
 * celsusappgit@outlook.com GIT
 
+* gitbook same as GIT account https://celsus.gitbook.io/project/untitled/untitled-1
+
 * Web Sites http://cms.celsus.webnode.com.tr/ fena değil
 
 * Documentation
 	
+	https://celsus.gitbook.io/project/
+
 	Local Path  C:\Users\efeo\Documents\GitHub\CelsusHelp_Sphinx
 	To Build	C:\Users\efeo\Documents\GitHub\CelsusHelp_Sphinx\docs>sphinx-build -b html . _build
 	URL https://readthedocs.org/projects/celsushelp-sphinx/builds/
@@ -51,3 +55,10 @@
 
     To update web site: Open Local Path and edit documents
 						Git Desktop > Push
+
+ * GoDaddy
+	u: efeosenekacomtr
+
+ * MyCommerce
+	Your customer ID: 200279875
+	UlucOglum12_

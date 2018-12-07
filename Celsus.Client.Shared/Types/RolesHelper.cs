@@ -41,12 +41,16 @@ namespace Celsus.Client.Shared.Types
                 status = value;
                 NotifyPropertyChanged(() => Status);
                 NotifyPropertyChanged(() => DatabaseRoleCount);
-                NotifyPropertyChanged(() => DatabaseRoleComputerIP);
-                NotifyPropertyChanged(() => DatabaseRoleComputerName);
+                //NotifyPropertyChanged(() => DatabaseRoleComputerIP);
+                NotifyPropertyChanged(() => DatabaseRole);
+                //NotifyPropertyChanged(() => DatabaseRoleComputerName);
                 NotifyPropertyChanged(() => IndexerRoleCount);
-                NotifyPropertyChanged(() => IndexerRoleComputerIP);
-                NotifyPropertyChanged(() => IndexerRoleComputerName);
+                //NotifyPropertyChanged(() => IndexerRoleComputerIP);
+                //NotifyPropertyChanged(() => IndexerRoleComputerName);
+                NotifyPropertyChanged(() => IndexerRoles);
                 SetupHelper.Instance.Invalidate();
+                //RolesHelper.Instance.Invalidate();
+
             }
         }
 
@@ -62,7 +66,7 @@ namespace Celsus.Client.Shared.Types
                 {
                     return null;
                 }
-                return allRoles.Count(x => x.ServerRoleEnum == ServerRoleEnum.Database);
+                return allRoles.Count(x => x.ServerRoleEnum == ServerRoleEnum.Database && x.IsActive == true);
             }
         }
 
@@ -78,11 +82,32 @@ namespace Celsus.Client.Shared.Types
                 {
                     return null;
                 }
-                return allRoles.Count(x => x.ServerRoleEnum == ServerRoleEnum.Indexer);
+                return allRoles.Count(x => x.ServerRoleEnum == ServerRoleEnum.Indexer && x.IsActive == true);
             }
         }
 
-        public string DatabaseRoleComputerIP
+        //public string DatabaseRoleComputerIP
+        //{
+        //    get
+        //    {
+        //        if (Status == RolesHelperStatusEnum.CannotGetRoles)
+        //        {
+        //            return null;
+        //        }
+        //        if (allRoles == null)
+        //        {
+        //            return null;
+        //        }
+        //        var server = allRoles.Find(x => x.ServerRoleEnum == ServerRoleEnum.Database);
+        //        if (server == null)
+        //        {
+        //            return null;
+        //        }
+        //        return server.ServerIP;
+        //    }
+        //}
+
+        public ComputerInformationModel DatabaseRole
         {
             get
             {
@@ -94,18 +119,37 @@ namespace Celsus.Client.Shared.Types
                 {
                     return null;
                 }
-                var server= allRoles.Find(x => x.ServerRoleEnum == ServerRoleEnum.Database);
-                if (server == null)
+                var servers = allRoles.Where(x => x.ServerRoleEnum == ServerRoleEnum.Database && x.IsActive == true).ToList(); ;
+                if (servers == null || servers.Count == 0)
                 {
                     return null;
                 }
-                return server.ServerIP;
+                return servers.Select(x => new ComputerInformationModel() { ServerId = x.ServerId, ServerIP = x.ServerIP, ServerName = x.ServerName }).FirstOrDefault();
             }
         }
 
-       
+        //public string DatabaseRoleComputerName
+        //{
+        //    get
+        //    {
+        //        if (Status == RolesHelperStatusEnum.CannotGetRoles)
+        //        {
+        //            return null;
+        //        }
+        //        if (allRoles == null)
+        //        {
+        //            return null;
+        //        }
+        //        var server = allRoles.Find(x => x.ServerRoleEnum == ServerRoleEnum.Database);
+        //        if (server == null)
+        //        {
+        //            return null;
+        //        }
+        //        return server.ServerName;
+        //    }
+        //}
 
-        public string DatabaseRoleComputerName
+        public List<ComputerInformationModel> IndexerRoles
         {
             get
             {
@@ -117,56 +161,88 @@ namespace Celsus.Client.Shared.Types
                 {
                     return null;
                 }
-                var server = allRoles.Find(x => x.ServerRoleEnum == ServerRoleEnum.Database);
-                if (server == null)
+                var servers = allRoles.Where(x => x.ServerRoleEnum == ServerRoleEnum.Indexer && x.IsActive == true).ToList(); ;
+                if (servers == null)
                 {
                     return null;
                 }
-                return server.ServerName;
+                return servers.Select(x => new ComputerInformationModel() { ServerId = x.ServerId, ServerIP = x.ServerIP, ServerName = x.ServerName }).ToList();
             }
         }
 
-        public string IndexerRoleComputerIP
+        //public string IndexerRoleComputerIP
+        //{
+        //    get
+        //    {
+        //        if (Status == RolesHelperStatusEnum.CannotGetRoles)
+        //        {
+        //            return null;
+        //        }
+        //        if (allRoles == null)
+        //        {
+        //            return null;
+        //        }
+        //        var server = allRoles.Find(x => x.ServerRoleEnum == ServerRoleEnum.Indexer);
+        //        if (server == null)
+        //        {
+        //            return null;
+        //        }
+        //        return server.ServerIP;
+        //    }
+        //}
+
+        public bool IsIndexerRoleThisComputer
         {
             get
             {
-                if (Status == RolesHelperStatusEnum.CannotGetRoles)
+                if (IndexerRoles == null)
                 {
-                    return null;
+                    return false;
                 }
-                if (allRoles == null)
+                if (IndexerRoles.Count(x => string.Compare(x.ServerId, ComputerHelper.Instance.ServerId, true) == 0) > 0)
                 {
-                    return null;
+                    return true;
                 }
-                var server = allRoles.Find(x => x.ServerRoleEnum == ServerRoleEnum.Indexer);
-                if (server==null)
-                {
-                    return null;
-                }
-                return server.ServerIP;
+                return false;
             }
         }
 
-        public string IndexerRoleComputerName
+        public bool IsDatabaseRoleThisComputer
         {
             get
             {
-                if (Status == RolesHelperStatusEnum.CannotGetRoles)
+                if (DatabaseRole==null)
                 {
-                    return null;
+                    return false;
                 }
-                if (allRoles == null)
+                if (string.Compare(DatabaseRole.ServerId, ComputerHelper.Instance.ServerId, true) == 0)
                 {
-                    return null;
+                    return true;
                 }
-                var server = allRoles.Find(x => x.ServerRoleEnum == ServerRoleEnum.Indexer);
-                if (server == null)
-                {
-                    return null;
-                }
-                return server.ServerName;
+                return false;
             }
         }
+
+        //public string IndexerRoleComputerName
+        //{
+        //    get
+        //    {
+        //        if (Status == RolesHelperStatusEnum.CannotGetRoles)
+        //        {
+        //            return null;
+        //        }
+        //        if (allRoles == null)
+        //        {
+        //            return null;
+        //        }
+        //        var server = allRoles.Find(x => x.ServerRoleEnum == ServerRoleEnum.Indexer);
+        //        if (server == null)
+        //        {
+        //            return null;
+        //        }
+        //        return server.ServerName;
+        //    }
+        //}
 
         #endregion
 
@@ -181,7 +257,7 @@ namespace Celsus.Client.Shared.Types
         //    {
         //        await GetRoles();
         //    }
-            
+
         //}
 
         internal async void Invalidate()

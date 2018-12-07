@@ -61,6 +61,30 @@ namespace Celsus.Client.Controls.Management.Sources
             }
         }
 
+        object status;
+        public object Status
+        {
+            get
+            {
+                return status;
+            }
+            set
+            {
+                if (Equals(value, status)) return;
+                status = value;
+                NotifyPropertyChanged(() => Status);
+                NotifyPropertyChanged(() => StatusVisibility);
+            }
+        }
+
+        public Visibility StatusVisibility
+        {
+            get
+            {
+                return Status == null ? Visibility.Collapsed : Visibility.Visible;
+            }
+        }
+
         public Visibility SelectedWorkflowErrorVisibility
         {
             get
@@ -426,7 +450,15 @@ namespace Celsus.Client.Controls.Management.Sources
                     newWorkflowDto.InternalTypeName = null;
                     newWorkflowDto.InternalTypeParameters = null;
                 }
-                await Repo.Instance.AddWorkflow(newWorkflowDto);
+                var result = await Repo.Instance.AddWorkflow(newWorkflowDto);
+                if (result == false)
+                {
+                    Status = "ErrorSaving".ConvertToBindableText();
+                }
+                else
+                {
+                    FirstWindowModel.Instance.CloseTabItem(this);
+                }
             }
             else
             {
@@ -470,8 +502,15 @@ namespace Celsus.Client.Controls.Management.Sources
                     newWorkflowDto.InternalTypeName = null;
                     newWorkflowDto.InternalTypeParameters = null;
                 }
-                await Repo.Instance.UpdateWorkflow(newWorkflowDto);
-                FirstWindowModel.Instance.CloseTabItem(this);
+                var result = await Repo.Instance.UpdateWorkflow(newWorkflowDto);
+                if (result == false)
+                {
+                    Status = "ErrorSaving".ConvertToBindableText();
+                }
+                else
+                {
+                    FirstWindowModel.Instance.CloseTabItem(this);
+                }
             }
         }
 

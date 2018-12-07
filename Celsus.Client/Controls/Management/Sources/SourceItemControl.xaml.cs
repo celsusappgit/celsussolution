@@ -236,7 +236,7 @@ namespace Celsus.Client.Controls.Management.Sources
         {
             if (IsNew)
             {
-                var result = await Repo.Instance.AddSource(new Celsus.Types.SourceDto() { Name = Name, IsActive = IsActive, Path = Path });
+                var result = await Repo.Instance.AddSource(new Celsus.Types.SourceDto() { Name = Name, IsActive = IsActive, Path = Path, ServerId= ComputerHelper.Instance.ServerId });
                 if (result == false)
                 {
                     Status = "ErrorSaving".ConvertToBindableText();
@@ -248,7 +248,7 @@ namespace Celsus.Client.Controls.Management.Sources
             }
             else
             {
-                var result = await Repo.Instance.UpdateSource(new Celsus.Types.SourceDto() { Id = Id, Name = Name, IsActive = IsActive, Path = Path });
+                var result = await Repo.Instance.UpdateSource(new Celsus.Types.SourceDto() { Id = Id, Name = Name, IsActive = IsActive, Path = Path, ServerId  = ComputerHelper.Instance.ServerId });
                 if (result == false)
                 {
                     Status = "ErrorSaving".ConvertToBindableText();

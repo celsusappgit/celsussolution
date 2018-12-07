@@ -18,6 +18,12 @@
                     <Border Style="{StaticResource BorderPageHeader}" Padding="0,12">
                         <DockPanel Style="{DynamicResource TopDockPanel}">
                             <telerik:RadButton Content="{loc:Loc AddNewSource}" Style="{DynamicResource TopButtonForPage}" Command="{Binding AddNewSourceCommand}" />
+                            <Path DockPanel.Dock="Right" Visibility="{Binding HelpForDisabledAddNewSourceVisibility}" Style="{StaticResource help-circle}" VerticalAlignment="Center" Fill="{StaticResource Accent07_03}" Height="20" Width="20" Stretch="Fill" Cursor="Hand" >
+                                <telerik:EventToCommandBehavior.EventBindings>
+                                    <telerik:EventBinding Command="{Binding HelpForDisabledAddNewSourceCommand}" EventName="MouseLeftButtonUp" PassEventArgsToCommand="True" />
+                                </telerik:EventToCommandBehavior.EventBindings>
+                            </Path>
+
                             <TextBlock Text="{loc:Loc Sources}" Style="{DynamicResource TextBlockTitleOfPage}" Margin="0,18"/>
                         </DockPanel>
                     </Border>

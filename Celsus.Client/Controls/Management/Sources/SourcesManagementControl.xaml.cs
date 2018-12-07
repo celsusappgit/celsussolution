@@ -24,13 +24,49 @@ namespace Celsus.Client.Controls.Management.Sources
     {
         public Repo Repo { get { return Repo.Instance; } }
 
+        ICommand helpForDisabledAddNewSourceCommand;
+        public ICommand HelpForDisabledAddNewSourceCommand
+        {
+            get
+            {
+                if (helpForDisabledAddNewSourceCommand == null)
+                    helpForDisabledAddNewSourceCommand = new RelayCommand(param => HelpForDisabledAddNewSource(param), param => { return true; });
+                return helpForDisabledAddNewSourceCommand;
+            }
+        }
+
+        private void HelpForDisabledAddNewSource(object param)
+        {
+            string target = "https://celsus.gitbook.io/project/addsource";
+            try
+            {
+                System.Diagnostics.Process.Start(target);
+            }
+            catch (System.ComponentModel.Win32Exception noBrowser)
+            {
+                if (noBrowser.ErrorCode == -2147467259) ;
+            }
+            catch (Exception other)
+            {
+            }
+
+        }
+
+        public Visibility HelpForDisabledAddNewSourceVisibility
+        {
+            get
+            {
+                return RolesHelper.Instance.IsIndexerRoleThisComputer ? Visibility.Collapsed : Visibility.Visible;
+            }
+        }
+
         ICommand addNewSourceCommand;
         public ICommand AddNewSourceCommand
         {
             get
             {
                 if (addNewSourceCommand == null)
-                    addNewSourceCommand = new RelayCommand(param => AddNewSource(param), param => { return true; });
+                    addNewSourceCommand = new RelayCommand(param => AddNewSource(param), param => { return RolesHelper.Instance.IsIndexerRoleThisComputer; });
                 return addNewSourceCommand;
             }
         }

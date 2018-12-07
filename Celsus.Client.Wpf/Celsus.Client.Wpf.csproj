@@ -315,6 +315,7 @@
     <Compile Include="Types\Converters\BooleanToVisibilityInverseConverter.cs" />
     <Compile Include="Types\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Types\Converters\NullToBooleanConverter.cs" />
+    <Compile Include="Types\Converters\VisibilityInverseConverter.cs" />
     <Compile Include="Types\DownloadUris.cs" />
     <Compile Include="Types\Helpers\RegexUtilities.cs" />
     <Compile Include="Types\ModelObject.cs" />

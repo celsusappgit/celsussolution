@@ -21,9 +21,18 @@ key:AddNewWorkflow
 key:AllComponentsForIndexerRoleIsIntalledYou
 [All components for Indexer Role is intalled. You can set this computer as Indexer Role.]
 [Dizinleyici rolünün tüm bileşenleri kurulmuş durumda. Bu bilgisayara İndeksleme rolünü verebilirsiniz.]
+key:AnE-MailWillBeSentToOurLicensingDepartme
+[An e-Mail will be sent to our licensing department which contains information below. Please enter reason for extending license and hit Send Request button.]
+[Lisans departmanımıza aşağıdaki bilgileri içeren bir e-posta gönderilecektir. Lütfen lisans uzatma nedeninizi girin ve İsteği Gönder düğmesini kullanın.]
 key:CannotGetRoles
 [Cannot get roles]
 [Roller alınamadı]
+key:CannotGetTrialLicenseInfo
+[Error occured getting your license info.]
+[Lisans bilgileri alınamadı.]
+key:CannotRequestTrialExtend
+[Error occured whie sending e-Mail.]
+[e-Posta gönderme sırasında hata oluştu.]
 key:CelsusContains3RolesAllRolesCanBeInstall
 [Celsus contains 3 roles. All roles can be installed same computer or you can install roles on different computers.]
 [Celsus 3 rol içerir. Tüm roller aynı bilgisayara yüklenebilir veya farklı bilgisayarlara roller yükleyebilirsiniz.]
@@ -36,12 +45,24 @@ key:CelsusDatabaseIsUpdatedAndOk
 key:CelsusDatabaseOk
 [Celsus Database Ok]
 [Celsus Veritabanı Sorunsuz Durumda]
+key:CelsusDatabaseVersionError
+[Celsus Database Version Error]
+[Celsus Veritabanı Sürüm Hatası]
+key:CelsusInfoFiles
+[Celsus Info Files]
+[Celsus Bilgi Dosyaları]
 key:CelsusNeedsAnyEditionOfMicrosoftSQLServe
 [Celsus needs any edition of Microsoft SQL Server 2016 to operate. If you have Microsoft SQL Server 2016 you can enter connection parameters. To enter connection paramaters please click Enter Connection Paramaters button.]
 [Celsus için Microsoft SQL Server 2016 herhangi bir sürümü gerekir. Microsoft SQL Server 2016 varsa, bağlantı parametrelerini girebilirsiniz. Bağlantı parametrelerini girmek Için lütfen bağlantı parametrelerini gir düğmesini tıklatın.]
 key:CelsusTopologyInformation
 [Celsus Topology Information]
 [Roller]
+key:ComputerClockCracked
+[Computer Clock Cracked]
+[Bilgisayar Saati Bozulmuş]
+key:ComputerClockError
+[Computer Clock Error]
+[Bilgisayar Saati Hatalı]
 key:ComputerName
 [Computer Name]
 [Bilgisayar Adı]
@@ -57,6 +78,9 @@ key:CustomFileType
 key:Database
 [Database]
 [Veri Tabanı]
+key:DatabaseConnectionError
+[Database Connection Error]
+[Veritabanı Bağlantı Hatası]
 key:DatabaseConnectionParameters
 [Database Connection Parameters]
 [Veri Tabanı Bağlantı Parametreleri]
@@ -108,6 +132,9 @@ key:E-Mail
 key:en
 [English]
 [İngilizce]
+key:EntendYourLicense
+[Entend Your License]
+[Lisansı Uzatın]
 key:EnterConnectionInfo
 [Enter Connection Parameters]
 [Bağlantı Parametrelerini Gir]
@@ -153,6 +180,18 @@ key:EveryhingSeemsOk
 key:EverythingSeemsOk
 [Everything seems ok]
 [Her şey yolunda görünüyor]
+key:ExpiryDate
+[Expiration Date]
+[Bitiş Tarihi]
+key:ExportSettingsFile
+[Export Connection Info]
+[Bağlantı Bilgilerini Dışa Aktar]
+key:ExtendLicenseInfoControl
+[Extend License]
+[Lisans Uzatma]
+key:ExtendTrial
+[Extend Trial]
+[Deneme Sürümünü Uzat]
 key:Extracting
 [Extracting {0}]
 [{0} açılıyor]
@@ -165,6 +204,12 @@ key:FirstName
 key:GetTrialLicense
 [Get Trial License]
 [Deneme Sürümü Al]
+key:GotError
+[Got Error]
+[Hata Alındı]
+key:GotErrorSubMessage
+[You can use buttons to resolve issue.]
+[Aşağıdaki butonları kullanarak sistemi kullanmaya devam edebilirsiniz.]
 key:HaveLicense
 [You are using activated copy of this product.]
 [Bu ürün lisanslı şekilde kullanılmaktadır.]
@@ -195,6 +240,9 @@ key:ImageMagickIsInstalled
 key:ImageMagickNotInstalledOnThisYouCanInsta
 [ImageMagick not installed on this. You can install ImageMagick to this computer]
 [ImageMagick bu yüklü değil. ImageMagick 'i bu bilgisayara yükleyebilirsiniz]
+key:ImportConnectionInfo
+[Import Connection Info]
+[Bağlantı Bilgilerini Al]
 key:IndexerCrawlsSourcesAndDoesOCROperationO
 [Indexer crawls sources and does OCR operation on files. There must be only one Indexer in a Celsus topology. Having more than one Indexer role will cause errors.]
 [Dizinleyici kaynakları geziniyor ve dosyalarda OCR işlemi yapar. Celsus topolojisi içinde yalnızca bir dizinleyici olmalıdır. Birden fazla dizinleyici rolü olması hatalara neden olur.]
@@ -230,7 +278,7 @@ key:InstallXPdfToolsToThisComputer
 [Bu bilgisayara XPdfTools yükleyin]
 key:IPAddresses
 [IP Addresses]
-[IP adresleri]
+[IP Adresleri]
 key:IsActive
 [Is Active]
 [Aktif Mi]
@@ -249,6 +297,27 @@ key:LastStartedDate
 key:LicenseCheckControl
 [Licensing]
 [Lisanslama]
+key:LicenseCracked
+[License Cracked]
+[Lisans Bozulmuş]
+key:LicenseExpired
+[License Expired]
+[Lisans Süresi Dolmuş]
+key:LicenseGracePeriodOver
+[License Grace Period Over]
+[Lisans Yetkisiz Kullanım Süresi Dolmuş]
+key:LicenseInfo
+[License Information]
+[License Bilgileri]
+key:LicenseInfoControl
+[License Information]
+[Lisans Bilgileri]
+key:LicenseInformation
+[License Information]
+[Lisans Bilgileri]
+key:LicenseSuspended
+[License Suspended]
+[Lisans Askıya Alınmış]
 key:Licensing
 [Licensing]
 [Lisanslama]
@@ -297,9 +366,24 @@ key:PleaseCheckIfDatabaseIsRunningAndCheckIf
 key:PleaseEnterAnySearchTerm
 [Please enter any search term]
 [Arama kriteri giriniz]
+key:PleaseEnterReasonToExtendYourTrial
+[Please enter reason to extend your trial]
+[Lütfen deneme sürümünü uzatma nedeninizi giriniz]
+key:ProductTrialHasExpired
+[Product trial has expired]
+[Ürün deneme süresi dolmuş]
 key:PurchaseNewLicense
 [Purchase New License]
 [Yeni Lisans Al]
+key:Reason
+[Reason]
+[Neden]
+key:RequestTrialLicenseControl
+[Request Trial License]
+[Deneme Sürümü Alma]
+key:ResetLicense
+[Reset License]
+[Lisansı Sıfırla]
 key:RolesError
 [Roles Error]
 [RolesError]
@@ -315,9 +399,21 @@ key:Searchtext
 key:SelectFolder
 [Select Folder]
 [Klasör Seç]
+key:SendErrorLog
+[Send Error Log]
+[Hata Kayıtlarını Gönder]
+key:SendRequest
+[Send Request]
+[İstek Gönder]
+key:SendRequestTrialExtend
+[e-Mail sent successfully. You will get an e-mail in a short time.]
+[e-Posta başarıyla gönderildi. Belirtiğiniz e-posta adresine en kısa sürede cevap dönülecektir.]
 key:Serial
 [Serial]
 [Seri Numarası]
+key:ServerId
+[Server Id]
+[Sunucu Kimliği]
 key:ServerNameOrIP
 [Server Name or IP]
 [ServerNameOrIP]
@@ -388,11 +484,11 @@ key:ThereIsNoItemsFoundForSearchTerm
 [There is no items found for search term]
 [Arama terimi için hiçbir öğe bulunamadı]
 key:ThereIsOneComputerInstalledDatabaseRoleY
-[There is one computer installed Database Role. You can see computer information below.]
-[Bir bilgisayar veritabanı rolü yüklü. Aşağıdaki bilgisayar bilgilerini görebilirsiniz.]
+[You can see computer with Database Role below.]
+[Veri Tabanı Rolüne sahip bilgisayar aşağıda listelenmiştir.]
 key:ThereIsOneComputerInstalledIndexerRoleYo
-[There is one computer installed Indexer Role. You can see computer information below.]
-[Bir bilgisayar Dizin Oluşturucusu rolü yüklü. Aşağıdaki bilgisayar bilgilerini görebilirsiniz.]
+[You can see computers with Indexer Role below.]
+[Indeksleme Rolüne sahip bilgisayarlar aşağıda listelenmiştir.]
 key:ThisIsTheFirstTimeYouUseCelsusCelsusNeed
 [This is the first time you use Celsus. Celsus needs some roles to be installed to operate. You can continue with clicking Open Detail button.]
 [Bu Celsus'u ilk kez kullanışınız. Celsus'un çalışması için bazı rollere ihtiyacı var. Detaylar düğmesiile işlemlere devam edebilirsiniz.]
@@ -432,9 +528,21 @@ key:TotalFileCount
 key:tr
 [Turkish]
 [Türkçe]
+key:TrialId
+[Trial Id]
+[Deneme Sürümü Numarası]
+key:TrialLicenseExpired
+[Trial License Expired]
+[Deneme Süresi Dolmuş]
+key:TrialLicenseExpiredSubMessage
+[You can use buttons to resolve issue.]
+[Aşağıdaki butonları kullanarak sistemi kullanmaya devam edebilirsiniz.]
 key:TrialLicenseInfo
 [You have trial license. It is unlimited]
 [Deneme sürümünü kullanıyorsunuz.]
+key:TrialLicenseInformation
+[Trial License Information]
+[Deneme Sürümü Bilgileri]
 key:UpdateCelsusDatabase
 [Update Celsus Database]
 [Celsus Veri Tabanını Güncelle]
@@ -450,6 +558,9 @@ key:ViewerRole
 key:ViewersCanSearchDatabaseYouCanHaveMoreTh
 [Viewers can search database. You can have more than one viewers in your topology.]
 [Görüntüleyiciler veritabanda arama yapabilir. Topolojinizde birden fazla izleyici olabilir.]
+key:ViewLicense
+[View License Information]
+[Lisansı İncele]
 key:WeCouldntGetRolesInformationFromDatabase
 [We couldn't get roles information from database.]
 [Veri tabanından rol bilgilerini alamadık.]
@@ -471,6 +582,15 @@ key:Workflows
 key:WorkflowToExecute
 [Workflow To Execute]
 [Yürütülecek İş Akışı]
+key:WrongProductId
+[Wrong Product Id]
+[Yanlış Ürün Kimliği]
+key:WrongProductKey
+[Wrong Product Key]
+[Yanlış Ürün Anahtarı]
+key:XAMLFiles
+[XAML Files]
+[XAML Dosyaları]
 key:XPdfToolsComponent
 [XPdfTools Component]
 [XPdfTools Bileşeni]
@@ -480,3 +600,12 @@ key:XPdfToolsIsInstalled
 key:XPdfToolsNotInstalledOnThisYouCanInstall
 [XPdfTools not installed on this. You can install XPdfTools to this computer]
 [XPdfTools bu yüklü değil. Bu bilgisayara XPdfTools yükleyebilirsiniz]
+key:YouHaveSuccessfullyActivatedYourLicenseP
+[You have successfully activated your license. Please close and re-open Celsus again.]
+[Lisansınızı başarıyla etkinleştirdiyseniz. Lütfen Celsus'u tekrar kapatın ve yeniden açın.]
+key:YouHaveSuccessfullyResettedLicenseInform
+[You have successfully resetted license information. Application will shut down it self. Please re-open Celsus again.]
+[Lisans bilgilerini başarıyla sıfırladınız. Uygulama kendini kapatacaktır. Lütfen Celsus'u yeniden açın.]
+key:YouHaveSuccessfullyStartedYourTrialLicen
+[You have successfully started your trial license. Application will shut down it self. Please re-open Celsus again.]
+[Deneme lisansınızı başarıyla başlatınız. Uygulama kendini kapatacaktır. Lütfen Celsus'u yeniden açın.]

@@ -36,7 +36,7 @@ namespace Celsus.Client.Controls.Management
             {
                 if (ServiceHelper.Instance.Status == ServiceHelperStatusEnum.Ok)
                 {
-                    if (RolesHelper.Instance.IndexerRoleComputerName == Environment.MachineName)
+                    if (RolesHelper.Instance.IsIndexerRoleThisComputer)
                     {
                         return ServiceHelper.Instance.ServiceControllerStatus.Value.ToString();
                     }

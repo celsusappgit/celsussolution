@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace Celsus.Client.Shared.Types
 {
-    public class ConnectionInfo : INotifyPropertyChanged
+    public class ConnectionInfo : BaseModel
     {
         SqlConnectionStringBuilder sqlConnectionStringBuilder = null;
 
@@ -55,6 +55,8 @@ namespace Celsus.Client.Shared.Types
                 sqlConnectionStringBuilder.IntegratedSecurity = value;
                 NotifyPropertyChanged(() => IntegratedSecurity);
                 NotifyPropertyChanged(() => UserIDEnabled);
+                NotifyPropertyChanged(() => GrdUsernameVisibility);
+                NotifyPropertyChanged(() => GrdPasswordVisibility);
                 NotifyPropertyChanged(() => PasswordEnabled);
                 NotifyPropertyChanged(() => IsOK);
                 NotifyPropertyChanged(() => PasswordErrorVisibility);
@@ -80,6 +82,22 @@ namespace Celsus.Client.Shared.Types
             get
             {
                 return IntegratedSecurity == false;
+            }
+        }
+
+        public Visibility GrdUsernameVisibility
+        {
+            get
+            {
+                return IntegratedSecurity == false ? Visibility.Visible : Visibility.Hidden;
+            }
+        }
+
+        public Visibility GrdPasswordVisibility
+        {
+            get
+            {
+                return IntegratedSecurity == false ? Visibility.Visible : Visibility.Hidden;
             }
         }
 
@@ -180,12 +198,14 @@ namespace Celsus.Client.Shared.Types
             set
             {
                 sqlConnectionStringBuilder.ConnectionString = value;
-                NotifyPropertyChanged(() => ConnectionString);
-                NotifyPropertyChanged(() => InitialCatalog);
-                NotifyPropertyChanged(() => Password);
-                NotifyPropertyChanged(() => UserID);
-                NotifyPropertyChanged(() => IntegratedSecurity);
-                NotifyPropertyChanged(() => IsOK);
+                //NotifyPropertyChanged(() => ConnectionString);
+                //NotifyPropertyChanged(() => InitialCatalog);
+                //NotifyPropertyChanged(() => Password);
+                //NotifyPropertyChanged(() => UserID);
+                //NotifyPropertyChanged(() => Server);
+                //NotifyPropertyChanged(() => IntegratedSecurity);
+                //NotifyPropertyChanged(() => IsOK);
+                NotifyPropertyChanged("");
             }
         }
 
@@ -275,13 +295,5 @@ namespace Celsus.Client.Shared.Types
             }
         }
 
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void NotifyPropertyChanged<T>(Expression<Func<T>> exp)
-        {
-            var memberExpression = (MemberExpression)exp.Body;
-            string propertyName = memberExpression.Member.Name;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

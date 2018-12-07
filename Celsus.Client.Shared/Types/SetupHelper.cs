@@ -77,7 +77,7 @@ namespace Celsus.Client.Shared.Types
             }
             else
             {
-                if (RolesHelper.Instance.DatabaseRoleCount == 1 && RolesHelper.Instance.IndexerRoleCount==1)
+                if (RolesHelper.Instance.DatabaseRoleCount == 1 && RolesHelper.Instance.IndexerRoleCount >= 1)
                 {
 
                 }
@@ -108,6 +108,6 @@ namespace Celsus.Client.Shared.Types
 
         }
 
-        
+
     }
 }

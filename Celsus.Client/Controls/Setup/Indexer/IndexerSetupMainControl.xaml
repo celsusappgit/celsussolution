@@ -513,9 +513,9 @@
                             </DockPanel>
                         </Border>
                     </Grid>
-                    <Border DockPanel.Dock="Bottom" Padding="24,12" Background="{StaticResource Back01_03}" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" Visibility="{Binding StatusVisibility}">
+                    <!--<Border DockPanel.Dock="Bottom" Padding="24,12" Background="{StaticResource Back01_03}" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" Visibility="{Binding StatusVisibility}">
                         <ContentPresenter TextElement.FontFamily="Montserrat Light" TextElement.FontSize="12" Content="{Binding Status}"></ContentPresenter>
-                    </Border>
+                    </Border>-->
 
                 </StackPanel>
             </Border>

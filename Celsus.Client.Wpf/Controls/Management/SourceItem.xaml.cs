@@ -1,4 +1,5 @@
-﻿using Celsus.DataLayer;
+﻿using Celsus.Client.Shared.Types;
+using Celsus.DataLayer;
 using Celsus.Types;
 using System;
 using System.Collections.Generic;
@@ -114,6 +115,7 @@ namespace Celsus.Client.Wpf.Controls.Management
                             BorderFileTypes.IsEnabled = true;
                             return;
                         }
+                        SourceDto.ServerId = ComputerHelper.Instance.ServerId;
                         context.Sources.Add(SourceDto);
                         var saveResult = await context.SaveChangesAsync();
                         if (saveResult == 1)

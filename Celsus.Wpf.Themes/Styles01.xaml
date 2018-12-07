@@ -250,7 +250,7 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="IsThreeState" Value="False"/>
         <Setter Property="Margin" Value="2,6"/>
-        <Setter Property="telerik:StyleManager.Theme" Value="{StaticResource Theme}"/>
+        <Setter Property="telerik:StyleManager.Theme" Value="Fluent"/>
     </Style>
 
     <Style x:Key="TextBlockHeader01" TargetType="{x:Type TextBlock}">

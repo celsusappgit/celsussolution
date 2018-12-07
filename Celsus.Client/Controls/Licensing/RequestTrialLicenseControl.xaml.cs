@@ -257,19 +257,21 @@ namespace Celsus.Client.Controls.Licensing
                     {
                         IsBusy = false;
                         SendErrorLogVisibility = Visibility.Visible;
-                        Status = "Error setting trial activation data".ConvertToBindableText();
+                        Status = "ErrorSettingTrialActivationData".ConvertToBindableText();
                     }));
 
                     var statusEnum = (StatusCodesEnum)status;
 
                     logger.Trace($"Error setting trial activation data {statusEnum}");
+
+                    IsBusy = false;
                 }
                 else
                 {
                     var statusEnum = (StatusCodesEnum)status;
                     if (statusEnum == StatusCodesEnum.LA_TRIAL_EXPIRED)
                     {
-                        Status = "Product trial has expired.".ConvertToBindableText();
+                        Status = "ProductTrialHasExpired".ConvertToBindableText();
                         CloseWindowVisibility = Visibility.Visible;
                     }
                     else
@@ -277,14 +279,21 @@ namespace Celsus.Client.Controls.Licensing
                         Status = "ErrorOccuredErrorCode".ConvertToBindableText(statusEnum);
                         CloseWindowVisibility = Visibility.Visible;
                     }
+
+                    IsBusy = false;
                 }
             }
             else
             {
-                var s = "You have successfully started your trial license. Application will shut down it self. Please re-open Celsus again.";
-                Status =s.ConvertToBindableText();
+                Status = "YouHaveSuccessfullyStartedYourTrialLicen".ConvertToBindableText();
                 IsBusy = false;
-                RadWindow.Alert(new DialogParameters() { Content = s, DialogStartupLocation = WindowStartupLocation.CenterOwner, Header = TranslationSource.Instance["Success"], Owner = App.Current.MainWindow, Closed = AlertClosed });
+
+                var textBlock = "YouHaveSuccessfullyStartedYourTrialLicen".ConvertToBindableText();
+                textBlock.TextWrapping = TextWrapping.WrapWithOverflow;
+                textBlock.Height = 200;
+                textBlock.Width = 400;
+
+                RadWindow.Alert(new DialogParameters() { Content = textBlock, DialogStartupLocation = WindowStartupLocation.CenterOwner, Header = TranslationSource.Instance["Success"], Owner = App.Current.MainWindow, Closed = AlertClosed });
             }
             NotifyPropertyChanged(() => ActivateTrialLicenseCommand);
         }

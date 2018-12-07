@@ -50,7 +50,7 @@ namespace Celsus.Client.Types.Models
 
         private bool CanEdit(object obj)
         {
-            return true;
+            return SourceDto.ServerId == ComputerHelper.Instance.ServerId;
         }
 
         private void Edit(object obj)

@@ -42,6 +42,10 @@ namespace Celsus.Client
             DataContext = FirstWindowModel.Instance;
             //FirstWindowModel.Instance.Init();
 
+#if DEBUG
+            Width = 1280;
+            Height = 1024;
+#endif
 
         }
 
@@ -216,6 +220,53 @@ namespace Celsus.Client
             }
         }
 
+
+
+        ICommand helpCommand;
+        public ICommand HelpCommand
+        {
+            get
+            {
+                if (helpCommand == null)
+                    helpCommand = new RelayCommand(param => Help(param), param => { return true; });
+                return helpCommand;
+            }
+        }
+
+        private void Help(object param)
+        {
+            string target = "https://celsus.gitbook.io/project/";
+            if (SelectedTabItem != null && SelectedTabItem.Content != null)
+            {
+                var helpKeywords = SelectedTabItem.Content.GetType().GetAttributeValue((HelpAttribute attribute) => attribute.HelpKeywords);
+                var url = SelectedTabItem.Content.GetType().GetAttributeValue((HelpAttribute attribute) => attribute.Url);
+                if (string.IsNullOrWhiteSpace(url) == false)
+                {
+                    target = url;
+                }
+                else
+                {
+                    if (string.IsNullOrWhiteSpace(helpKeywords) == false)
+                    {
+                        target = target + "?q=" + helpKeywords;
+                    }
+                }
+            }
+
+            try
+            {
+                System.Diagnostics.Process.Start(target);
+            }
+            catch (System.ComponentModel.Win32Exception noBrowser)
+            {
+                if (noBrowser.ErrorCode == -2147467259) ;
+            }
+            catch (Exception other)
+            {
+            }
+
+        }
+
         private void SystemMonitor(object obj)
         {
             OpenTabItem(typeof(SystemMonitorControl));
@@ -269,12 +320,31 @@ namespace Celsus.Client
 
             if (SettingsHelper.Instance.Status == SettingsHelperStatusEnum.DontHaveSettingsFile)
             {
-
                 OpenTabItem(typeof(SetupMainControl));
             }
-            else
+            else if (LicenseHelper.Instance.Status == LicenseHelperStatusEnum.ComputerClockCracked
+                    ||
+                    LicenseHelper.Instance.Status == LicenseHelperStatusEnum.ComputerClockError
+                    ||
+                    LicenseHelper.Instance.Status == LicenseHelperStatusEnum.DontHaveLicense
+                    ||
+                    LicenseHelper.Instance.Status == LicenseHelperStatusEnum.GotError
+                    ||
+                    LicenseHelper.Instance.Status == LicenseHelperStatusEnum.LicenseCracked
+                    ||
+                    LicenseHelper.Instance.Status == LicenseHelperStatusEnum.LicenseExpired
+                    ||
+                    LicenseHelper.Instance.Status == LicenseHelperStatusEnum.LicenseGracePeriodOver
+                    ||
+                    LicenseHelper.Instance.Status == LicenseHelperStatusEnum.LicenseSuspended
+                    ||
+                    LicenseHelper.Instance.Status == LicenseHelperStatusEnum.TrialLicenseExpired
+                    ||
+                    LicenseHelper.Instance.Status == LicenseHelperStatusEnum.WrongProductId
+                    ||
+                    LicenseHelper.Instance.Status == LicenseHelperStatusEnum.WrongProductKey)
             {
-
+                OpenTabItem(typeof(SetupMainControl));
             }
             //if (LicenseHelper.Instance.Status == LicenseHelperStatusEnum.DontHaveLicense)
             //{

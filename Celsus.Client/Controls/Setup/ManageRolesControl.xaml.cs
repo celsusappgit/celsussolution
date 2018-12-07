@@ -1,6 +1,7 @@
 ﻿using Celsus.Client.Controls.Setup.Database;
 using Celsus.Client.Shared.Types;
 using Celsus.Client.Types;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,6 +44,35 @@ namespace Celsus.Client.Controls.Setup
                     return Visibility.Visible;
                 }
                 return Visibility.Collapsed;
+            }
+        }
+
+        ICommand getSettingsFileCommand;
+        public ICommand GetSettingsFileCommand
+        {
+            get
+            {
+                if (getSettingsFileCommand == null)
+                    getSettingsFileCommand = new RelayCommand(param => GetSettingsFile(param), param => { return true; });
+                return getSettingsFileCommand;
+            }
+        }
+
+        private void GetSettingsFile(object param)
+        {
+            var encryptedInfo = EncryptionHelper.Encrypt(SettingsHelper.Instance.ConnectionString);
+            OpenFileDialog myDialog = new OpenFileDialog
+            {
+                Filter = LocHelper.GetWord("CelsusInfoFiles") + " (*.clsinfo)|*.clsinfo",
+                CheckFileExists = false,
+                Multiselect = false
+            };
+            if (myDialog.ShowDialog() == true)
+            {
+                if (!string.IsNullOrWhiteSpace(myDialog.FileName))
+                {
+                    System.IO.File.WriteAllText(myDialog.FileName, encryptedInfo);
+                }
             }
         }
 
@@ -98,7 +128,7 @@ namespace Celsus.Client.Controls.Setup
                 Owner = (App.Current.MainWindow as FirstWindow),
                 Content = connectionStringControl,
                 SizeToContent = false,
-                Width = (App.Current.MainWindow as FirstWindow).Width *0.8,
+                Width = (App.Current.MainWindow as FirstWindow).Width * 0.8,
                 Height = (App.Current.MainWindow as FirstWindow).Height * 0.8,
                 Header = "ConnectionStringControl".ConvertToBindableText()
             };

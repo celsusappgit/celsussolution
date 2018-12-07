@@ -32,6 +32,14 @@
                                         <TextBlock Text="{types:Loc Close}" Style="{StaticResource ButtonTextBlock}" />
                                     </HeaderedContentControl>
                                 </telerik:RadButton>
+                                <telerik:RadButton Style="{DynamicResource FormButtonInner}" Command="{Binding ImportSettingsFileCommand}" >
+                                    <HeaderedContentControl Style="{DynamicResource HeaderedContentControlStyle2}">
+                                        <HeaderedContentControl.Header>
+                                            <Path Data="{DynamicResource Geoarrow-right-bold-circle}" Style="{StaticResource ButtonPath}" />
+                                        </HeaderedContentControl.Header>
+                                        <TextBlock Text="{loc:Loc ImportConnectionInfo}" Style="{StaticResource ButtonTextBlock}" />
+                                    </HeaderedContentControl>
+                                </telerik:RadButton>
                                 <telerik:RadButton Style="{DynamicResource FormButtonInner}" Command="{Binding CheckConnectionCommand}" >
                                     <HeaderedContentControl Style="{DynamicResource HeaderedContentControlStyle2}">
                                         <HeaderedContentControl.Header>
@@ -50,7 +58,7 @@
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Content="{loc:Loc ServerNameOrIP}" Style="{DynamicResource Label01}"/>
-                                <telerik:RadMaskedTextInput Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding ConnectionInfo.Server}"  />
+                                <telerik:RadMaskedTextInput Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding ConnectionInfo.Server, Mode=TwoWay}"  />
                                 <Path Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource Accent01_03}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3" Visibility="{Binding ConnectionInfo.ServerErrorVisibility}"></Path>
                             </Grid>
                             <Grid Style="{DynamicResource Grid01}">
@@ -62,24 +70,24 @@
                                 <Label Grid.Column="0" Content="{loc:Loc UseIntegratedSecurity}" Style="{DynamicResource Label01}"/>
                                 <CheckBox Grid.Column="1" Style="{DynamicResource CheckBox01}" IsChecked="{Binding Path=ConnectionInfo.IntegratedSecurity, Mode=TwoWay}"/>
                             </Grid>
-                            <Grid Style="{DynamicResource Grid01}">
+                            <Grid Style="{DynamicResource Grid01}" Visibility="{Binding ConnectionInfo.GrdUsernameVisibility}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
                                     <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Content="{loc:Loc Username}" Style="{DynamicResource Label01}"/>
-                                <telerik:RadMaskedTextInput Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding ConnectionInfo.UserID}" IsEnabled="{Binding ConnectionInfo.UserIDEnabled}" />
+                                <telerik:RadMaskedTextInput Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding ConnectionInfo.UserID, Mode=TwoWay}" IsEnabled="{Binding ConnectionInfo.UserIDEnabled}" />
                                 <Path Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource Accent01_03}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3" Visibility="{Binding ConnectionInfo.UserIDErrorVisibility}"></Path>
                             </Grid>
-                            <Grid Style="{DynamicResource Grid01}">
+                            <Grid Style="{DynamicResource Grid01}" Visibility="{Binding ConnectionInfo.GrdPasswordVisibility}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="Column01"></ColumnDefinition>
                                     <ColumnDefinition SharedSizeGroup="Column02"></ColumnDefinition>
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="Column03"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Content="{loc:Loc Password}" Style="{DynamicResource Label01}"/>
-                                <telerik:RadMaskedTextInput x:Name="TxtLastName" Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding ConnectionInfo.Password}" IsEnabled="{Binding ConnectionInfo.PasswordEnabled}"/>
+                                <telerik:RadMaskedTextInput x:Name="TxtLastName" Grid.Column="1" Style="{DynamicResource RadMaskedTextInput01}" Value="{Binding ConnectionInfo.Password, Mode=TwoWay}" IsEnabled="{Binding ConnectionInfo.PasswordEnabled}"/>
                                 <Path x:Name="TxtLastNameError" Grid.Column="2" Style="{StaticResource alert-circle}" Fill="{StaticResource Accent01_03}" VerticalAlignment="Center" Height="16" Stretch="Uniform" Margin="6,0,0,0" Opacity="0.3" Visibility="{Binding ConnectionInfo.PasswordErrorVisibility}"></Path>
                             </Grid>
                            

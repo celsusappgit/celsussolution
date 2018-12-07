@@ -163,6 +163,9 @@
     <Compile Include="Controls\Licensing\EnterSerialControl.xaml.cs">
       <DependentUpon>EnterSerialControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Licensing\ExtendLicenseInfoControl.xaml.cs">
+      <DependentUpon>ExtendLicenseInfoControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Licensing\LicenseInfoControl.xaml.cs">
       <DependentUpon>LicenseInfoControl.xaml</DependentUpon>
     </Compile>
@@ -199,8 +202,11 @@
       <DependentUpon>SetupMainControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Types\Converters\Enum2LocalizedValueConverter.cs" />
+    <Compile Include="Types\Converters\NullToBooleanConverter.cs" />
+    <Compile Include="Types\Converters\VisibilityInverseConverter.cs" />
     <Compile Include="Types\CustomAnalitycsMonitor.cs" />
     <Compile Include="Types\Extensions.cs" />
+    <Compile Include="Types\HelpAttribute.cs" />
     <Compile Include="Types\Models\Repo.cs" />
     <Compile Include="Types\Models\SourceModel.cs" />
     <Compile Include="Types\Models\WorkflowModel.cs" />
@@ -222,6 +228,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Licensing\EnterSerialControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Licensing\ExtendLicenseInfoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -326,11 +336,20 @@
     <None Include="Resources\Languages\strings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <SplashScreen Include="Resources\Images\Splash01.jpg" />
-    <Content Include="Resources\Lex\msvcp100_64.dll" />
-    <Content Include="Resources\Lex\msvcp100_86.dll" />
-    <Content Include="Resources\Lex\msvcr100_64.dll" />
-    <Content Include="Resources\Lex\msvcr100_86.dll" />
+    <None Include="Resources\Images\Splash01.jpg" />
+    <SplashScreen Include="Resources\Images\Splash02.jpg" />
+    <Content Include="Resources\Lex\msvcp100_64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Lex\msvcp100_86.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Lex\msvcr100_64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Lex\msvcr100_86.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Lex\Product.dat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -39,6 +39,8 @@ namespace Celsus.Client.Controls.Setup.Database
 
         public DatabaseHelper DatabaseHelper { get { return DatabaseHelper.Instance; } }
 
+        public RolesHelper RolesHelper { get { return RolesHelper.Instance; } }
+
         object installStatus;
         public object InstallStatus
         {
@@ -176,14 +178,23 @@ namespace Celsus.Client.Controls.Setup.Database
             get
             {
                 if (setAsDatabaseRoleCommand == null)
-                    setAsDatabaseRoleCommand = new RelayCommand(param => SetAsDatabaseRole(param), param => { return !IsBusy; });
+                    setAsDatabaseRoleCommand = new RelayCommand(param => SetAsDatabaseRole(param), param => { return !IsBusy;  });
                 return setAsDatabaseRoleCommand;
             }
         }
 
         private async void SetAsDatabaseRole(object param)
         {
-            await RolesHelper.Instance.AddServerRole(Celsus.Types.ServerRoleEnum.Database);
+            IsBusy = true;
+            try
+            {
+                await RolesHelper.Instance.AddServerRole(Celsus.Types.ServerRoleEnum.Database);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            IsBusy = false;
         }
 
         ICommand updateCelsusDatabaseCommand;
@@ -238,7 +249,7 @@ namespace Celsus.Client.Controls.Setup.Database
             newWindow.ShowDialog();
             if (DatabaseHelper.Instance.Status == DatabaseHelperStatusEnum.CelsusDatabaseReachable)
             {
-
+                
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using Celsus.Client.Shared.Lex;
 using Celsus.Client.Shared.Types;
 using Celsus.Client.Types;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -75,6 +76,60 @@ namespace Celsus.Client.Controls.Setup.Database
                 if (Equals(value, isBusy)) return;
                 isBusy = value;
                 NotifyPropertyChanged(() => IsBusy);
+            }
+        }
+
+        ICommand closeWindowCommand;
+        public ICommand CloseWindowCommand
+        {
+            get
+            {
+                if (closeWindowCommand == null)
+                    closeWindowCommand = new RelayCommand(param => CloseWindow(param), param => { return true; });
+                return closeWindowCommand;
+            }
+        }
+
+        private void CloseWindow(object param)
+        {
+            RadWindowManager.Current.GetWindows().Last().Close();
+        }
+
+        ICommand importSettingsFileCommand;
+        public ICommand ImportSettingsFileCommand
+        {
+            get
+            {
+                if (importSettingsFileCommand == null)
+                    importSettingsFileCommand = new RelayCommand(param => ImportSettingsFile(param), param => { return true; });
+                return importSettingsFileCommand;
+            }
+        }
+
+        private void ImportSettingsFile(object param)
+        {
+            var encryptedInfo = string.Empty;
+            OpenFileDialog myDialog = new OpenFileDialog
+            {
+                Filter = LocHelper.GetWord("CelsusInfoFiles") + " (*.clsinfo)|*.clsinfo",
+                CheckFileExists = true,
+                Multiselect = false
+            };
+            if (myDialog.ShowDialog() == true)
+            {
+                if (!string.IsNullOrWhiteSpace(myDialog.FileName))
+                {
+                    encryptedInfo= System.IO.File.ReadAllText(myDialog.FileName);
+                }
+            }
+            if (string.IsNullOrWhiteSpace(encryptedInfo) == false)
+            {
+                var decryptedInfo = EncryptionHelper.Decrypt(encryptedInfo);
+                if (string.IsNullOrWhiteSpace(decryptedInfo) == false)
+                {
+                    ConnectionInfo.ConnectionString = decryptedInfo;
+                    CheckConnection(null);
+                }
             }
         }
 

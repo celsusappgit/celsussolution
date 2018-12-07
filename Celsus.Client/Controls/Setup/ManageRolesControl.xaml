@@ -6,12 +6,16 @@
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:types="clr-namespace:Celsus.Client.Shared.Types;assembly=Celsus.Client.Shared"
              xmlns:telerikControls="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls"
+             xmlns:converters="clr-namespace:Celsus.Client.Types.Converters"
              xmlns:mat="clr-namespace:Telerik.Windows.Controls.MaterialControls;assembly=Telerik.Windows.Controls" 
              xmlns:local="clr-namespace:Celsus.Client.Controls.Setup"
              xmlns:loc="clr-namespace:Celsus.Client.Types"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance local:ManageRolesControlModel}"
              d:DesignHeight="1900" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <converters:VisibilityInverseConverter x:Key="VisibilityInverseConverter"></converters:VisibilityInverseConverter>
+    </UserControl.Resources>
     <ScrollViewer VerticalAlignment="Stretch" BorderThickness="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" telerikControls:StyleManager.Theme="Fluent" Margin="0,0,0,0">
         <Grid Background="{StaticResource Back01_02}">
             <Border Style="{StaticResource BorderContent2}" >
@@ -33,7 +37,7 @@
                         </Grid.Style>
                         <mat:Shadow Background="White" ShadowDepth="Depth2"/>
                         <Border Padding="0" Background="{StaticResource Back01_01}">
-                            
+
                             <DockPanel>
                                 <Border Background="{StaticResource Accent02_03}">
                                     <Border Padding="6,0" >
@@ -105,13 +109,13 @@
                                                 <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding RolesHelper.DatabaseRoleCount}" Value="{x:Null}">
-                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding RolesHelper.DatabaseRoleCount}" Value="0">
-                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding RolesHelper.DatabaseRoleCount}" Value="1">
-                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -131,16 +135,51 @@
                                             </Style>
                                         </StackPanel.Style>
                                         <TextBlock Text="{loc:Loc ThereIsOneComputerInstalledDatabaseRoleY}" />
-                                        <StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,6">
-                                                <TextBlock TextTrimming="CharacterEllipsis"  Foreground="{StaticResource Fore01_02}" Text="{loc:Loc ComputerName}" ></TextBlock>
-                                                <TextBlock Margin="6,0,0,0" Foreground="{StaticResource Accent04_03}" Text="{Binding RolesHelper.DatabaseRoleComputerName}"></TextBlock>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
-                                                <TextBlock TextTrimming="CharacterEllipsis"  Foreground="{StaticResource Fore01_03}" Text="{loc:Loc IPAddresses}" ></TextBlock>
-                                                <TextBlock Margin="6,0,0,0" Foreground="{StaticResource Accent04_03}" Text="{Binding RolesHelper.DatabaseRoleComputerIP}"></TextBlock>
-                                            </StackPanel>
-                                        </StackPanel>
+                                        <Border Margin="0,6,0,6" Padding="12,12" Background="{StaticResource Back01_02}">
+                                            <DockPanel>
+                                                <telerik:RadButton Style="{StaticResource FormButtonInner}" DockPanel.Dock="Right" Margin="0" Command="{Binding GetSettingsFileCommand}" Content="{loc:Loc ExportSettingsFile}" />
+                                                <StackPanel Grid.IsSharedSizeScope="True" DataContext="{Binding RolesHelper.DatabaseRole}">
+                                                    <Grid Margin="0,2">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition SharedSizeGroup="DD1" Width="Auto"></ColumnDefinition>
+                                                            <ColumnDefinition></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock TextTrimming="CharacterEllipsis"  Foreground="{StaticResource Fore01_02}" Text="{loc:Loc ComputerName}" ></TextBlock>
+                                                        <TextBox HorizontalAlignment="Left" Grid.Column="1" Margin="4,0,0,0" Padding="2,0" IsReadOnly="True" Background="{StaticResource Back01_03}" VerticalAlignment="Center" Foreground="{StaticResource Accent04_03}" Text="{Binding ServerName}"></TextBox>
+                                                    </Grid>
+
+                                                    <Grid Margin="0,2">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition SharedSizeGroup="DD1" Width="Auto"></ColumnDefinition>
+                                                            <ColumnDefinition></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock TextTrimming="CharacterEllipsis"  Foreground="{StaticResource Fore01_02}" Text="{loc:Loc ServerId}" ></TextBlock>
+                                                        <TextBox HorizontalAlignment="Left" Grid.Column="1" Margin="4,0,0,0" Padding="2,0" IsReadOnly="True" Background="{StaticResource Back01_03}" VerticalAlignment="Center" Foreground="{StaticResource Accent04_03}" Text="{Binding ServerId}"></TextBox>
+                                                    </Grid>
+
+                                                    <Grid Margin="0,2">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition SharedSizeGroup="DD1" Width="Auto"></ColumnDefinition>
+                                                            <ColumnDefinition></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock TextTrimming="CharacterEllipsis"  Foreground="{StaticResource Fore01_03}" Text="{loc:Loc IPAddresses}" ></TextBlock>
+                                                        <ItemsControl Grid.Column="1" ItemsSource="{Binding ServerIPs}">
+                                                            <ItemsControl.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <WrapPanel Orientation="Horizontal" IsItemsHost="True"></WrapPanel>
+                                                                </ItemsPanelTemplate>
+                                                            </ItemsControl.ItemsPanel>
+                                                            <ItemsControl.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBox Text="{Binding Path=.}" Margin="4,0,0,0" Padding="2,0" IsReadOnly="True" Background="{StaticResource Back01_03}" VerticalAlignment="Center" Foreground="{StaticResource Accent04_03}"></TextBox>
+                                                                </DataTemplate>
+                                                            </ItemsControl.ItemTemplate>
+                                                        </ItemsControl>
+                                                    </Grid>
+
+                                                </StackPanel>
+                                            </DockPanel>
+                                        </Border>
                                     </StackPanel>
 
 
@@ -178,30 +217,21 @@
                         </Grid.Style>
                         <mat:Shadow Background="White" ShadowDepth="Depth2"/>
                         <Border Padding="0" Background="{StaticResource Back01_01}" >
-                            
+
                             <DockPanel>
                                 <Border Background="{StaticResource Accent02_03}">
-                                    <Border Padding="6,0" >
+                                    <Border Padding="6,0" Visibility="{Binding ElementName=BorderIndexerError, Path=Visibility, Converter={StaticResource VisibilityInverseConverter}}">
+
+                                    </Border>
+                                </Border>
+                                <Border Background="{StaticResource Accent07_03}">
+                                    <Border Padding="6,0" x:Name="BorderIndexerError">
                                         <Border.Style>
                                             <Style TargetType="Border">
                                                 <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding RolesHelper.IndexerRoleCount}" Value="1">
+                                                    <DataTrigger Binding="{Binding RolesHelper.IndexerRoleCount}" Value="0">
                                                         <Setter Property="Visibility" Value="Visible"></Setter>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Border.Style>
-                                    </Border>
-                                </Border>
-                                <Border Background="{StaticResource Accent07_03}">
-                                    <Border Padding="6,0" >
-                                        <Border.Style>
-                                            <Style TargetType="Border">
-                                                <Setter Property="Visibility" Value="Visible"></Setter>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding RolesHelper.IndexerRoleCount}" Value="1">
-                                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -213,10 +243,10 @@
                                         <Path Width="32" Stretch="UniformToFill" VerticalAlignment="Top" Margin="0,24,0,0"  >
                                             <Path.Style>
                                                 <Style TargetType="Path" BasedOn="{StaticResource cube}">
-                                                    <Setter Property="Fill" Value="{StaticResource Accent07_03}"></Setter>
+                                                    <Setter Property="Fill" Value="{StaticResource Accent02_03}"></Setter>
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding RolesHelper.IndexerRoleCount}" Value="1">
-                                                            <Setter Property="Fill" Value="{StaticResource Accent02_03}"></Setter>
+                                                        <DataTrigger Binding="{Binding RolesHelper.IndexerRoleCount}" Value="0">
+                                                            <Setter Property="Fill" Value="{StaticResource Accent07_03}"></Setter>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -228,7 +258,7 @@
                                 <Border DockPanel.Dock="Top" Margin="24,24,24,12"  >
                                     <TextBlock Text="{loc:Loc IndexerRole}" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
                                 </Border>
-                                <StackPanel DockPanel.Dock="Top" Grid.IsSharedSizeScope="True" Margin="24,12,24,24">
+                                <StackPanel DockPanel.Dock="Top"  Margin="24,12,24,24">
                                     <StackPanel>
                                         <StackPanel.Style>
                                             <Style TargetType="StackPanel">
@@ -244,48 +274,70 @@
                                         <TextBlock Text="{loc:Loc ToInstallIndexerRoleToThisComputerClickA}"></TextBlock>
                                     </StackPanel>
 
-                                    <TextBlock TextWrapping="WrapWithOverflow" Text=">{loc:Loc MoreThanOneIndexerRoleInstalled}">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Visibility" Value="Visible"></Setter>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding RolesHelper.IndexerRoleCount}" Value="{x:Null}">
-                                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding RolesHelper.IndexerRoleCount}" Value="0">
-                                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding RolesHelper.IndexerRoleCount}" Value="1">
-                                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
+
 
 
                                     <StackPanel>
                                         <StackPanel.Style>
                                             <Style TargetType="StackPanel">
-                                                <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
+                                                <Setter Property="Visibility" Value="Visible"></Setter>
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding RolesHelper.IndexerRoleCount}" Value="1">
-                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                    <DataTrigger Binding="{Binding RolesHelper.IndexerRoleCount}" Value="0">
+                                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </StackPanel.Style>
                                         <TextBlock Text="{loc:Loc ThereIsOneComputerInstalledIndexerRoleYo}" />
-                                        <StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,6">
-                                                <TextBlock TextTrimming="CharacterEllipsis"  Foreground="{StaticResource Fore01_02}" Text="{loc:Loc ComputerName}" ></TextBlock>
-                                                <TextBlock Margin="6,0,0,0" Foreground="{StaticResource Accent04_03}" Text="{Binding RolesHelper.IndexerRoleComputerName}"></TextBlock>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
-                                                <TextBlock TextTrimming="CharacterEllipsis"  Foreground="{StaticResource Fore01_03}" Text="{loc:Loc IPAddresses}" ></TextBlock>
-                                                <TextBlock Margin="6,0,0,0" Foreground="{StaticResource Accent04_03}" Text="{Binding RolesHelper.IndexerRoleComputerIP}"></TextBlock>
-                                            </StackPanel>
-                                        </StackPanel>
+                                        <ItemsControl ItemsSource="{Binding RolesHelper.IndexerRoles}" Margin="0,6,0,0">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate DataType="{x:Type types:ComputerInformationModel}">
+                                                    <Border Margin="0,0,0,6" Padding="12,12" Background="{StaticResource Back01_02}">
+                                                        <StackPanel Grid.IsSharedSizeScope="True">
+                                                            <Grid Margin="0,2">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition SharedSizeGroup="DD1" Width="Auto"></ColumnDefinition>
+                                                                    <ColumnDefinition></ColumnDefinition>
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBlock TextTrimming="CharacterEllipsis"  Foreground="{StaticResource Fore01_02}" Text="{loc:Loc ComputerName}" ></TextBlock>
+                                                                <TextBox HorizontalAlignment="Left" Grid.Column="1" Margin="4,0,0,0" Padding="2,0" IsReadOnly="True" Background="{StaticResource Back01_03}" VerticalAlignment="Center" Foreground="{StaticResource Accent04_03}" Text="{Binding ServerName}"></TextBox>
+                                                            </Grid>
+
+                                                            <Grid Margin="0,2">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition SharedSizeGroup="DD1" Width="Auto"></ColumnDefinition>
+                                                                    <ColumnDefinition></ColumnDefinition>
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBlock TextTrimming="CharacterEllipsis"  Foreground="{StaticResource Fore01_02}" Text="{loc:Loc ServerId}" ></TextBlock>
+                                                                <TextBox HorizontalAlignment="Left" Grid.Column="1" Margin="4,0,0,0" Padding="2,0" IsReadOnly="True" Background="{StaticResource Back01_03}" VerticalAlignment="Center" Foreground="{StaticResource Accent04_03}" Text="{Binding ServerId}"></TextBox>
+                                                            </Grid>
+
+                                                            <Grid Margin="0,2">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition SharedSizeGroup="DD1" Width="Auto"></ColumnDefinition>
+                                                                    <ColumnDefinition></ColumnDefinition>
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBlock TextTrimming="CharacterEllipsis"  Foreground="{StaticResource Fore01_03}" Text="{loc:Loc IPAddresses}" ></TextBlock>
+                                                                <ItemsControl Grid.Column="1" ItemsSource="{Binding ServerIPs}">
+                                                                    <ItemsControl.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <WrapPanel Orientation="Horizontal" IsItemsHost="True"></WrapPanel>
+                                                                        </ItemsPanelTemplate>
+                                                                    </ItemsControl.ItemsPanel>
+                                                                    <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <TextBox Text="{Binding Path=.}" Margin="4,0,0,0" Padding="2,0" IsReadOnly="True" Background="{StaticResource Back01_03}" VerticalAlignment="Center" Foreground="{StaticResource Accent04_03}"></TextBox>
+                                                                        </DataTemplate>
+                                                                    </ItemsControl.ItemTemplate>
+                                                                </ItemsControl>
+                                                            </Grid>
+
+                                                        </StackPanel>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+
                                     </StackPanel>
 
 
@@ -294,7 +346,7 @@
                                             <Style TargetType="telerik:RadButton" BasedOn="{StaticResource FormButtonInner}">
                                                 <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding RolesHelper.IndexerRoleCount}" Value="0">
+                                                    <DataTrigger Binding="{Binding RolesHelper.IsIndexerRoleThisComputer}" Value="False">
                                                         <Setter Property="Visibility" Value="Visible"></Setter>
                                                     </DataTrigger>
                                                 </Style.Triggers>
@@ -319,7 +371,7 @@
                         </Grid.Style>
                         <mat:Shadow Background="White" ShadowDepth="Depth2"/>
                         <Border Padding="0" Background="{StaticResource Back01_01}">
-                            
+
                             <DockPanel>
                                 <Border Background="{StaticResource Accent07_03}">
                                     <Border Padding="6,0" >
@@ -377,14 +429,14 @@
                         </Grid.Style>
                         <mat:Shadow Background="White" ShadowDepth="Depth2"/>
                         <Border Padding="0" Background="{StaticResource Back01_01}">
-                            
+
                             <DockPanel>
                                 <Border Background="{StaticResource Accent07_03}">
                                     <Border Padding="6,0" >
                                     </Border>
                                 </Border>
                                 <Border DockPanel.Dock="Top" Margin="24,24,24,12"  >
-                                    <TextBlock Text="Database Connection Error" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
+                                    <TextBlock Text="{loc:Loc DatabaseConnectionError}" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
                                 </Border>
                                 <StackPanel DockPanel.Dock="Top" Grid.IsSharedSizeScope="True" Margin="24,12,24,24">
                                     <TextBlock TextWrapping="WrapWithOverflow" Margin="0,6"  Foreground="{StaticResource Fore01_03}">
@@ -427,7 +479,7 @@
                         </Grid.Style>
                         <mat:Shadow Background="White" ShadowDepth="Depth2"/>
                         <Border Padding="0" Background="{StaticResource Back01_01}">
-                            
+
                             <DockPanel>
                                 <Border Background="{StaticResource Accent07_03}">
                                     <Border Padding="6,0" >

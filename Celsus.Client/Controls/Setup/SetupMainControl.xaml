@@ -17,6 +17,7 @@
         <converters:Enum2LocalizedValueConverter x:Key="Enum2LocalizedValueConverter"></converters:Enum2LocalizedValueConverter>
         <converters:Enum2LocalizedValue2Converter x:Key="Enum2LocalizedValue2Converter"></converters:Enum2LocalizedValue2Converter>
         <converters:String2LocalizedValueConverter x:Key="String2LocalizedValueConverter"></converters:String2LocalizedValueConverter>
+        <converters:VisibilityInverseConverter x:Key="VisibilityInverseConverter"></converters:VisibilityInverseConverter>
         <converters:String2LocalizedValue2Converter x:Key="String2LocalizedValue2Converter"></converters:String2LocalizedValue2Converter>
     </UserControl.Resources>
     <Grid Background="{StaticResource Back01_02}">
@@ -26,7 +27,7 @@
                     <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,0,0,24">
                         <mat:Shadow Background="White" ShadowDepth="Depth2"/>
                         <Border Padding="0" Background="{StaticResource Back01_01}">
-                            <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" Style="{StaticResource RadBusyIndicator}">
+                            <telerik:RadBusyIndicator IsBusy="{Binding IsBusyLicensing}" Style="{StaticResource RadBusyIndicator}">
                                 <DockPanel>
                                     <Border Background="{StaticResource Accent02_03}">
                                         <Border Padding="6,0" >
@@ -101,17 +102,20 @@
 
                                         <!--<TextBlock Text="{Binding LicenseHelper.SubStatus, Converter={StaticResource String2LocalizedValueConverter}}" TextWrapping="Wrap" Style="{StaticResource TextBlockHeader03}"></TextBlock>-->
 
-                                        <ContentControl Content="{Binding LicenseHelper.SubStatus, Converter={StaticResource String2LocalizedValue2Converter}}">
-                                            <ContentControl.ContentTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Style="{StaticResource TextBlockHeader03}"></TextBlock>
-                                                </DataTemplate>
-                                            </ContentControl.ContentTemplate>
-                                        </ContentControl>
+                                        <ContentPresenter TextElement.FontFamily="Montserrat" Margin="0,0,0,12"   TextElement.FontSize="12" Content="{Binding SubMessage}">
+                                            <ContentPresenter.Resources>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                                </Style>
+                                            </ContentPresenter.Resources>
+
+                                        </ContentPresenter>
+
+
 
 
                                         <WrapPanel Orientation="Horizontal" Grid.IsSharedSizeScope="True">
-                                            <telerik:RadButton Margin="0,12,2,2" Command="{Binding GetTrialLicenseCommand}" Content="{loc:Loc GetTrialLicense}" >
+                                            <telerik:RadButton Margin="0,12,6,2" Command="{Binding GetTrialLicenseCommand}" Content="{loc:Loc GetTrialLicense}" >
                                                 <telerik:RadButton.Style>
                                                     <Style TargetType="telerik:RadButton" BasedOn="{StaticResource FormButtonInner}">
                                                         <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
@@ -123,7 +127,7 @@
                                                     </Style>
                                                 </telerik:RadButton.Style>
                                             </telerik:RadButton>
-                                            <telerik:RadButton Margin="0,12,2,2" Command="{Binding EnterLicenseKeyCommand}" Content="{loc:Loc EnterLicenseKey}">
+                                            <telerik:RadButton Margin="0,12,6,2" Command="{Binding EnterLicenseKeyCommand}" Content="{loc:Loc EnterLicenseKey}">
                                                 <telerik:RadButton.Style>
                                                     <Style TargetType="telerik:RadButton" BasedOn="{StaticResource FormButtonInner}">
                                                         <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
@@ -141,7 +145,7 @@
                                                     </Style>
                                                 </telerik:RadButton.Style>
                                             </telerik:RadButton>
-                                            <telerik:RadButton Margin="0,12,2,2" Command="{Binding PurchaseNewLicenseCommand}" Content="{loc:Loc PurchaseNewLicense}" >
+                                            <telerik:RadButton Margin="0,12,6,2" Command="{Binding PurchaseNewLicenseCommand}" Content="{loc:Loc PurchaseNewLicense}" >
                                                 <telerik:RadButton.Style>
                                                     <Style TargetType="telerik:RadButton" BasedOn="{StaticResource FormButtonInner}">
                                                         <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
@@ -156,7 +160,7 @@
                                                     </Style>
                                                 </telerik:RadButton.Style>
                                             </telerik:RadButton>
-                                            <telerik:RadButton Margin="0,12,2,2" Command="{Binding EntendYourLicenseCommand}" Content="{loc:Loc EntendYourLicense}" >
+                                            <telerik:RadButton Margin="0,12,6,2" Command="{Binding EntendYourLicenseCommand}" Content="{loc:Loc EntendYourLicense}" >
                                                 <telerik:RadButton.Style>
                                                     <Style TargetType="telerik:RadButton" BasedOn="{StaticResource FormButtonInner}">
                                                         <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
@@ -164,12 +168,15 @@
                                                             <DataTrigger Binding="{Binding LicenseHelper.Instance.Status}" Value="{x:Static types:LicenseHelperStatusEnum.LicenseExpired}">
                                                                 <Setter Property="Visibility" Value="Visible"></Setter>
                                                             </DataTrigger>
+                                                            <DataTrigger Binding="{Binding LicenseHelper.Instance.Status}" Value="{x:Static types:LicenseHelperStatusEnum.TrialLicenseExpired}">
+                                                                <Setter Property="Visibility" Value="Visible"></Setter>
+                                                            </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
                                                 </telerik:RadButton.Style>
                                             </telerik:RadButton>
 
-                                            <telerik:RadButton Margin="0,12,2,2" Command="{Binding ViewLicenseCommand}" Content="{loc:Loc ViewLicense}" >
+                                            <telerik:RadButton Margin="0,12,6,2" Command="{Binding ViewLicenseCommand}" Content="{loc:Loc ViewLicense}" >
                                                 <telerik:RadButton.Style>
                                                     <Style TargetType="telerik:RadButton" BasedOn="{StaticResource FormButtonInner}">
                                                         <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
@@ -197,7 +204,7 @@
                                                 </telerik:RadButton.Style>
                                             </telerik:RadButton>
 
-                                            <telerik:RadButton Margin="0,12,2,2" Command="{Binding ResetLicenseCommand}" Content="{loc:Loc ResetLicense}" >
+                                            <telerik:RadButton Margin="0,12,6,2" Command="{Binding ResetLicenseCommand}" Content="{loc:Loc ResetLicense}" >
                                                 <telerik:RadButton.Style>
                                                     <Style TargetType="telerik:RadButton" BasedOn="{StaticResource FormButtonInner}">
                                                         <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
@@ -218,6 +225,19 @@
                                                                 <Setter Property="Visibility" Value="Visible"></Setter>
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding LicenseHelper.Instance.Status}" Value="{x:Static types:LicenseHelperStatusEnum.LicenseSuspended}">
+                                                                <Setter Property="Visibility" Value="Visible"></Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </telerik:RadButton.Style>
+                                            </telerik:RadButton>
+
+                                            <telerik:RadButton Margin="0,12,6,2" Command="{Binding ResetLicenseCommand}" Content="{loc:Loc SendErrorLog}" >
+                                                <telerik:RadButton.Style>
+                                                    <Style TargetType="telerik:RadButton" BasedOn="{StaticResource FormButtonInner}">
+                                                        <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding LicenseHelper.Instance.Status}" Value="{x:Static types:LicenseHelperStatusEnum.GotError}">
                                                                 <Setter Property="Visibility" Value="Visible"></Setter>
                                                             </DataTrigger>
                                                         </Style.Triggers>
@@ -248,27 +268,27 @@
                         <Border Padding="0" Background="{StaticResource Back01_01}" >
                             <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" Style="{StaticResource RadBusyIndicator}">
                                 <DockPanel>
-                                    <Border Background="{StaticResource Accent02_03}">
+                                    <Border Background="{StaticResource Accent02_03}" Visibility="{Binding ElementName=BorderRolesError, Path=Visibility, Converter={StaticResource VisibilityInverseConverter}}">
                                         <Border Padding="6,0" >
-                                            <Border.Style>
-                                                <Style TargetType="Border">
-                                                    <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding RolesHelper.Status}" Value="{x:Static types:RolesHelperStatusEnum.RolesGetted}">
-                                                            <Setter Property="Visibility" Value="Visible"></Setter>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Border.Style>
+                                            
                                         </Border>
                                     </Border>
                                     <Border Background="{StaticResource Accent07_03}">
-                                        <Border Padding="6,0" >
+                                        <Border Padding="6,0" x:Name="BorderRolesError" >
                                             <Border.Style>
                                                 <Style TargetType="Border">
                                                     <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding RolesHelper.Status}" Value="{x:Static types:RolesHelperStatusEnum.CannotGetRoles}">
+                                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding RolesHelper.DatabaseRoleCount}" Value="0">
+                                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding RolesHelper.IndexerRoleCount}" Value="0">
+                                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding SettingsHelper.Status}" Value="{x:Static types:SettingsHelperStatusEnum.SettingsDidnotGet}">
                                                             <Setter Property="Visibility" Value="Visible"></Setter>
                                                         </DataTrigger>
                                                     </Style.Triggers>
@@ -385,7 +405,7 @@
 
                                         <WrapPanel Orientation="Horizontal" Grid.IsSharedSizeScope="True">
 
-                                            <telerik:RadButton Style="{StaticResource FormButtonInner}" Margin="0,12,2,2" Command="{Binding OpenTopologyCommand}" Content="{loc:Loc OpenDetails}" />
+                                            <telerik:RadButton Style="{StaticResource FormButtonInner}" Margin="0,12,6,2" Command="{Binding OpenTopologyCommand}" Content="{loc:Loc OpenDetails}" />
 
                                             <!--<telerik:RadButton Style="{DynamicResource  FormButtonInner}" Command="{Binding CloseWindowCommand}">
                                         <HeaderedContentControl Style="{DynamicResource HeaderedContentControlStyle1}">

@@ -20,6 +20,7 @@ using Telerik.Windows.Controls;
 
 namespace Celsus.Client.Controls.Setup
 {
+
     public class SetupMainControlModel : BaseModel<SetupMainControlModel>, MustInit
     {
         #region Members
@@ -69,7 +70,7 @@ namespace Celsus.Client.Controls.Setup
                 return Visibility.Collapsed;
             }
         }
-        
+
         //public object Message
         //{
         //    get
@@ -78,6 +79,20 @@ namespace Celsus.Client.Controls.Setup
         //    }
         //}
 
+        bool isBusyLicensing;
+        public bool IsBusyLicensing
+        {
+            get
+            {
+                return isBusyLicensing;
+            }
+            set
+            {
+                if (Equals(value, isBusyLicensing)) return;
+                isBusyLicensing = value;
+                NotifyPropertyChanged(() => IsBusyLicensing);
+            }
+        }
         public string TopologyMessage
         {
             get
@@ -204,14 +219,29 @@ namespace Celsus.Client.Controls.Setup
             get
             {
                 if (purchaseNewLicenseCommand == null)
-                    purchaseNewLicenseCommand = new RelayCommand(param => PurchaseNewLicense(param), param => { return false; });
+                    purchaseNewLicenseCommand = new RelayCommand(param => PurchaseNewLicense(param), param => CanPurchaseNewLicense());
                 return purchaseNewLicenseCommand;
             }
         }
 
+        private bool CanPurchaseNewLicense()
+        {
+            return LicenseHelper.Instance.Status == LicenseHelperStatusEnum.DontHaveLicense || LicenseHelper.Instance.Status == LicenseHelperStatusEnum.HaveTrialLicense;
+        }
+
         private void PurchaseNewLicense(object obj)
         {
-            ((App.Current.MainWindow as FirstWindow).DataContext as FirstWindowModel).OpenTabItem(typeof(EnterSerialControl));
+            try
+            {
+                System.Diagnostics.Process.Start("https://www.celsusapp.com/shop");
+            }
+            catch (System.ComponentModel.Win32Exception noBrowser)
+            {
+                if (noBrowser.ErrorCode == -2147467259) ;
+            }
+            catch (Exception other)
+            {
+            }
         }
 
         ICommand entendYourLicenseCommand;
@@ -220,15 +250,67 @@ namespace Celsus.Client.Controls.Setup
             get
             {
                 if (entendYourLicenseCommand == null)
-                    entendYourLicenseCommand = new RelayCommand(param => EntendYourLicense(param), param => { return false; });
+                    entendYourLicenseCommand = new RelayCommand(param => EntendYourLicense(param), param => { return true; });
                 return entendYourLicenseCommand;
             }
         }
 
         private void EntendYourLicense(object obj)
         {
-            ((App.Current.MainWindow as FirstWindow).DataContext as FirstWindowModel).OpenTabItem(typeof(EnterSerialControl));
+            if (LicenseHelper.Status == LicenseHelperStatusEnum.TrialLicenseExpired)
+            {
+                //IsBusyLicensing = true;
+                //RadWindow.Prompt(new DialogParameters
+                //{
+                //    Content = LocHelper.GetWord("PleaseEnterReasonToExtendYourTrial"),
+                //    Closed = new EventHandler<WindowClosedEventArgs>(OnPromptClosed),
+                //    Owner = Application.Current.MainWindow
+                //});
+            }
+            ((App.Current.MainWindow as FirstWindow).DataContext as FirstWindowModel).OpenTabItem(typeof(ExtendLicenseInfoControl));
         }
+
+        //private async void OnPromptClosed(object sender, WindowClosedEventArgs e)
+        //{
+        //    if (e.DialogResult.GetValueOrDefault() == true)
+        //    {
+        //        if (string.IsNullOrWhiteSpace(e.PromptResult) == false)
+        //        {
+        //            if (LicenseHelper.TrialLicenseInfo != null)
+        //            {
+        //                var body = LicenseHelper.TrialLicenseInfo.GetAsString() + Environment.NewLine + "Reason: " + e.PromptResult;
+        //                var subject = "CELSUS | Extend Trial Request";
+        //                var toAddresses = new List<string>() { "efeo@seneka.com.tr" };
+        //                var smtpHelper = new SmtpHelper();
+        //                var sendEMailResult = await smtpHelper.SendEMail(subject, body, toAddresses);
+        //                if (sendEMailResult == false)
+        //                {
+        //                    RadWindow.Alert(new DialogParameters() { Content = LocHelper.GetWord("CannotRequestTrialExtend"), DialogStartupLocation = WindowStartupLocation.CenterOwner, Header = "Error", Owner = App.Current.MainWindow });
+        //                    IsBusyLicensing = false;
+        //                }
+        //                else
+        //                {
+        //                    RadWindow.Alert(new DialogParameters() { Content = LocHelper.GetWord("SendRequestTrialExtend"), DialogStartupLocation = WindowStartupLocation.CenterOwner, Header = "Success", Owner = App.Current.MainWindow });
+        //                    IsBusyLicensing = false;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                RadWindow.Alert(new DialogParameters() { Content = LocHelper.GetWord("CannotGetTrialLicenseInfo"), DialogStartupLocation = WindowStartupLocation.CenterOwner, Header = "Error", Owner = App.Current.MainWindow });
+        //                IsBusyLicensing = false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            RadWindow.Alert(new DialogParameters() { Content = LocHelper.GetWord("PleaseEnterReason"), DialogStartupLocation = WindowStartupLocation.CenterOwner, Header = "Warning", Owner = App.Current.MainWindow });
+        //            IsBusyLicensing = false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        IsBusyLicensing = false;
+        //    }
+        //}
 
         ICommand viewLicenseCommand;
         public ICommand ViewLicenseCommand
@@ -236,14 +318,14 @@ namespace Celsus.Client.Controls.Setup
             get
             {
                 if (viewLicenseCommand == null)
-                    viewLicenseCommand = new RelayCommand(param => ViewLicense(param), param => { return false; });
+                    viewLicenseCommand = new RelayCommand(param => ViewLicense(param), param => { return true; });
                 return viewLicenseCommand;
             }
         }
 
         private void ViewLicense(object obj)
         {
-            ((App.Current.MainWindow as FirstWindow).DataContext as FirstWindowModel).OpenTabItem(typeof(EnterSerialControl));
+            ((App.Current.MainWindow as FirstWindow).DataContext as FirstWindowModel).OpenTabItem(typeof(LicenseInfoControl));
         }
 
         ICommand resetLicenseCommand;
@@ -260,8 +342,19 @@ namespace Celsus.Client.Controls.Setup
         private void ResetLicense(object obj)
         {
             LicenseHelper.Instance.Reset(out int st);
+
+            var textBlock = "YouHaveSuccessfullyResettedLicenseInform".ConvertToBindableText();
+            textBlock.TextWrapping = TextWrapping.WrapWithOverflow;
+            textBlock.Height = 200;
+            textBlock.Width = 400;
+            RadWindow.Alert(new DialogParameters() { Content = textBlock, DialogStartupLocation = WindowStartupLocation.CenterOwner, Header = TranslationSource.Instance["Success"], Owner = App.Current.MainWindow, Closed = AlertClosed });
+            
         }
 
+        private void AlertClosed(object sender, WindowClosedEventArgs e)
+        {
+            App.Current.Shutdown();
+        }
 
 
         //ICommand closeWindowCommand;
@@ -285,6 +378,8 @@ namespace Celsus.Client.Controls.Setup
         {
         }
     }
+
+    [Help("Topology", "")]
     public partial class SetupMainControl : UserControl
     {
         public SetupMainControl()

@@ -1,10 +1,7 @@
 ﻿using Celsus.Client.Shared.Lex;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Celsus.Client.Shared.Types
 {
@@ -28,6 +25,8 @@ namespace Celsus.Client.Shared.Types
     {
 
 
+        private readonly object licenseInfoLock = new object();
+        private readonly object trialLicenseInfoLock = new object();
         private readonly object balanceLock = new object();
 
         private bool isInitted = false;
@@ -137,6 +136,14 @@ namespace Celsus.Client.Shared.Types
                         }
 
                     }
+
+                    var isDebug = false;
+
+                    isDebug = false;
+#if DEBUG
+                    isDebug = true;
+#endif
+
 #if LA_ANY_CPU
 
                     try
@@ -154,6 +161,7 @@ namespace Celsus.Client.Shared.Types
                         return false;
                     }
 
+                    if(isDebug==false)
                     try
                     {
                         File.Copy(Path.Combine(sourceFolder, "msvcp100_64.dll"), "msvcp100.dll", true);
@@ -166,6 +174,7 @@ namespace Celsus.Client.Shared.Types
                         return false;
                     }
 
+                    if(isDebug==false)
                     try
                     {
                         File.Copy(Path.Combine(sourceFolder, "msvcr100_64.dll"), "msvcr100.dll", true);
@@ -180,29 +189,31 @@ namespace Celsus.Client.Shared.Types
 
 
 #else
-                    try
-                    {
-                        File.Copy(Path.Combine(sourceFolder, "msvcp100_86.dll"), "msvcp100.dll", true);
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.Error(ex, "msvcp100_86 copy error");
-                        hasError = hasErrorInternal;
-                        statusCode = statusCodeInternal;
-                        return false;
-                    }
+                    if (isDebug == false)
+                        try
+                        {
+                            File.Copy(Path.Combine(sourceFolder, "msvcp100_86.dll"), "msvcp100.dll", true);
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error(ex, "msvcp100_86 copy error");
+                            hasError = hasErrorInternal;
+                            statusCode = statusCodeInternal;
+                            return false;
+                        }
 
-                    try
-                    {
-                        File.Copy(Path.Combine(sourceFolder, "msvcr100_86.dll"), "msvcr100.dll", true);
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.Error(ex, "msvcr100_86 copy error");
-                        hasError = hasErrorInternal;
-                        statusCode = statusCodeInternal;
-                        return false;
-                    }
+                    if (isDebug == false)
+                        try
+                        {
+                            File.Copy(Path.Combine(sourceFolder, "msvcr100_86.dll"), "msvcr100.dll", true);
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error(ex, "msvcr100_86 copy error");
+                            hasError = hasErrorInternal;
+                            statusCode = statusCodeInternal;
+                            return false;
+                        }
 
 
 #endif
@@ -301,6 +312,7 @@ namespace Celsus.Client.Shared.Types
             if (isLicenseGenuine == LexActivator.StatusCodes.LA_OK)
             {
                 Status = LicenseHelperStatusEnum.HaveLicense;
+                GetLicenseInfo();
                 return true;
             }
             else if (isLicenseGenuine == LexActivator.StatusCodes.LA_SUSPENDED)
@@ -381,38 +393,203 @@ namespace Celsus.Client.Shared.Types
             }
         }
 
+        LicenseInfo licenseInfo;
+
+
+        public LicenseInfo LicenseInfo
+        {
+            get
+            {
+                if (licenseInfo == null)
+                {
+                    licenseInfo = GetLicenseInfo();
+                }
+                return licenseInfo;
+            }
+        }
+
         private TrialLicenseInfo GetTrialLicenseInfo()
         {
-            var trialLicenseInfo = new TrialLicenseInfo();
-            int status = 0;
+            lock (trialLicenseInfoLock)
+            {
+                var trialLicenseInfo = new TrialLicenseInfo();
+                int status = 0;
 
-            var sbFirstName = new StringBuilder();
-            status = LexActivator.GetTrialActivationMetadata("FirstName", sbFirstName, 100);
-            if (status != LexActivator.StatusCodes.LA_OK) return null;
-            trialLicenseInfo.FirstName = sbFirstName.ToString();
+                try
+                {
+                    var sbTrialId = new StringBuilder(256);
+                    status = LexActivator.GetTrialId(sbTrialId, 256);
+                    if (status != LexActivator.StatusCodes.LA_OK) return null;
+                    trialLicenseInfo.TrialId = sbTrialId.ToString();
+                }
+                catch
+                {
+                }
 
-            var sbLastName = new StringBuilder();
-            status = LexActivator.GetTrialActivationMetadata("LastName", sbLastName, 100);
-            if (status != LexActivator.StatusCodes.LA_OK) return null;
-            trialLicenseInfo.LastName = sbLastName.ToString();
+                try
+                {
+                    var sbFirstName = new StringBuilder(256);
+                    status = LexActivator.GetTrialActivationMetadata("FirstName", sbFirstName, 256);
+                    if (status != LexActivator.StatusCodes.LA_OK) return null;
+                    trialLicenseInfo.FirstName = sbFirstName.ToString();
+                }
+                catch
+                {
+                }
 
-            var sbEMail = new StringBuilder();
-            status = LexActivator.GetTrialActivationMetadata("eMail", sbEMail, 100);
-            if (status != LexActivator.StatusCodes.LA_OK) return null;
-            trialLicenseInfo.EMail = sbEMail.ToString();
+                try
+                {
+                    var sbLastName = new StringBuilder(256);
+                    status = LexActivator.GetTrialActivationMetadata("LastName", sbLastName, 256);
+                    if (status != LexActivator.StatusCodes.LA_OK) return null;
+                    trialLicenseInfo.LastName = sbLastName.ToString();
+                }
+                catch
+                {
+                }
 
-            var sbOrganization = new StringBuilder();
-            status = LexActivator.GetTrialActivationMetadata("Organization", sbOrganization, 100);
-            if (status != LexActivator.StatusCodes.LA_OK) return null;
-            trialLicenseInfo.Organization = sbOrganization.ToString();
+                try
+                {
+                    var sbEMail = new StringBuilder(256);
+                    status = LexActivator.GetTrialActivationMetadata("eMail", sbEMail, 256);
+                    if (status != LexActivator.StatusCodes.LA_OK) return null;
+                    trialLicenseInfo.EMail = sbEMail.ToString();
+                }
+                catch
+                {
+                }
 
-            uint trialExpiryDate = 0;
-            status = LexActivator.GetTrialExpiryDate(ref trialExpiryDate);
-            if (status != LexActivator.StatusCodes.LA_OK) return null;
-            var expireDate = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            var TrialDueDate = expireDate.AddSeconds(trialExpiryDate).ToLocalTime();
-            trialLicenseInfo.TrialDueDate = TrialDueDate;
-            return trialLicenseInfo;
+                try
+                {
+                    var sbOrganization = new StringBuilder(256);
+                    status = LexActivator.GetTrialActivationMetadata("Organization", sbOrganization, 256);
+                    if (status != LexActivator.StatusCodes.LA_OK) return null;
+                    trialLicenseInfo.Organization = sbOrganization.ToString();
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    uint trialExpiryDate = 0;
+                    status = LexActivator.GetTrialExpiryDate(ref trialExpiryDate);
+                    if (status != LexActivator.StatusCodes.LA_OK) return null;
+                    var expireDate = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                    var TrialDueDate = expireDate.AddSeconds(trialExpiryDate).ToLocalTime();
+                    trialLicenseInfo.TrialDueDate = TrialDueDate;
+                }
+                catch
+                {
+                }
+
+                return trialLicenseInfo;
+
+            }
+
+        }
+
+        private LicenseInfo GetLicenseInfo()
+        {
+            lock (licenseInfoLock)
+            {
+                var licenseInfo = new LicenseInfo();
+                int status = 0;
+
+                try
+                {
+                    var sbLicenseKey = new StringBuilder(256);
+                    status = LexActivator.GetLicenseKey(sbLicenseKey, 256);
+                    if (status != LexActivator.StatusCodes.LA_OK) return null;
+                    licenseInfo.LicenseKey = sbLicenseKey.ToString();
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    var sbLicenseUserEmail = new StringBuilder(256);
+                    status = LexActivator.GetLicenseUserEmail(sbLicenseUserEmail, 256);
+                    if (status != LexActivator.StatusCodes.LA_OK) return null;
+                    licenseInfo.LicenseUserEmail = sbLicenseUserEmail.ToString();
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    var sbLicenseUserName = new StringBuilder(256);
+                    status = LexActivator.GetLicenseUserName(sbLicenseUserName, 256);
+                    if (status != LexActivator.StatusCodes.LA_OK) return null;
+                    licenseInfo.LicenseUserName = sbLicenseUserName.ToString();
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    var sbFirstName = new StringBuilder(256);
+                    status = LexActivator.GetActivationMetadata("FirstName", sbFirstName, 256);
+                    if (status != LexActivator.StatusCodes.LA_OK) return null;
+                    licenseInfo.FirstName = sbFirstName.ToString();
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    var sbLastName = new StringBuilder(256);
+                    status = LexActivator.GetActivationMetadata("LastName", sbLastName, 256);
+                    if (status != LexActivator.StatusCodes.LA_OK) return null;
+                    licenseInfo.LastName = sbLastName.ToString();
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    var sbEMail = new StringBuilder(256);
+                    status = LexActivator.GetActivationMetadata("eMail", sbEMail, 256);
+                    if (status != LexActivator.StatusCodes.LA_OK) return null;
+                    licenseInfo.EMail = sbEMail.ToString();
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    var sbOrganization = new StringBuilder(256);
+                    status = LexActivator.GetActivationMetadata("Organization", sbOrganization, 256);
+                    if (status != LexActivator.StatusCodes.LA_OK) return null;
+                    licenseInfo.Organization = sbOrganization.ToString();
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    uint licenseExpiryDate = 0;
+                    status = LexActivator.GetLicenseExpiryDate(ref licenseExpiryDate);
+                    if (status != LexActivator.StatusCodes.LA_OK) return null;
+                    var expireDate = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                    var dueDate = expireDate.AddSeconds(licenseExpiryDate).ToLocalTime();
+                    licenseInfo.LicenseExpiryDate = dueDate;
+
+                }
+                catch
+                {
+                }
+
+                return licenseInfo;
+
+            }
 
         }
         private bool CheckTrialLicense()

@@ -11,7 +11,7 @@
         xmlns:loc="clr-namespace:Celsus.Client.Types"
         xmlns:licensing="clr-namespace:Celsus.Client.Controls.Licensing"
         mc:Ignorable="d"
-         d:DataContext="{d:DesignInstance local:FirstWindowModel}"
+        d:DataContext="{d:DesignInstance local:FirstWindowModel}"
         Title="{Binding Title}" Height="800" Width="1000" WindowStartupLocation="CenterScreen">
     <Window.Resources>
 
@@ -33,7 +33,7 @@
                                     </VisualState>
                                     <VisualState x:Name="Pressed">
                                         <Storyboard>
-                                           
+
                                             <ColorAnimation Duration="0" To="White"
                                                     Storyboard.TargetProperty="(Path.Fill).(SolidColorBrush.Color)"
 													Storyboard.TargetName="path" />
@@ -61,7 +61,7 @@
             </Setter>
         </Style>
 
-        
+
         <DataTemplate x:Key="TabItemTemplate">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="4,12,0,4">
                 <ContentControl Content="{Binding Header}" TextElement.FontFamily="Montserrat Medium" TextElement.Foreground="{StaticResource Fore01_03}"></ContentControl>
@@ -77,14 +77,14 @@
             <ContentControl Content="{Binding Content}" />
         </DataTemplate>
 
-       
+
     </Window.Resources>
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" Background="{StaticResource Back01_15}">
             <Border   BorderThickness="0,0,0,0" Height="80" Width="100" Background="Transparent" MouseLeftButtonUp="Border_MouseLeftButtonUp">
                 <Image Source="pack://application:,,,/Celsus.Wpf.Themes;component/Resources/Images/Logo03.png" Height="68" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Center"></Image>
             </Border>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Visibility="Hidden">
                 <StackPanel Margin="12">
                     <TextBlock Text="{loc:Loc IsLicensed}"></TextBlock>
                     <TextBlock Text="{Binding LicenseHelper.Instance.IsLicensed}" Foreground="{StaticResource Fore01_01}"></TextBlock>
@@ -98,6 +98,14 @@
                     <TextBlock Text="{Binding IndexerHelper.Status}" Foreground="{StaticResource Fore01_01}"></TextBlock>
                 </StackPanel>
             </StackPanel>
+            <Border Background="Transparent" Cursor="Hand" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,0,24,0">
+                <telerik:EventToCommandBehavior.EventBindings>
+                    <telerik:EventBinding Command="{Binding HelpCommand}" EventName="MouseLeftButtonUp" PassEventArgsToCommand="True" />
+                </telerik:EventToCommandBehavior.EventBindings>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="GET HELP" FontSize="11"  VerticalAlignment="Center" Foreground="{StaticResource Back01_04}" Margin="4,0,0,0" FontWeight="Medium" FontFamily="Montserrat Light"></TextBlock>
+                </StackPanel>
+            </Border>
         </DockPanel>
         <Grid >
             <Grid.ColumnDefinitions>

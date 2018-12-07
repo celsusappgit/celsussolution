@@ -28,7 +28,7 @@
                             <Border DockPanel.Dock="Bottom" Padding="24,12" Background="{StaticResource Back01_03}" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" Visibility="{Binding StatusVisibility}">
                                 <ContentPresenter TextElement.FontFamily="Montserrat Light" TextElement.FontSize="12" Content="{Binding Status}"></ContentPresenter>
                             </Border>
-                            <Border DockPanel.Dock="Bottom" Padding="24,12" BorderBrush="{StaticResource Back01_03}" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" HorizontalAlignment="Center">
+                            <Border DockPanel.Dock="Bottom" Padding="24,12" BorderBrush="{StaticResource Back01_03}" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" HorizontalAlignment="Right">
                                 <WrapPanel Orientation="Horizontal" Grid.IsSharedSizeScope="True" HorizontalAlignment="Right">
                                     <!--<telerik:RadButton Style="{DynamicResource FormButtonInner}" Visibility="{Binding ActivateTrialLicenseVisibility}" Command="{Binding CloseWindowCommand}" >
                                     <HeaderedContentControl Style="{DynamicResource HeaderedContentControlStyle2}">

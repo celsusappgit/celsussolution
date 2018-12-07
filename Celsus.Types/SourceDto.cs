@@ -45,6 +45,21 @@ namespace Celsus.Types
             }
         }
 
+        string serverId;
+        public string ServerId
+        {
+            get
+            {
+                return serverId;
+            }
+            set
+            {
+                if (Equals(value, serverId)) return;
+                serverId = value;
+                NotifyPropertyChanged(() => ServerId);
+            }
+        }
+
         bool isActive;
         public bool IsActive
         {

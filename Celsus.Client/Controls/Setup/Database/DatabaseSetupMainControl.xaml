@@ -100,10 +100,10 @@
                                         </Border>
                                         <StackPanel DockPanel.Dock="Top" Grid.IsSharedSizeScope="True" Margin="24,12,24,24">
                                             <TextBlock TextWrapping="WrapWithOverflow" Margin="0,6"  Foreground="{StaticResource Fore01_03}">
-                                <Run Text="{loc:Loc IfYouDontHaveMicrosoftSQLServer2016ThisW}"></Run>
-                                <LineBreak></LineBreak>
-                                <LineBreak></LineBreak>
-                                <Run Text="{loc:Loc ToİnstallMicrosoftSQLServer2016ExpressEd}"></Run>
+                                                    <Run Text="{loc:Loc IfYouDontHaveMicrosoftSQLServer2016ThisW}"></Run>
+                                                    <LineBreak></LineBreak>
+                                                    <LineBreak></LineBreak>
+                                                    <Run Text="{loc:Loc ToİnstallMicrosoftSQLServer2016ExpressEd}"></Run>   
                                             </TextBlock>
                                             <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
                                                 <telerik:RadButton Style="{DynamicResource FormButtonInner}" Margin="0" Command="{Binding InstallSQLCommand}" Content="{loc:Loc InstallMicrosoftSQLServer2016ExpressEdit}" >
@@ -145,7 +145,7 @@
                                             </Border>
                                         </Border>
                                         <Border DockPanel.Dock="Top" Margin="24,24,24,12"  >
-                                            <TextBlock Text="Celsus Database Version Error" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
+                                            <TextBlock Text="{loc:Loc CelsusDatabaseVersionError}" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
                                         </Border>
                                         <StackPanel DockPanel.Dock="Top" Grid.IsSharedSizeScope="True" Margin="24,12,24,24">
                                             <TextBlock TextWrapping="WrapWithOverflow" Margin="0,6"  Foreground="{StaticResource Fore01_03}" Text="{loc:Loc CelsusDatabaseIsOutdatedUpdate}">
@@ -188,6 +188,16 @@
 
                                         </TextBlock>
                                         <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                                            <StackPanel.Style>
+                                                <Style TargetType="StackPanel">
+                                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding RolesHelper.IsDatabaseRoleThisComputer}" Value="True">
+                                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </StackPanel.Style>
                                             <telerik:RadButton Style="{DynamicResource FormButtonInner}" Margin="0" Command="{Binding SetAsDatabaseRoleCommand}" Content="{loc:Loc SetAsDatabaseRole}" >
                                             </telerik:RadButton>
                                         </StackPanel>

@@ -16,15 +16,30 @@ using System.Windows.Shapes;
 
 namespace Celsus.Client.Controls.Licensing
 {
-    /// <summary>
-    /// Interaction logic for LicenseInfoControl.xaml
-    /// </summary>
+    public class LicenseInfoControlModel : BaseModel
+    {
+        public LicenseInfo LicenseInfo
+        {
+            get
+            {
+                return LicenseHelper.Instance.LicenseInfo;
+            }
+        }
+
+        public TrialLicenseInfo TrialLicenseInfo
+        {
+            get
+            {
+                return LicenseHelper.Instance.TrialLicenseInfo;
+            }
+        }
+    }
     public partial class LicenseInfoControl : UserControl
     {
         public LicenseInfoControl()
         {
             InitializeComponent();
-            DataContext = LicenseHelper.Instance.TrialLicenseInfo;
+            DataContext = new LicenseInfoControlModel();
         }
     }
 }

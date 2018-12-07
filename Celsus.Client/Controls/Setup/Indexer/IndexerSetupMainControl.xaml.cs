@@ -58,29 +58,29 @@ namespace Celsus.Client.Controls.Setup.Database
             }
         }
 
-        object status;
-        public object Status
-        {
-            get
-            {
-                return status;
-            }
-            set
-            {
-                if (Equals(value, status)) return;
-                status = value;
-                NotifyPropertyChanged(() => Status);
-                NotifyPropertyChanged(() => StatusVisibility);
-            }
-        }
+        //object status;
+        //public object Status
+        //{
+        //    get
+        //    {
+        //        return status;
+        //    }
+        //    set
+        //    {
+        //        if (Equals(value, status)) return;
+        //        status = value;
+        //        NotifyPropertyChanged(() => Status);
+        //        NotifyPropertyChanged(() => StatusVisibility);
+        //    }
+        //}
 
-        public Visibility StatusVisibility
-        {
-            get
-            {
-                return Status == null ? Visibility.Collapsed : Visibility.Visible;
-            }
-        }
+        //public Visibility StatusVisibility
+        //{
+        //    get
+        //    {
+        //        return Status == null ? Visibility.Collapsed : Visibility.Visible;
+        //    }
+        //}
         //
         object tesseractStatus;
         public object TesseractStatus
@@ -300,7 +300,7 @@ namespace Celsus.Client.Controls.Setup.Database
             get
             {
                 if (installImageMagickCommand == null)
-                    installImageMagickCommand = new RelayCommand(param => InstallImageMagick(param), param => { return !IsBusyImageMagick;  });
+                    installImageMagickCommand = new RelayCommand(param => InstallImageMagick(param), param => { return !IsBusyImageMagick; });
                 return installImageMagickCommand;
             }
         }
@@ -310,7 +310,7 @@ namespace Celsus.Client.Controls.Setup.Database
 
             try
             {
-                IsBusyImageMagick= true;
+                IsBusyImageMagick = true;
                 Setup("ImageMagickPath", DownloadUris.ImageMagick);
             }
             catch (Exception ex)
@@ -339,7 +339,7 @@ namespace Celsus.Client.Controls.Setup.Database
 
             try
             {
-                IsBusyXPdfTools= true;
+                IsBusyXPdfTools = true;
                 Setup("XPdfToolsPath", DownloadUris.XPdfTools);
             }
             catch (Exception ex)
@@ -365,17 +365,17 @@ namespace Celsus.Client.Controls.Setup.Database
 
         private bool CanInstallService(object param)
         {
-            if (RolesHelper.Instance.IndexerRoleCount == 0)
+            if (RolesHelper.Instance.IsIndexerRoleThisComputer == false)
             {
                 return true;
             }
-            else
-            {
-                if (string.Compare(RolesHelper.Instance.IndexerRoleComputerName, Environment.MachineName, StringComparison.InvariantCultureIgnoreCase) == 0)
-                {
-                    return true;
-                }
-            }
+            //else
+            //{
+            //    if (string.Compare(RolesHelper.Instance.IndexerRoleComputerName, Environment.MachineName, StringComparison.InvariantCultureIgnoreCase) == 0)
+            //    {
+            //        return true;
+            //    }
+            //}
             return false;
         }
 
@@ -423,7 +423,7 @@ namespace Celsus.Client.Controls.Setup.Database
 
         private bool CanSetAsIndexerRole(object param)
         {
-            if (RolesHelper.Instance.IndexerRoleCount.HasValue && RolesHelper.Instance.IndexerRoleCount.GetValueOrDefault() == 0)
+            if (RolesHelper.Instance.IsIndexerRoleThisComputer == false)
             {
                 return true;
             }
@@ -583,7 +583,7 @@ namespace Celsus.Client.Controls.Setup.Database
             var settingName = result.SettingName;
             var componentName = result.SettingName.ToString().Replace("Path", "");
 
-            Status = "Done0".ConvertToBindableText(componentName);
+            //Status = "Done0".ConvertToBindableText(componentName);
 
             if (componentName == "ImageMagick")
             {

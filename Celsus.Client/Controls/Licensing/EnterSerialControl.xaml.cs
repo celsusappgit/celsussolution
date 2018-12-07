@@ -22,9 +22,7 @@ using Telerik.Windows.Controls;
 
 namespace Celsus.Client.Controls.Licensing
 {
-    /// <summary>
-    /// Interaction logic for EnterSerialControl.xaml
-    /// </summary>
+    [Help("", "")]
     public partial class EnterSerialControl : UserControl
     {
         public EnterSerialControl()
@@ -34,7 +32,7 @@ namespace Celsus.Client.Controls.Licensing
         }
     }
 
-   
+
 
     public class EnterSerialControlModel : BaseModel<EnterSerialControlModel>, MustInit
     {
@@ -48,7 +46,7 @@ namespace Celsus.Client.Controls.Licensing
 
         #region Properties
 
-        
+
 
         string serialKey;
         public string SerialKey
@@ -326,9 +324,13 @@ namespace Celsus.Client.Controls.Licensing
             }
             else
             {
-                Status = ("You have successfully activated your license. Please close and re-open Celsus again.").ConvertToBindableText();
+                Status = ("YouHaveSuccessfullyActivatedYourLicenseP").ConvertToBindableText();
                 IsBusy = false;
-                RadWindow.Alert(new DialogParameters() { Content = Status, DialogStartupLocation = WindowStartupLocation.CenterOwner, Header = "Success", Owner = App.Current.MainWindow, Closed = AlertClosed });
+                var textBlock = ("YouHaveSuccessfullyActivatedYourLicenseP").ConvertToBindableText();
+                textBlock.TextWrapping = TextWrapping.WrapWithOverflow;
+                textBlock.Height = 200;
+                textBlock.Width = 400;
+                RadWindow.Alert(new DialogParameters() { Content = textBlock, DialogStartupLocation = WindowStartupLocation.CenterOwner, Header = "Success", Owner = App.Current.MainWindow, Closed = AlertClosed });
             }
             NotifyPropertyChanged(() => ActivateSerialCommand);
         }

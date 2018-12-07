@@ -172,7 +172,7 @@ namespace Celsus.Client.Types.Models
             }
         }
 
-        public async Task UpdateWorkflow(WorkflowDto workflowDto)
+        public async Task<bool> UpdateWorkflow(WorkflowDto workflowDto)
         {
             try
             {
@@ -184,6 +184,7 @@ namespace Celsus.Client.Types.Models
                     var oldIndex = InternalWorkflows.IndexOf(old);
                     InternalWorkflows.RemoveAt(oldIndex);
                     InternalWorkflows.Insert(oldIndex, workflowDto);
+                    return true;
                 }
             }
 
@@ -194,9 +195,10 @@ namespace Celsus.Client.Types.Models
             finally
             {
             }
+            return false;
         }
 
-        public async Task AddWorkflow(WorkflowDto workflowDto)
+        public async Task<bool> AddWorkflow(WorkflowDto workflowDto)
         {
             try
             {
@@ -205,6 +207,7 @@ namespace Celsus.Client.Types.Models
                     context.Workflows.Add(workflowDto);
                     await context.SaveChangesAsync();
                     InternalWorkflows.Add(workflowDto);
+                    return true;
                 }
             }
 
@@ -215,6 +218,7 @@ namespace Celsus.Client.Types.Models
             finally
             {
             }
+            return false;
         }
 
         public async void Init()

@@ -53,10 +53,10 @@
                                         <Path Width="32" Stretch="UniformToFill" VerticalAlignment="Top" Margin="0,24,0,0"  >
                                             <Path.Style>
                                                 <Style TargetType="Path" BasedOn="{StaticResource cube}">
-                                                    <Setter Property="Fill" Value="{StaticResource Accent04_03}"></Setter>
+                                                    <Setter Property="Fill" Value="{StaticResource Accent02_03}"></Setter>
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding RolesHelper.IndexerRoleCount}" Value="1">
-                                                            <Setter Property="Fill" Value="{StaticResource Accent02_03}"></Setter>
+                                                        <DataTrigger Binding="{Binding RolesHelper.IndexerRoleCount}" Value="0">
+                                                            <Setter Property="Fill" Value="{StaticResource Accent04_03}"></Setter>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
