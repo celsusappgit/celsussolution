@@ -49,6 +49,8 @@
 	Login celsusmanagement@outlook.com 
 	GIT https://github.com/celsusappgit/CelsusHelp_Sphinx.git
 
+	https://celsus.gitbook.io/project/
+
 	To build: Open Local Path
 		      Build
 			  Git Desktop > Push
