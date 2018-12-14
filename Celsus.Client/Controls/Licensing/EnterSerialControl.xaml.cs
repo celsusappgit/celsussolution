@@ -312,7 +312,7 @@ namespace Celsus.Client.Controls.Licensing
                     var statusEnum = (StatusCodesEnum)status;
                     if (statusEnum == StatusCodesEnum.LA_TRIAL_EXPIRED)
                     {
-                        Status = "Product trial has expired.".ConvertToBindableText();
+                        Status = "ProductTrialHasExpired".ConvertToBindableText();
                         CloseWindowVisibility = Visibility.Visible;
                     }
                     else

@@ -24,6 +24,24 @@ namespace Celsus.Client.Controls.Management.Sources
     {
         public Repo Repo { get { return Repo.Instance; } }
 
+
+
+        ICommand refreshCommand;
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                if (refreshCommand == null)
+                    refreshCommand = new RelayCommand(param => Refresh(param), param => { return true; });
+                return refreshCommand;
+            }
+        }
+
+        private async void Refresh(object param)
+        {
+            await Repo.Instance.RefreshSources();
+        }
+
         ICommand helpForDisabledAddNewSourceCommand;
         public ICommand HelpForDisabledAddNewSourceCommand
         {
@@ -37,17 +55,22 @@ namespace Celsus.Client.Controls.Management.Sources
 
         private void HelpForDisabledAddNewSource(object param)
         {
-            string target = "https://celsus.gitbook.io/project/addsource";
+            string target = "https://celsus.gitbook.io/project/administration/sources#creating-new-source";
             try
             {
                 System.Diagnostics.Process.Start(target);
             }
             catch (System.ComponentModel.Win32Exception noBrowser)
             {
-                if (noBrowser.ErrorCode == -2147467259) ;
+                if (noBrowser.ErrorCode == -2147467259)
+                {
+
+                }
+                logger.Error(noBrowser, "Error in Help");
             }
-            catch (Exception other)
+            catch (Exception ex)
             {
+                logger.Error(ex, "Error in Help");
             }
 
         }

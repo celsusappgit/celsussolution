@@ -432,6 +432,20 @@
                                     <StackPanel>
                                         <StackPanel.Style>
                                             <Style TargetType="StackPanel">
+                                                <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ServiceHelper.Status}" Value="{x:Static types:ServiceHelperStatusEnum.InstalledButFileNotFound}">
+                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <TextBlock TextWrapping="WrapWithOverflow" Text="{loc:Loc ServiceInstalledOnThisComputerButFileNot}"></TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel>
+                                        <StackPanel.Style>
+                                            <Style TargetType="StackPanel">
                                                 <Setter Property="Visibility" Value="Collapsed"></Setter>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding ServiceHelper.Status}" Value="{x:Static types:ServiceHelperStatusEnum.Ok}">

@@ -13,6 +13,7 @@ namespace Celsus.Client.Shared.Types
         public string LastName { get; internal set; }
         public DateTime TrialDueDate { get; internal set; }
         public string TrialId { get; internal set; }
+        public string Indexer01 { get; internal set; }
 
         public string GetAsString()
         {

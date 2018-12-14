@@ -505,6 +505,7 @@ namespace Celsus.Client.Controls.Common
                     catch (Exception ex)
                     {
                         Status = "ErrorInSearch".ConvertToBindableText();
+                        logger.Error(ex, "Error in Search");
                     }
                     IsBusy = false;
                 }

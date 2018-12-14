@@ -21,7 +21,8 @@ namespace Celsus.Service
                 });
                 config.StartAutomatically();
                 config.RunAsLocalSystem();
-                config.SetDescription("Celsus Service");
+                config.SetServiceName("CelsusWorkerService");
+                config.SetDescription("Celsus Worker Service");
                 config.SetDisplayName("Celsus Worker Service");
                 config.EnableServiceRecovery(x =>
                 {

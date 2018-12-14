@@ -217,6 +217,23 @@ namespace Celsus.Client.Controls.Setup.Database
             }
         }
 
+        bool isBusyIndexerRole;
+        public bool IsBusyIndexerRole
+        {
+            get
+            {
+                return isBusyIndexerRole;
+            }
+            set
+            {
+                if (Equals(value, isBusyIndexerRole)) return;
+                isBusyIndexerRole = value;
+                NotifyPropertyChanged(() => IsBusyIndexerRole);
+                NotifyPropertyChanged(() => SetAsIndexerRoleCommand);
+            }
+        }
+
+
         bool isBusyTesseract;
         public bool IsBusyTesseract
         {
@@ -287,7 +304,7 @@ namespace Celsus.Client.Controls.Setup.Database
             catch (Exception ex)
             {
                 IsBusy = false;
-                TesseractStatus = "Error in installing Tesseract.".ConvertToBindableText();
+                TesseractStatus = "ErrorInInstallingTesseract".ConvertToBindableText();
                 //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => TesseractStatus = "Error in installing Tesseract.".ConvertToBindableText()));
                 logger.Error(ex, $"Error in installing Tesseract.");
             }
@@ -316,7 +333,7 @@ namespace Celsus.Client.Controls.Setup.Database
             catch (Exception ex)
             {
                 IsBusy = false;
-                ImageMagickStatus = "Error in installing ImageMagick.".ConvertToBindableText();
+                ImageMagickStatus = "ErrorInInstallingImageMagick".ConvertToBindableText();
                 //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => ImageMagickStatus = "Error in installing ImageMagick.".ConvertToBindableText()));
                 logger.Error(ex, $"Error in installing ImageMagick.");
             }
@@ -345,7 +362,7 @@ namespace Celsus.Client.Controls.Setup.Database
             catch (Exception ex)
             {
                 IsBusy = false;
-                XPdfToolsStatus = "Error in installing XPdfTools.".ConvertToBindableText();
+                XPdfToolsStatus = "ErrorInInstallingXPdfTools".ConvertToBindableText();
                 //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => XPdfToolsStatus = "Error in installing XPdfTools.".ConvertToBindableText()));
                 logger.Error(ex, $"Exception has been thrown when downloading SQL Server setup file.");
             }
@@ -387,23 +404,23 @@ namespace Celsus.Client.Controls.Setup.Database
             {
                 if (ServiceInstallerHelper.Instance.IsAdmin == false)
                 {
-                    ServiceStatus = "You need to start Celsus with Administrator privileges.".ConvertToBindableText();
+                    ServiceStatus = "YouNeedToStartCelsusWithAdministratorPri".ConvertToBindableText();
                     return;
                 }
                 var result = ServiceHelper.Instance.InstallOrUpgrade();
                 if (result == false)
                 {
-                    ServiceStatus = "Error in installing service.".ConvertToBindableText();
+                    ServiceStatus = "ErrorInInstallingService".ConvertToBindableText();
                 }
                 else
                 {
-                    ServiceStatus = "Service installed.".ConvertToBindableText();
+                    ServiceStatus = "ServiceInstalled".ConvertToBindableText();
                 }
             }
             catch (Exception ex)
             {
                 IsBusy = false;
-                ServiceStatus = "Error in installing service.".ConvertToBindableText();
+                ServiceStatus = "ErrorInInstallingService".ConvertToBindableText();
                 //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => ServiceStatus = "Error in installing service.".ConvertToBindableText()));
                 logger.Error(ex, $"Exception has been thrown when downloading SQL Server setup file.");
             }
@@ -421,18 +438,64 @@ namespace Celsus.Client.Controls.Setup.Database
             }
         }
 
+
         private bool CanSetAsIndexerRole(object param)
         {
-            if (RolesHelper.Instance.IsIndexerRoleThisComputer == false)
+            if (IsBusyIndexerRole)
             {
-                return true;
+                return false;
             }
+            if (RolesHelper.Instance.MaxAllowedIndexerRoleCount.HasValue && RolesHelper.Instance.IndexerRoleCount.HasValue)
+            {
+                if (RolesHelper.Instance.IndexerRoleCount.Value < RolesHelper.Instance.MaxAllowedIndexerRoleCount.Value)
+                {
+                    if (RolesHelper.Instance.IsIndexerRoleThisComputer == false)
+                    {
+                        return true;
+                    }
+                }
+            }
+            
             return false;
         }
 
         private async void SetAsIndexerRole(object param)
         {
-            await RolesHelper.Instance.AddServerRole(Celsus.Types.ServerRoleEnum.Indexer);
+            IsBusyIndexerRole = true;
+            try
+            {
+                if (RolesHelper.Instance.MaxAllowedIndexerRoleCount.HasValue && RolesHelper.Instance.IndexerRoleCount.HasValue)
+                {
+                    if (RolesHelper.Instance.IndexerRoleCount.Value < RolesHelper.Instance.MaxAllowedIndexerRoleCount.Value)
+                    {
+                        if (LicenseHelper.Instance.Status == LicenseHelperStatusEnum.HaveTrialLicense)
+                        {
+                            if (LicenseHelper.Instance.SetIndexer(ComputerHelper.Instance.ServerId))
+                            {
+                                var addIndexerRole = await RolesHelper.Instance.AddIndexerRole();
+                                if (addIndexerRole == true)
+                                {
+                                    IndexerRoleStatus = "IndexerRoleSettedSuccessfully".ConvertToBindableText();
+                                }
+                                else
+                                {
+                                    LicenseHelper.Instance.SetIndexer("");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                IsBusyIndexerRole = false;
+                IndexerRoleStatus = "ErrorInSettingIndexerRole".ConvertToBindableText();
+                logger.Error(ex, $"Error in setting as Indexer Role.");
+            }
+
+            IsBusyIndexerRole = false;
+
+            NotifyPropertyChanged(() => SetAsIndexerRoleCommand);
         }
         private void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
@@ -467,19 +530,19 @@ namespace Celsus.Client.Controls.Setup.Database
                 exceptionString = e.Error.ToString();
                 logger.Error(e.Error, $"{componentName} setup file downloaded with error. IsCancelled: {e.Cancelled}. Error: {exceptionString}");
 
-                //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => Status = "Error in download.".ConvertToBindableText()));
+                //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => Status = "ErrorInDownload".ConvertToBindableText()));
 
                 if (componentName == "Tesseract")
                 {
-                    TesseractStatus = "Error in download.".ConvertToBindableText();
+                    TesseractStatus = "ErrorInDownload".ConvertToBindableText();
                 }
                 else if (componentName == "ImageMagick")
                 {
-                    ImageMagickStatus = "Error in download.".ConvertToBindableText();
+                    ImageMagickStatus = "ErrorInDownload".ConvertToBindableText();
                 }
                 else if (componentName == "XPdfTools")
                 {
-                    XPdfToolsStatus = "Error in download.".ConvertToBindableText();
+                    XPdfToolsStatus = "ErrorInDownload".ConvertToBindableText();
                 }
             }
             else

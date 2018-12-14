@@ -24,7 +24,47 @@ namespace Celsus.Client.Controls.Management.Sources
 {
     public class WorkflowItemControlModel : BaseModel
     {
-        public bool IsNew { get; set; }
+        string title;
+        public string Title
+        {
+            get
+            {
+                return title;
+            }
+            set
+            {
+                if (Equals(value, title)) return;
+                title = value;
+                NotifyPropertyChanged(() => Title);
+            }
+        }
+
+        public Visibility CollapsedButVisibleInDesign
+        {
+            get
+            {
+                if (DesignerProperties.GetIsInDesignMode(new Button()))
+                {
+                    return Visibility.Visible;
+                }
+                return Visibility.Collapsed;
+            }
+        }
+
+        bool isNew;
+        public bool IsNew
+        {
+            get
+            {
+                return isNew;
+            }
+            set
+            {
+                if (Equals(value, isNew)) return;
+                isNew = value;
+                NotifyPropertyChanged(() => IsNew);
+            }
+        }
         int id;
         public int Id
         {
@@ -521,6 +561,7 @@ namespace Celsus.Client.Controls.Management.Sources
             Name = sourceModel.WorkflowDto.Name;
             IsActive = sourceModel.WorkflowDto.IsActive;
             OrderNo = sourceModel.WorkflowDto.OrderNo;
+            Title = Name;
             SelectedFileType = sourceModel.WorkflowDto.FileType;
             //SelectedWorkflow = Workflows.SingleOrDefault(x => x.InternalType.FullName == sourceModel.WorkflowDto.InternalTypeName);
             SelectedWorkflowInternalTypeName = sourceModel.WorkflowDto.InternalTypeName;

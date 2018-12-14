@@ -1,4 +1,5 @@
-﻿using Celsus.DataLayer;
+﻿using Celsus.Client.Shared.Lex;
+using Celsus.DataLayer;
 using Celsus.Types;
 using System;
 using System.Collections.Generic;
@@ -86,6 +87,22 @@ namespace Celsus.Client.Shared.Types
             }
         }
 
+        public int? MaxAllowedIndexerRoleCount
+        {
+            get
+            {
+                if (LicenseHelper.Instance.Status == LicenseHelperStatusEnum.HaveTrialLicense)
+                {
+                    return 1;
+                }
+                else if (LicenseHelper.Instance.Status == LicenseHelperStatusEnum.HaveLicense)
+                {
+                    return LicenseHelper.Instance.LicenseInfo.MaxAllowedIndexerRoleCount;
+                }
+                return 0;
+            }
+        }
+
         //public string DatabaseRoleComputerIP
         //{
         //    get
@@ -124,7 +141,7 @@ namespace Celsus.Client.Shared.Types
                 {
                     return null;
                 }
-                return servers.Select(x => new ComputerInformationModel() { ServerId = x.ServerId, ServerIP = x.ServerIP, ServerName = x.ServerName }).FirstOrDefault();
+                return servers.Select(x => new ComputerInformationModel() { ServerId = x.ServerId, ServerIP = x.ServerIP, ServerName = x.ServerName,ServerRoleEnum= ServerRoleEnum.Database }).FirstOrDefault();
             }
         }
 
@@ -166,7 +183,7 @@ namespace Celsus.Client.Shared.Types
                 {
                     return null;
                 }
-                return servers.Select(x => new ComputerInformationModel() { ServerId = x.ServerId, ServerIP = x.ServerIP, ServerName = x.ServerName }).ToList();
+                return servers.Select(x => new ComputerInformationModel() { ServerId = x.ServerId, ServerIP = x.ServerIP, ServerName = x.ServerName , ServerRoleEnum = ServerRoleEnum.Indexer }).ToList();
             }
         }
 
@@ -211,7 +228,7 @@ namespace Celsus.Client.Shared.Types
         {
             get
             {
-                if (DatabaseRole==null)
+                if (DatabaseRole == null)
                 {
                     return false;
                 }
@@ -265,25 +282,60 @@ namespace Celsus.Client.Shared.Types
             await GetRoles();
         }
 
-        public async Task<bool> AddServerRole(ServerRoleEnum serverRoleEnum)
+        public async Task<bool> AddDatabaseRole(string serverId, string ipAddress, string machineName)
         {
-            if (DatabaseHelper.Instance.Status == DatabaseHelperStatusEnum.CelsusDatabaseVersionOk)
+            var serverRoleDto = new ServerRoleDto
             {
+                ServerId = serverId,
+                ServerIP = ipAddress,
+                ServerName = machineName,
+                ServerRoleEnum = ServerRoleEnum.Database,
+                IsActive = true
+            };
 
-            }
-            else
-            {
-                return false;
-            }
+            return await AddServerRoleInnerAllowOne(ServerRoleEnum.Database, serverRoleDto);
+        }
+
+        public async Task<bool> AddIndexerRole()
+        {
             var serverRoleDto = new ServerRoleDto
             {
                 ServerId = ComputerHelper.Instance.ServerId,
                 ServerIP = ComputerHelper.Instance.IPAddress,
                 ServerName = Environment.MachineName,
-                ServerRoleEnum = serverRoleEnum,
+                ServerRoleEnum = ServerRoleEnum.Indexer,
                 IsActive = true
             };
 
+            return await AddServerRoleInner(ServerRoleEnum.Indexer, serverRoleDto);
+        }
+
+        //public async Task<bool> AddServerRole(ServerRoleEnum serverRoleEnum)
+        //{
+        //    if (DatabaseHelper.Instance.Status == DatabaseHelperStatusEnum.CelsusDatabaseVersionOk)
+        //    {
+
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+
+        //    var serverRoleDto = new ServerRoleDto
+        //    {
+        //        ServerId = ComputerHelper.Instance.ServerId,
+        //        ServerIP = ComputerHelper.Instance.IPAddress,
+        //        ServerName = Environment.MachineName,
+        //        ServerRoleEnum = serverRoleEnum,
+        //        IsActive = true
+        //    };
+
+        //    return await AddServerRoleInner(serverRoleEnum, serverRoleDto);
+
+        //}
+
+        private async Task<bool> AddServerRoleInnerAllowOne(ServerRoleEnum serverRoleEnum, ServerRoleDto serverRoleDto)
+        {
             try
             {
                 using (var context = new SqlDbContext(DatabaseHelper.Instance.ConnectionInfo.ConnectionString))
@@ -319,6 +371,45 @@ namespace Celsus.Client.Shared.Types
                         context.Entry(oldRoles.Last()).State = System.Data.Entity.EntityState.Modified;
 
                         await context.SaveChangesAsync();
+                    }
+
+                    await GetRoles();
+                    NotifyPropertyChanged("");
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, $"Error occured EnsureDatabase.");
+            }
+
+            return false;
+        }
+
+        private async Task<bool> AddServerRoleInner(ServerRoleEnum serverRoleEnum, ServerRoleDto serverRoleDto)
+        {
+            try
+            {
+                using (var context = new SqlDbContext(DatabaseHelper.Instance.ConnectionInfo.ConnectionString))
+                {
+                    var oldRoles = await context.ServerRoles.Where(x => x.ServerRoleEnum == serverRoleEnum && x.IsActive == true).ToListAsync();
+                    if (oldRoles.Count == 0)
+                    {
+                        context.ServerRoles.Add(serverRoleDto);
+                        await context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        if (oldRoles.Count(x => x.ServerId == serverRoleDto.ServerId && x.ServerRoleEnum == serverRoleEnum) > 0)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            context.ServerRoles.Add(serverRoleDto);
+                            await context.SaveChangesAsync();
+                        }
                     }
 
                     await GetRoles();

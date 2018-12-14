@@ -303,7 +303,7 @@
                                                     <Style TargetType="Path" BasedOn="{StaticResource vector-square}">
                                                         <Setter Property="Fill" Value="{StaticResource Accent07_03}"></Setter>
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding RolesHelper.Status}" Value="{x:Static types:RolesHelperStatusEnum.RolesGetted}">
+                                                            <DataTrigger  Binding="{Binding ElementName=BorderRolesError, Path=Visibility}" Value="Collapsed">
                                                                 <Setter Property="Fill" Value="{StaticResource Accent02_03}"></Setter>
                                                             </DataTrigger>
                                                         </Style.Triggers>

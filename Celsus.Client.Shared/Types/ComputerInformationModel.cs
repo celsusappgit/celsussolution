@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Celsus.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,51 @@ namespace Celsus.Client.Shared.Types
 {
     public class ComputerInformationModel : BaseModel
     {
+        public bool IsRegistered
+        {
+            get
+            {
+                if (ServerRoleEnum == ServerRoleEnum.Indexer)
+                {
+                    if (LicenseHelper.Instance.Status == LicenseHelperStatusEnum.HaveTrialLicense)
+                    {
+                        if (string.IsNullOrWhiteSpace(LicenseHelper.Instance.TrialLicenseInfo.Indexer01) == false)
+                        {
+                            if (LicenseHelper.Instance.TrialLicenseInfo.Indexer01.Equals(ServerId, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                    else if (LicenseHelper.Instance.Status == LicenseHelperStatusEnum.HaveTrialLicense)
+                    {
+                        if (LicenseHelper.Instance.LicenseInfo.Indexers != null)
+                        {
+                            if (LicenseHelper.Instance.LicenseInfo.Indexers.Count(x => x.Equals(ServerId, StringComparison.InvariantCultureIgnoreCase)) > 0)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+        }
+
+        ServerRoleEnum serverRoleEnum;
+        public ServerRoleEnum ServerRoleEnum
+        {
+            get
+            {
+                return serverRoleEnum;
+            }
+            set
+            {
+                if (Equals(value, serverRoleEnum)) return;
+                serverRoleEnum = value;
+                NotifyPropertyChanged(() => ServerRoleEnum);
+            }
+        }
         string serverName;
         public string ServerName
         {

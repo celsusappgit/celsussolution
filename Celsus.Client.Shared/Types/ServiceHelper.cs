@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Management;
 using System.Reflection;
 using System.Security.Principal;
 using System.ServiceProcess;
@@ -19,7 +20,8 @@ namespace Celsus.Client.Shared.Types
         Ok = 2,
         NotInstalled = 3,
         Installed = 4,
-        InstalledButOld = 5
+        InstalledButOld = 5,
+        InstalledButFileNotFound = 6
     }
     public class ServiceHelper : BaseModel<ServiceHelper>, MustInit
     {
@@ -110,6 +112,34 @@ namespace Celsus.Client.Shared.Types
             {
                 ServiceControllerStatus = service.Status;
                 Status = ServiceHelperStatusEnum.Installed;
+
+                try
+                {
+                    ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_Service Where Name = 'CelsusWorkerService'");
+                    ManagementObjectCollection collection = searcher.Get();
+
+                    foreach (ManagementObject obj in collection)
+                    {
+                        string name = obj["Name"] as string;
+                        string pathName = obj["PathName"] as string;
+                        if (name == "CelsusWorkerService")
+                        {
+                            if (pathName.IndexOf('"') >= 0)
+                            {
+                                var path = pathName.Split('"')[1];
+                                if (File.Exists(path) == false)
+                                {
+                                    Status = ServiceHelperStatusEnum.InstalledButFileNotFound;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex, $"GetServicePath error.");
+                }
+                
             }
             else
             {
@@ -233,7 +263,7 @@ namespace Celsus.Client.Shared.Types
 
         public bool InstallOrUpgrade()
         {
-            if (Status == ServiceHelperStatusEnum.NotInstalled)
+            if (Status == ServiceHelperStatusEnum.NotInstalled || Status == ServiceHelperStatusEnum.InstalledButFileNotFound)
             {
                 if (ServiceInstallerHelper.Instance.IsAdmin == false)
                 {

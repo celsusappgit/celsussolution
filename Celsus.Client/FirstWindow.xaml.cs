@@ -6,6 +6,7 @@ using Celsus.Client.Controls.Setup;
 using Celsus.Client.Controls.Setup.Database;
 using Celsus.Client.Shared.Types;
 using Celsus.Client.Types;
+using Celsus.Client.Types.CryptlexApi;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,8 @@ namespace Celsus.Client
             DataContext = FirstWindowModel.Instance;
             //FirstWindowModel.Instance.Init();
 
+            GetAllUsers();
+
 #if DEBUG
             Width = 1280;
             Height = 1024;
@@ -52,6 +55,14 @@ namespace Celsus.Client
         private void Border_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             LicenseHelper.Instance.Reset(out int st);
+        }
+
+        private async void GetAllUsers()
+        {
+            await CryptlexHelper.GetAllUsersAsync();
+
+
+            var t = await CryptlexHelper.CreateUserAsync("f1", "l1", "rere@ew.com", "Organization", "passwordd");
         }
 
 
@@ -177,6 +188,8 @@ namespace Celsus.Client
 
         #endregion
 
+        ClickOnceHelper clickOnceHelper = null;
+
         ICommand searchCommand;
         public ICommand SearchCommand
         {
@@ -220,8 +233,6 @@ namespace Celsus.Client
             }
         }
 
-
-
         ICommand helpCommand;
         public ICommand HelpCommand
         {
@@ -259,10 +270,14 @@ namespace Celsus.Client
             }
             catch (System.ComponentModel.Win32Exception noBrowser)
             {
-                if (noBrowser.ErrorCode == -2147467259) ;
+                if (noBrowser.ErrorCode == -2147467259)
+                {
+                }
+                logger.Error(noBrowser, "Error in Help");
             }
-            catch (Exception other)
+            catch (Exception ex)
             {
+                logger.Error(ex, "Error in Help");
             }
 
         }
@@ -297,7 +312,16 @@ namespace Celsus.Client
 
         }
         public void Init()
+
         {
+            AnalitycsMonitor = new CustomAnalitycsMonitor();
+
+            AnalitycsMonitor.StartSession();
+
+            clickOnceHelper = new ClickOnceHelper();
+            clickOnceHelper.PropertyChanged += ClickOnceHelper_PropertyChanged;
+            clickOnceHelper.CheckForUpdate();
+
             if (string.IsNullOrWhiteSpace(Properties.Settings.Default.Language) == false)
             {
                 if (Properties.Settings.Default.Language.Length == 2)
@@ -342,9 +366,15 @@ namespace Celsus.Client
                     ||
                     LicenseHelper.Instance.Status == LicenseHelperStatusEnum.WrongProductId
                     ||
-                    LicenseHelper.Instance.Status == LicenseHelperStatusEnum.WrongProductKey)
+                    LicenseHelper.Instance.Status == LicenseHelperStatusEnum.WrongProductKey
+                    ||
+                    SetupHelper.Instance.Status != SetupHelperStatusEnum.SetupHelperOk)
             {
                 OpenTabItem(typeof(SetupMainControl));
+            }
+            else
+            {
+                OpenTabItem(typeof(SearchControl));
             }
             //if (LicenseHelper.Instance.Status == LicenseHelperStatusEnum.DontHaveLicense)
             //{
@@ -357,10 +387,66 @@ namespace Celsus.Client
 
             //OpenTabItem(typeof(IndexerSetupMainControl));
 
-            AnalitycsMonitor = new CustomAnalitycsMonitor();
 
-            AnalitycsMonitor.StartSession();
 
+        }
+
+        private void AlertClosed(object sender, WindowClosedEventArgs e)
+        {
+            App.Current.Shutdown();
+        }
+
+        private void ClickOnceHelper_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Status")
+            {
+                switch (clickOnceHelper.Status)
+                {
+                    case ClickOnceHelperStatusEnum.Idle:
+                        break;
+                    case ClickOnceHelperStatusEnum.Working:
+                        break;
+                    case ClickOnceHelperStatusEnum.VersionIsUpToDate:
+                        //MessageBox.Show("VersionIsUpToDate");
+                        break;
+                    case ClickOnceHelperStatusEnum.NewVersionGet:
+                        {
+                            var textBlock = "NewVersionGet".ConvertToBindableText();
+                            textBlock.TextWrapping = TextWrapping.WrapWithOverflow;
+                            textBlock.Height = 200;
+                            textBlock.Width = 400;
+                            RadWindow.Alert(new DialogParameters() { Content = textBlock, DialogStartupLocation = WindowStartupLocation.CenterOwner, Header = "Success".ConvertToBindableText(), Owner = App.Current.MainWindow, Closed = AlertClosed });
+                            try
+                            {
+                                System.Windows.Forms.Application.Restart();
+                            }
+                            catch (Exception)
+                            {
+                            }
+                        }
+                        Application.Current.Shutdown();
+                        break;
+                    case ClickOnceHelperStatusEnum.Error:
+                        {
+                            var textBlock = "NewVersionError".ConvertToBindableText();
+                            textBlock.TextWrapping = TextWrapping.WrapWithOverflow;
+                            textBlock.Height = 200;
+                            textBlock.Width = 400;
+                            RadWindow.Alert(new DialogParameters() { Content = textBlock, DialogStartupLocation = WindowStartupLocation.CenterOwner, Header = "Error".ConvertToBindableText(), Owner = App.Current.MainWindow, Closed = AlertClosed });
+                            try
+                            {
+                                System.Windows.Forms.Application.Exit();
+                            }
+                            catch (Exception)
+                            {
+                            }
+                        }
+                        Application.Current.Shutdown();
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         internal void OpenTabItem(Type type)

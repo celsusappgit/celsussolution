@@ -7,8 +7,8 @@ key:ActiveSources
 [Active Sources]
 [Aktif Kaynaklar]
 key:AddDatabaseRoleToThisComputer
-[Add Database Role To This Computer]
-[Bu Bilgisayara Veri Tabanı Rolünü Ata]
+[Add Database Role]
+[Veri Tabanı Rolünü Ata]
 key:AddIndexerRoleToThisComputer
 [Add Indexer Role To This Computer]
 [Bu Bilgisayara İndeksleme Rolünü Ata]
@@ -24,6 +24,9 @@ key:AllComponentsForIndexerRoleIsIntalledYou
 key:AnE-MailWillBeSentToOurLicensingDepartme
 [An e-Mail will be sent to our licensing department which contains information below. Please enter reason for extending license and hit Send Request button.]
 [Lisans departmanımıza aşağıdaki bilgileri içeren bir e-posta gönderilecektir. Lütfen lisans uzatma nedeninizi girin ve İsteği Gönder düğmesini kullanın.]
+key:AnotherComputer
+[Another Computer]
+[Başka Bir Bilgisayar]
 key:CannotGetRoles
 [Cannot get roles]
 [Roller alınamadı]
@@ -38,7 +41,7 @@ key:CelsusContains3RolesAllRolesCanBeInstall
 [Celsus 3 rol içerir. Tüm roller aynı bilgisayara yüklenebilir veya farklı bilgisayarlara roller yükleyebilirsiniz.]
 key:CelsusDatabaseIsOutdatedUpdate
 [Celsus database is outdated. To update schema plase click Update Celsus Database button.]
-[Celsus veritabanı güncel değil. Veri tabanını güncelleştirmek için Güncelleş düğmesini kullanın.]
+[Celsus veritabanı güncel değil. Veri tabanını güncelleştirmek için Güncelle düğmesini kullanın.]
 key:CelsusDatabaseIsUpdatedAndOk
 [Celsus database is updated and everything seems ok.]
 [Celsus veritabanı güncel ve her şey yolunda görünüyor.]
@@ -57,6 +60,12 @@ key:CelsusNeedsAnyEditionOfMicrosoftSQLServe
 key:CelsusTopologyInformation
 [Celsus Topology Information]
 [Roller]
+key:CheckConnection
+[Check Connection]
+[Bağlantıyı Test Et]
+key:Close
+[Close]
+[Kapat]
 key:ComputerClockCracked
 [Computer Clock Cracked]
 [Bilgisayar Saati Bozulmuş]
@@ -66,12 +75,33 @@ key:ComputerClockError
 key:ComputerName
 [Computer Name]
 [Bilgisayar Adı]
+key:ConfigFileResourceError
+[Config file resource error]
+[Yapılandırma dosyası hatası]
+key:ConfigFileSaved
+[Config file saved]
+[Yapılandırma dosyası kaydedildi]
+key:ConfigFileWriteError
+[Config file write error]
+[Yapılandırma dosyası yazma hatası]
+key:ConnectionStringControl
+[Connection String]
+[Veri Tabanı Bağlantı Cümlesi]
 key:CreateNewSource
 [Create New Source]
 [Yeni Kaynak Ekle]
 key:CreateNewWorkflow
 [Create New Workflow]
 [Yeni İş Akışı Oluştur]
+key:CreatingConfigFile
+[Creating config file]
+[Yapılandırma dosyası oluşturuluyor]
+key:CriteriaAdded
+[Criteria Added]
+[Kriter Eklendi]
+key:CriteriaRemoved
+[Criteria Removed]
+[Kriter Kaldırıldı]
 key:CustomFileType
 [Custom File Type]
 [Özel Dosya Türü]
@@ -99,6 +129,12 @@ key:DatabaseSetupMainControl
 key:DatabaseStoresAllInformationAboutCelsusT
 [Database stores all information about Celsus. There must be only one database in a Celsus topology. Having more than one database role will cause errors.]
 [Veri Tabanı Celsus hakkında tüm bilgileri depolar. Celsus topolojisi içinde yalnızca bir veritabanı olmalıdır. Birden fazla veritabanı rolü olması hatalara neden olur.]
+key:DatabaseUpgradedSuccessfully
+[Database upgraded successfully]
+[Veritabanı başarıyla güncellendi]
+key:DatabaseUpgradeError
+[Database upgrade error]
+[Veritabanı güncelleme hatası]
 key:DocumentContent
 [Document Content]
 [Belge İçeriği]
@@ -165,9 +201,33 @@ key:EnterYourSurname
 key:ErrorFileCount
 [Error File Count]
 [Hata Alınmış Dosyası Sayısı]
+key:ErrorInDownload
+[Error in download]
+[Dosya indirme hatası]
+key:ErrorInInstallingImageMagick
+[Error in installing ImageMagick]
+[ImageMagick yükleme hatası]
+key:ErrorInInstallingService
+[Error in installing service]
+[Servis yüklenirken hata oluştu]
+key:ErrorInInstallingTesseract
+[Error in installing Tesseract]
+[Tesseract yükleme hatası]
+key:ErrorInInstallingXPdfTools
+[Error in installing XPdfTools]
+[XPdfTools yüklerken hata oluştur]
 key:ErrorInSearch
 [Error in search]
 [Arama hatası]
+key:ErrorInSettingIndexerRole
+[Error in setting Indexer Role]
+[Hata oluştu]
+key:ErrorInStartingDownload
+[Error in starting download]
+[Karşıdan yükleme başlatılırken hata oluştu]
+key:ErrorOccuredConnectingSQLServer
+[Error occured connecting SQL Server]
+[SQL Server bağlanırken hata oluştu]
 key:ErrorOccuredErrorCode
 [Error occured. Error code {0}]
 [Hata oluştu. Hata kodu {0}]
@@ -195,6 +255,9 @@ key:ExtendTrial
 key:Extracting
 [Extracting {0}]
 [{0} açılıyor]
+key:ExtractingSetupFile
+[Extracting setup file]
+[Kurulum dosyasını açılıyor]
 key:FileType
 [File Type]
 [Dosya Türü]
@@ -242,7 +305,7 @@ key:ImageMagickNotInstalledOnThisYouCanInsta
 [ImageMagick bu yüklü değil. ImageMagick 'i bu bilgisayara yükleyebilirsiniz]
 key:ImportConnectionInfo
 [Import Connection Info]
-[Bağlantı Bilgilerini Al]
+[Bağlantı Bilgilerini Dosyadan Al]
 key:IndexerCrawlsSourcesAndDoesOCROperationO
 [Indexer crawls sources and does OCR operation on files. There must be only one Indexer in a Celsus topology. Having more than one Indexer role will cause errors.]
 [Dizinleyici kaynakları geziniyor ve dosyalarda OCR işlemi yapar. Celsus topolojisi içinde yalnızca bir dizinleyici olmalıdır. Birden fazla dizinleyici rolü olması hatalara neden olur.]
@@ -254,7 +317,10 @@ key:IndexerRoleComputerAndViewerRoleComputer
 [Dizin Oluşturucusu rolü bilgisayar ve Görüntüleyici rolü bilgisayarların veritabanı rolü bilgisayarına bağlantısı olmalıdır.]
 key:IndexerRoleIsNotInstalledOnAnyComputersI
 [Indexer Role is not installed on any computers in your company. You can install Indexer Role to this computer or any other computer in your company.]
-[Dizinleyici rolü şirketinizin herhangi bir bilgisayarda yüklü değil. Bu bilgisayara veya şirketinize başka bir bilgisayara Dizin Oluşturucusu rolü yükleyebilirsiniz.]
+[İndekleme rolü şirketinizin herhangi bir bilgisayarda yüklü değil. Bu bilgisayara veya şirketinizdee başka bir bilgisayara İndekleme Rolü yükleyebilirsiniz.]
+key:IndexerRoleSettedSuccessfully
+[Indexer Role setted successfully]
+[Indekleme rolü başarıyla atandı]
 key:IndexerSetupMainControl
 [Indexer Role Setup]
 [İndeksleme Rolü Kurulumu]
@@ -268,8 +334,8 @@ key:InstallMicrosoftSQLServer2016ExpressEdit
 [Install Microsoft SQL Server 2016 Express Edition]
 [Microsoft SQL Server 2016 Express Edition Kur]
 key:InstallServiceToThisComputer
-[Assign Service Role To This Computer]
-[Bu Bilgisayara Servis Rolünü Ata]
+[Install Service Component to This Computer]
+[Bu Bilgisayara Servis Bileşenini Yükle]
 key:InstallTesseractToThisComputer
 [Install Tesseract To This Computer]
 [Tesseract 'ı bu bilgisayara yükleyin]
@@ -321,9 +387,15 @@ key:LicenseSuspended
 key:Licensing
 [Licensing]
 [Lisanslama]
+key:LoginFailedToSQLServer
+[Login failed to SQL Server]
+[SQL Server'a oturum açma başarısız oldu.]
 key:ManageRolesControl
 [Roles Management]
 [Rol Yönetimi]
+key:MaximumAllowedIndexerRolesCount
+[Maximum Allowed Indexer Roles Count]
+[İzin Verilen En Fazla Dizin Oluşturucu Rolleri Sayısı]
 key:Metadatas
 [Metadata]
 [Metaveri]
@@ -342,6 +414,9 @@ key:NeedALicense
 key:OmittedFileCount
 [Omitted File Count]
 [Göz Ardı Edilmiş Dosya Sayısı]
+key:On
+[on]
+[-ını]
 key:OneOrMoreRolesIsMissing
 [One or more roles is missing]
 [Bir veya daha fazla rol eksik]
@@ -369,6 +444,9 @@ key:PleaseEnterAnySearchTerm
 key:PleaseEnterReasonToExtendYourTrial
 [Please enter reason to extend your trial]
 [Lütfen deneme sürümünü uzatma nedeninizi giriniz]
+key:ProcessError
+[Process error]
+[İşlem hatası]
 key:ProductTrialHasExpired
 [Product trial has expired]
 [Ürün deneme süresi dolmuş]
@@ -378,6 +456,9 @@ key:PurchaseNewLicense
 key:Reason
 [Reason]
 [Neden]
+key:ReEnterConnectionInfo
+[Reenter Connection Info]
+[Bağlantı Bilgilerini Yeniden Girin]
 key:RequestTrialLicenseControl
 [Request Trial License]
 [Deneme Sürümü Alma]
@@ -411,24 +492,33 @@ key:SendRequestTrialExtend
 key:Serial
 [Serial]
 [Seri Numarası]
+key:Server
+[Server]
+[Sunucu]
 key:ServerId
 [Server Id]
 [Sunucu Kimliği]
 key:ServerNameOrIP
 [Server Name or IP]
-[ServerNameOrIP]
+[Sunucu Adı veya IP Adresi]
 key:ServiceComponent
 [Service Component]
 [Servis Bileşeni]
+key:ServiceInstalled
+[Service installed]
+[Service yüklendi]
+key:ServiceInstalledOnThisComputerButFileNot
+[Service installed on this computer but required files are missing. You can repair Service with using button below.]
+[Servis Bileşen bilgisayara yüklenmiş ancak gerekli dosyalar eksik. Aşağıdaki butonu kullanarak Servis Bileşenini onarabilirsiniz.]
 key:ServiceInstalledOnThisComputerButItIsOld
 [Service installed on this computer but it is old. You can update Service with using button below.]
-[Hizmet bu bilgisayarda yüklü ama eski. Aşağıdaki düğmesini kullanarak hizmeti güncelleyebilirsiniz.]
+[Servis Bileşeni bu bilgisayarda yüklü ama bulunan sürüm en güncel sürüm değil. Aşağıdaki butonu kullanarak Servis Bileşenini güncelleyebilirsiniz.]
 key:ServiceIsInstalled
 [Service is installed.]
-[Hizmeti yüklü.]
+[Servis Bileşeni yüklü.]
 key:ServiceNotInstalledOnThisYouCanInstallSe
 [Service not installed on this computer. You can install Service to this computer]
-[Hizmet bu bilgisayarda yüklü değil. Bu bilgisayara hizmet yükleyebilirsiniz.]
+[Servis Bileşeni bu bilgisayarda yüklü değil. Bu bilgisayara Servis Bileşenini yükleyebilirsiniz.]
 key:ServiceStatus
 [Service Status]
 [Servis Durumu]
@@ -441,9 +531,12 @@ key:SetAsIndexerRole
 key:Setup
 [Setup]
 [Ayarlar]
+key:SetupCompletedSuccessfully
+[Setup completed successfully]
+[Kurulum başarıyla tamamlandı]
 key:SetupIsRunningDoNotCloseThisWindowItWill
 [Setup is running. Do not close this window. It will take long time to install. Please be patient.]
-[Kur çalışıyor. Bu pencereyi kapatmayın. Yüklemek için uzun zaman alacaktır. Lütfen sabırlı olun.]
+[Kurulum çalışıyor. Bu pencereyi kapatmayın. Yüklemek uzun zaman alacaktır. Lütfen sabırlı olun.]
 key:SetupMainControl
 [Setup]
 [Ayarlar]
@@ -459,9 +552,24 @@ key:SourcesManagementControl
 key:SQLServerError
 [SQL Server Error]
 [SQL Server Hatası]
+key:SQLServerIsNotReachable
+[SQL Server is not reachable]
+[SQL Server'a erişilemiyor]
 key:SQLServerSetupFile
 [SQL Server Setup File]
 [SQL Server Kurulum Dosyası]
+key:SQLServerSetupFileDownloaded
+[SQL Server setup file downloaded]
+[SQL Server kurulum dosyası indirildi]
+key:SQLServerSetupFileExtracted
+[SQL Server setup file extracted]
+[SQL Server kurululum dosyası açıldı]
+key:StartingDownload
+[Starting download]
+[İndirme başlatılıyor]
+key:SuccessfullyConnectedToSQLServer
+[Successfully connected to SQL Server]
+[SQL Server'a başarıyla ulaşıldı]
 key:SuccessfullyProcessedFileCount
 [Successfully Processed File Count]
 [Başarıyla İşlenen Dosya Sayısı]
@@ -489,6 +597,9 @@ key:ThereIsOneComputerInstalledDatabaseRoleY
 key:ThereIsOneComputerInstalledIndexerRoleYo
 [You can see computers with Indexer Role below.]
 [Indeksleme Rolüne sahip bilgisayarlar aşağıda listelenmiştir.]
+key:ThisComputer
+[This Computer]
+[Bu Bilgisayar]
 key:ThisIsTheFirstTimeYouUseCelsusCelsusNeed
 [This is the first time you use Celsus. Celsus needs some roles to be installed to operate. You can continue with clicking Open Detail button.]
 [Bu Celsus'u ilk kez kullanışınız. Celsus'un çalışması için bazı rollere ihtiyacı var. Detaylar düğmesiile işlemlere devam edebilirsiniz.]
@@ -500,13 +611,13 @@ key:ToInstallImageMagickToThisComputerClickI
 [ImageMagick 'i bu bilgisayara yüklemek Için aşağıdaki ImageMagick düğmesini yükle 'yi tıklatın.]
 key:ToInstallIndexerRoleToThisComputerClickA
 [To install Indexer Role to this computer, click Add Indexer Role To This Computer button below.]
-[Bu bilgisayara Dizin Oluşturucusu rolü yüklemek Için aşağıdaki bilgisayar düğmesine Dizin Oluşturucu rolü Ekle 'yi tıklatın.]
+[Bu bilgisayara İndeksleme Rolü yüklemek Için aşağıdaki butonu kullanabilirsiniz.]
 key:ToİnstallMicrosoftSQLServer2016ExpressEd
 [To install Microsoft SQL Server 2016 Express Edition on this computer please click Install Microsoft SQL Server 2016 Express Edition button.]
 [Microsoft SQL Server 2016 Express Edition bu bilgisayara yüklemek Için lütfen Microsoft SQL Server 2016 Express Edition 'ı Yükle düğmesini tıklatın.]
 key:ToInstallServiceToThisComputerClickInsta
 [To install Service to this computer, click Install Service button below.]
-[Bu bilgisayara hizmet yüklemek için aşağıdaki butonu kullanın.]
+[Bu bilgisayara Servis Bileşenini yüklemek için aşağıdaki butonu kullanın.]
 key:ToInstallTesseractToThisComputerClickIns
 [To install Tesseract to this computer, click Install Tesseract button below.]
 [Bu bilgisayara Tesseract yüklemek için aşağıdaki butonu kullanın.]
@@ -576,6 +687,15 @@ key:WeHaveDatabaseConnectionInformationAndWe
 key:WeHaveDatabaseConnectionInformationButWe
 [We have database connection information but we cannot access to the database. To enter connection paramaters please click Enter Connection Paramaters button.]
 [Veritabanı bağlantı bilgilerine sahibiz ancak veritabanına erişemiyoruz. Bağlantı parametrelerini girmek Için lütfen bağlantı parametreleri düğmesini kullanın.]
+key:WeWillUpdateCelsusDatabaseNow
+[We will update Celsus database now]
+[Şimdi Celsus veritabanını günceleceğiz]
+key:WorkflowItemControl
+[Workflow Item]
+[İş Akışı]
+key:WorkflowManagementControl
+[Workflow Management]
+[İş Akışı Yönetimi]
 key:Workflows
 [Workflows]
 [İş Akışları]
@@ -609,3 +729,6 @@ key:YouHaveSuccessfullyResettedLicenseInform
 key:YouHaveSuccessfullyStartedYourTrialLicen
 [You have successfully started your trial license. Application will shut down it self. Please re-open Celsus again.]
 [Deneme lisansınızı başarıyla başlatınız. Uygulama kendini kapatacaktır. Lütfen Celsus'u yeniden açın.]
+key:YouNeedToStartCelsusWithAdministratorPri
+[You need to start Celsus with Administrator privileges]
+[Celsus'u yönetici olarak tekrar başlatınız.]

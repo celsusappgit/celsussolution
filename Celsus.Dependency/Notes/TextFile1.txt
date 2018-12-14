@@ -8,11 +8,16 @@
 
 * Celsus.Dependency > Workflows altında örnek Workflow var. Import From File butonu ile sisteme yüklenebilir.
 
-* Azure account celsusmanagement@outlook.com senekayazilim@ive.com
+* Azure account senekayazilim@live.com
+
+				FTP
+				U: CelsusNet\$CelsusNet
+				P: 3jp9wGwRYEkdA0df3lCSAQzeXvuRKwc4qFYxHohGSxnl6yu00aqtW8PQxtsP
+				
+				U: senekayazilimftp
+				P: 1234qqqQasd
 
 * ReadTheDocs account celsusmanagement@outlook.com
-
-* Azure ftp account celcusftp
 
 * More info https://diging.atlassian.net/wiki/spaces/DCH/pages/5275668/Tutorial+Text+Extraction+and+OCR+with+Tesseract+and+ImageMagick
 
@@ -27,11 +32,13 @@
 
 * 3 Rol var, Arama x N, Worker x N, SQL x 1
 
-* Key 1 de975f5d4e9d4121b21fac6928b73c54
+* Google Analytics
 
-* Key 2 dfb665f3779d40abb7f642a56b474203
+		* Key 1 de975f5d4e9d4121b21fac6928b73c54
 
-* Tracking ID UA-129865696-1, account senekayazilimebdys@gmail.com
+		* Key 2 dfb665f3779d40abb7f642a56b474203
+
+		* Tracking ID UA-129865696-1, account senekayazilimebdys@gmail.com
 
 * celsusappgit@outlook.com GIT
 

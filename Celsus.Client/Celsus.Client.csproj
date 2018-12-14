@@ -14,7 +14,9 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>C:\inetpub\wwwroot\CelsusClient\</PublishUrl>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>C:\Users\efeo\source\repos\CelcusSolution\Celsus.Client\Publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -24,13 +26,14 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://192.168.1.44/CelsusClient/</InstallUrl>
-    <UpdateUrl>http://192.168.1.44/CelsusClient/</UpdateUrl>
+    <InstallUrl>http://celsusnet.azurewebsites.net/deploy/</InstallUrl>
+    <UpdateUrl>http://celsusnet.azurewebsites.net/deploy/</UpdateUrl>
     <ProductName>Celsus</ProductName>
     <PublisherName>Seneka</PublisherName>
     <SuiteName>Celsus</SuiteName>
+    <MinimumRequiredVersion>1.0.0.33</MinimumRequiredVersion>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>33</ApplicationRevision>
+    <ApplicationRevision>42</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -78,16 +81,52 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Flurl, Version=2.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Flurl.2.8.0\lib\net40\Flurl.dll</HintPath>
+    </Reference>
+    <Reference Include="Flurl.Http, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Flurl.Http.2.4.0\lib\net46\Flurl.Http.dll</HintPath>
+    </Reference>
     <Reference Include="GoogleAnalytics.Core">
       <HintPath>..\Celsus.Dependency\Dependency\Google\GoogleAnalytics.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Context, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nito.AsyncEx.Context.5.0.0-pre-05\lib\netstandard2.0\Nito.AsyncEx.Context.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Coordination, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nito.AsyncEx.Coordination.5.0.0-pre-05\lib\netstandard2.0\Nito.AsyncEx.Coordination.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Interop.WaitHandles, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nito.AsyncEx.Interop.WaitHandles.5.0.0-pre-05\lib\netstandard2.0\Nito.AsyncEx.Interop.WaitHandles.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Oop, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nito.AsyncEx.Oop.5.0.0-pre-05\lib\netstandard2.0\Nito.AsyncEx.Oop.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Tasks, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nito.AsyncEx.Tasks.5.0.0-pre-05\lib\netstandard2.0\Nito.AsyncEx.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.Cancellation, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nito.Cancellation.1.0.5\lib\netstandard2.0\Nito.Cancellation.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.Collections.Deque, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nito.Collections.Deque.1.0.4\lib\netstandard2.0\Nito.Collections.Deque.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.Disposables, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nito.Disposables.2.0.0\lib\netstandard2.0\Nito.Disposables.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=106.5.4.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.5.4\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -160,6 +199,9 @@
     <Compile Include="Controls\Common\SearchControl.xaml.cs">
       <DependentUpon>SearchControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Common\ServerControl.xaml.cs">
+      <DependentUpon>ServerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Licensing\EnterSerialControl.xaml.cs">
       <DependentUpon>EnterSerialControl.xaml</DependentUpon>
     </Compile>
@@ -201,20 +243,33 @@
     <Compile Include="Controls\Setup\SetupMainControl.xaml.cs">
       <DependentUpon>SetupMainControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Types\ClickOnceHelper.cs" />
+    <Compile Include="Types\CryptlexApi\CryptlexApiResult.cs" />
+    <Compile Include="Types\CryptlexApi\CryptlexConverter.cs" />
     <Compile Include="Types\Converters\Enum2LocalizedValueConverter.cs" />
     <Compile Include="Types\Converters\NullToBooleanConverter.cs" />
+    <Compile Include="Types\Converters\ServerId2NameConverter.cs" />
     <Compile Include="Types\Converters\VisibilityInverseConverter.cs" />
+    <Compile Include="Types\CryptlexApi\CryptlexHelper.cs" />
+    <Compile Include="Types\CryptlexApi\CryptlexError.cs" />
+    <Compile Include="Types\CryptlexApi\CryptlexCreateUserRequest.cs" />
+    <Compile Include="Types\CryptlexApi\CryptlexUser.cs" />
     <Compile Include="Types\CustomAnalitycsMonitor.cs" />
     <Compile Include="Types\Extensions.cs" />
     <Compile Include="Types\HelpAttribute.cs" />
+    <Compile Include="Types\CryptlexApi\CryptlexMetadata.cs" />
     <Compile Include="Types\Models\Repo.cs" />
     <Compile Include="Types\Models\SourceModel.cs" />
     <Compile Include="Types\Models\WorkflowModel.cs" />
+    <Compile Include="Types\CryptlexApi\CryptlexSerialize.cs" />
     <Compile Include="Types\TabViewModel.cs" />
     <Compile Include="Types\Converters\HalfConverter.cs" />
     <Compile Include="Types\DownloadUris.cs" />
     <Compile Include="Types\LocManager.cs" />
     <Compile Include="Types\TranslationSource.cs" />
+    <Compile Include="WebWindow.xaml.cs">
+      <DependentUpon>WebWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\Common\DocumentViewerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -224,6 +279,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Common\SearchControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Common\ServerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -305,6 +364,10 @@
       <DependentUpon>FirstWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="WebWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -409,5 +472,6 @@
   <ItemGroup>
     <Resource Include="Resources\Icons\Logo03.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

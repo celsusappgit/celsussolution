@@ -148,12 +148,22 @@
                                             <TextBlock Text="{loc:Loc CelsusDatabaseVersionError}" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
                                         </Border>
                                         <StackPanel DockPanel.Dock="Top" Grid.IsSharedSizeScope="True" Margin="24,12,24,24">
-                                            <TextBlock TextWrapping="WrapWithOverflow" Margin="0,6"  Foreground="{StaticResource Fore01_03}" Text="{loc:Loc CelsusDatabaseIsOutdatedUpdate}">
+                                            <TextBlock TextWrapping="WrapWithOverflow" Margin="0,6"  Foreground="{StaticResource Fore01_03}" Text="{loc:Loc CelsusDatabaseIsOutdatedUpdate}"/>
 
-                                            </TextBlock>
+
                                             <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
-                                                <telerik:RadButton Style="{DynamicResource FormButtonInner}" Margin="0" Command="{Binding UpdateCelsusDatabaseCommand}" Content="{loc:Loc UpdateCelsusDatabase}" >
+                                                <telerik:RadButton Style="{DynamicResource FormButtonInner}" Margin="0" Command="{Binding UpdateCelsusDatabaseCommand}" >
+                                                    <telerik:RadButton.Content>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock TextWrapping="WrapWithOverflow" Margin="0,0" VerticalAlignment="Center"  Foreground="{StaticResource Fore01_03}" Text="{loc:Loc UpdateCelsusDatabase}"/>
+                                                            <TextBlock TextWrapping="WrapWithOverflow" Margin="4,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource Fore01_03}" Text="(" />
+                                                            <TextBlock TextWrapping="WrapWithOverflow" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource Fore01_03}" Text="{loc:Loc Server}" />
+                                                            <TextBlock TextWrapping="WrapWithOverflow" Margin="4,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource Fore01_03}" Text="{Binding DatabaseHelper.ConnectionInfo.Server}" FontWeight="Medium"/>
+                                                            <TextBlock TextWrapping="WrapWithOverflow" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource Fore01_03}" Text=")" />
+                                                        </StackPanel>
+                                                    </telerik:RadButton.Content>
                                                 </telerik:RadButton>
+                                                
                                             </StackPanel>
                                         </StackPanel>
                                     </DockPanel>
@@ -198,7 +208,14 @@
                                                     </Style.Triggers>
                                                 </Style>
                                             </StackPanel.Style>
-                                            <telerik:RadButton Style="{DynamicResource FormButtonInner}" Margin="0" Command="{Binding SetAsDatabaseRoleCommand}" Content="{loc:Loc SetAsDatabaseRole}" >
+                                            <telerik:RadButton Style="{DynamicResource FormButtonInner}" Margin="0" Command="{Binding SetAsDatabaseRoleCommand}" >
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock TextWrapping="WrapWithOverflow" Margin="0,0" VerticalAlignment="Center"  Foreground="{StaticResource Fore01_03}" Text="{loc:Loc SetAsDatabaseRole}"/>
+                                                    <TextBlock TextWrapping="WrapWithOverflow" Margin="4,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource Fore01_03}" Text="(" />
+                                                    <TextBlock TextWrapping="WrapWithOverflow" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource Fore01_03}" Text="{loc:Loc Server}" />
+                                                    <TextBlock TextWrapping="WrapWithOverflow" Margin="4,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource Fore01_03}" Text="{Binding DatabaseHelper.ConnectionInfo.Server}" FontWeight="Medium"/>
+                                                    <TextBlock TextWrapping="WrapWithOverflow" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource Fore01_03}" Text=")" />
+                                                </StackPanel>
                                             </telerik:RadButton>
                                         </StackPanel>
                                     </StackPanel>

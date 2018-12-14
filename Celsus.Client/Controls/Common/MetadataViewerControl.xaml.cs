@@ -103,13 +103,14 @@ namespace Celsus.Client.Controls.Common
                     //Status = $"Found {metadatas.Count} items";
                     if (metadatas == null || metadatas.Count == 0)
                     {
-                        Status = "There is no items found for search term".ConvertToBindableText();
+                        Status = "ThereIsNoItemsFoundForSearchTerm".ConvertToBindableText();
                     }
                     Metadatas = metadatas;
                 }
             }
             catch (Exception ex)
             {
+                logger.Error(ex, "Error in search");
                 Status = $"Error in search.".ConvertToBindableText();
             }
             IsBusy = false;

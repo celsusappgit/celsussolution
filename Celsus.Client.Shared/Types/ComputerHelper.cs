@@ -73,6 +73,33 @@ namespace Celsus.Client.Shared.Types
                 return string.Empty;
             }
         }
+
+        public string GetMachineNameFromIPAddress(string ipAdress)
+        {
+            string machineName = string.Empty;
+            try
+            {
+                IPHostEntry hostEntry = Dns.GetHostEntry(ipAdress);
+
+                machineName = hostEntry.HostName;
+            }
+            catch (Exception ex)
+            {
+                // Machine not found...
+            }
+            return machineName;
+        }
+
+
+        public string GetIPAddressFromMachineName(string targetMachine)
+        {
+            IPAddress[] addresslist = Dns.GetHostAddresses(targetMachine);
+            if (addresslist == null || addresslist.Count() == 0)
+            {
+                return null;
+            }
+            return string.Join(", ", addresslist.Select(x => x.MapToIPv4().ToString()));
+        }
         public string IPAddress
         {
             get
@@ -119,7 +146,7 @@ namespace Celsus.Client.Shared.Types
             return $"{_part1Id}-{_part2Id}-{_part3Id}-{_part4Id}";
         }
 
-        
+
     }
 
     public class Base36Helper

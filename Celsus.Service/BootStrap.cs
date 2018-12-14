@@ -3,6 +3,7 @@ using Celsus.DataLayer;
 using Celsus.Types;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Celsus.Service
@@ -24,6 +25,11 @@ namespace Celsus.Service
 
             List<SourceDto> sources = null;
 
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            var version = FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion;
+
+            AddSessionLog(new SessionLogDto() { Message = "Indexer Started Version : " + version, SessionId = sessionId, LogDate = DateTime.UtcNow, SessionLogTypeEnum = SessionLogTypeEnum.Info });
+
             try
             {
                 using (var context = new SqlDbContext(SettingsHelper.Instance.ConnectionString))
@@ -37,12 +43,13 @@ namespace Celsus.Service
                 return;
             }
 
+            sources = sources.Where(x => x.ServerId == ComputerHelper.Instance.ServerId).ToList();
+
             if (sources.Count() == 0)
             {
                 AddSessionLog(new SessionLogDto() { Message = "No Sources defined in database.", SessionId = sessionId, LogDate = DateTime.UtcNow, SessionLogTypeEnum = SessionLogTypeEnum.Warning });
                 return;
             }
-
 
             AddSessionLog(new SessionLogDto() { Message = $"Sources to process ({sources.Count}): {string.Join(",", sources.Select(x => x.Name).ToArray())}.", SessionId = sessionId, LogDate = DateTime.UtcNow, SessionLogTypeEnum = SessionLogTypeEnum.Info });
 

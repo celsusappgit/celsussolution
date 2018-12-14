@@ -109,6 +109,18 @@ namespace Celsus.Client.Shared.Types
                 var checkAnyLicense = CheckAnyLicense();
             }
         }
+
+        public bool SetIndexer(string serverId)
+        {
+            var status = LexActivator.SetTrialActivationMetadata("Indexer01", serverId);
+            if (status != LexActivator.StatusCodes.LA_OK)
+            {
+                logger.Warn($"SetTrialActivationMetadata Indexer01 Code {status}");
+                return false;
+            }
+            return true;
+        }
+
         private bool Init(string sourceFolder, out bool hasError, out int statusCode)
         {
             lock (balanceLock)
@@ -472,6 +484,17 @@ namespace Celsus.Client.Shared.Types
 
                 try
                 {
+                    var sbIndexer = new StringBuilder(256);
+                    status = LexActivator.GetTrialActivationMetadata("Indexer01", sbIndexer, 256);
+                    if (status == LexActivator.StatusCodes.LA_OK)
+                        trialLicenseInfo.Indexer01 = sbIndexer.ToString();
+                }
+                catch
+                {
+                }
+
+                try
+                {
                     uint trialExpiryDate = 0;
                     status = LexActivator.GetTrialExpiryDate(ref trialExpiryDate);
                     if (status != LexActivator.StatusCodes.LA_OK) return null;
@@ -488,6 +511,7 @@ namespace Celsus.Client.Shared.Types
             }
 
         }
+
 
         private LicenseInfo GetLicenseInfo()
         {
@@ -527,6 +551,34 @@ namespace Celsus.Client.Shared.Types
                 }
                 catch
                 {
+                }
+
+                try
+                {
+                    var sbMaxAllowedIndexerRoleCount = new StringBuilder(256);
+                    status = LexActivator.GetLicenseMetadata("MaxAllowedIndexerRoleCount", sbMaxAllowedIndexerRoleCount, 256);
+                    if (status == LexActivator.StatusCodes.LA_OK)
+                        if (int.TryParse(sbMaxAllowedIndexerRoleCount.ToString(), out int dummyMaxAllowedIndexerRoleCount))
+                        {
+                            licenseInfo.MaxAllowedIndexerRoleCount = dummyMaxAllowedIndexerRoleCount;
+                        }
+                }
+                catch
+                {
+                }
+
+                for (int i = 1; i < 33; i++)
+                {
+                    try
+                    {
+                        var sbIndexer = new StringBuilder(256);
+                        status = LexActivator.GetLicenseMetadata("Indexer" + i.ToString().PadLeft(2, '0'), sbIndexer, 256);
+                        if (status == LexActivator.StatusCodes.LA_OK)
+                            licenseInfo.AddIndexer(sbIndexer.ToString());
+                    }
+                    catch
+                    {
+                    }
                 }
 
                 try
@@ -634,7 +686,7 @@ namespace Celsus.Client.Shared.Types
                 return false;
             }
         }
-        public bool ActivateTrialLicense(out bool hasError, out int status, string firstName, string lastName, string eMail, string organization)
+        public bool ActivateTrialLicense(out bool hasError, out int status, string firstName, string lastName, string eMail, string organization, Guid userId)
         {
             status = LexActivator.SetTrialActivationMetadata("FirstName", firstName);
             if (status != LexActivator.StatusCodes.LA_OK)
@@ -658,11 +710,18 @@ namespace Celsus.Client.Shared.Types
                 return false;
             }
 
-
             status = LexActivator.SetTrialActivationMetadata("Organization", organization);
             if (status != LexActivator.StatusCodes.LA_OK)
             {
                 logger.Warn($"SetTrialActivationMetadata Organization Code {status}");
+                hasError = true;
+                return false;
+            }
+
+            status = LexActivator.SetTrialActivationMetadata("UserId", userId.ToString());
+            if (status != LexActivator.StatusCodes.LA_OK)
+            {
+                logger.Warn($"SetTrialActivationMetadata UserId Code {status}");
                 hasError = true;
                 return false;
             }

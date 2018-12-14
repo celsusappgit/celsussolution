@@ -274,7 +274,10 @@
                                         <TextBlock Text="{loc:Loc ToInstallIndexerRoleToThisComputerClickA}"></TextBlock>
                                     </StackPanel>
 
-
+                                    <StackPanel Orientation="Horizontal" TextBlock.Foreground="{StaticResource Accent05_03}">
+                                        <TextBlock Text="{loc:Loc MaximumAllowedIndexerRolesCount}" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="{Binding RolesHelper.MaxAllowedIndexerRoleCount}" Margin="4,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                    </StackPanel>
 
 
                                     <StackPanel>
@@ -293,46 +296,63 @@
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate DataType="{x:Type types:ComputerInformationModel}">
                                                     <Border Margin="0,0,0,6" Padding="12,12" Background="{StaticResource Back01_02}">
-                                                        <StackPanel Grid.IsSharedSizeScope="True">
-                                                            <Grid Margin="0,2">
-                                                                <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition SharedSizeGroup="DD1" Width="Auto"></ColumnDefinition>
-                                                                    <ColumnDefinition></ColumnDefinition>
-                                                                </Grid.ColumnDefinitions>
-                                                                <TextBlock TextTrimming="CharacterEllipsis"  Foreground="{StaticResource Fore01_02}" Text="{loc:Loc ComputerName}" ></TextBlock>
-                                                                <TextBox HorizontalAlignment="Left" Grid.Column="1" Margin="4,0,0,0" Padding="2,0" IsReadOnly="True" Background="{StaticResource Back01_03}" VerticalAlignment="Center" Foreground="{StaticResource Accent04_03}" Text="{Binding ServerName}"></TextBox>
-                                                            </Grid>
+                                                        <DockPanel>
+                                                            <TextBlock Typography.Capitals="AllSmallCaps" DockPanel.Dock="Right" FontSize="14">
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="TextBlock">
+                                                                        <Setter Property="Text" Value="Unregistered"></Setter>
+                                                                        <Setter Property="Foreground" Value="{StaticResource Accent07_03}"></Setter>
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding IsRegistered}" Value="True">
+                                                                                <Setter Property="Text" Value="Registered"></Setter>
+                                                                                <Setter Property="Foreground" Value="{StaticResource Accent02_03}"></Setter>
+                                                                            </DataTrigger>
+                                                                            
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                                            </TextBlock>
+                                                            <StackPanel Grid.IsSharedSizeScope="True">
+                                                                <Grid Margin="0,2">
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition SharedSizeGroup="DD1" Width="Auto"></ColumnDefinition>
+                                                                        <ColumnDefinition></ColumnDefinition>
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <TextBlock TextTrimming="CharacterEllipsis"  Foreground="{StaticResource Fore01_02}" Text="{loc:Loc ComputerName}" ></TextBlock>
+                                                                    <TextBox HorizontalAlignment="Left" Grid.Column="1" Margin="4,0,0,0" Padding="2,0" IsReadOnly="True" Background="{StaticResource Back01_03}" VerticalAlignment="Center" Foreground="{StaticResource Accent04_03}" Text="{Binding ServerName}"></TextBox>
+                                                                </Grid>
 
-                                                            <Grid Margin="0,2">
-                                                                <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition SharedSizeGroup="DD1" Width="Auto"></ColumnDefinition>
-                                                                    <ColumnDefinition></ColumnDefinition>
-                                                                </Grid.ColumnDefinitions>
-                                                                <TextBlock TextTrimming="CharacterEllipsis"  Foreground="{StaticResource Fore01_02}" Text="{loc:Loc ServerId}" ></TextBlock>
-                                                                <TextBox HorizontalAlignment="Left" Grid.Column="1" Margin="4,0,0,0" Padding="2,0" IsReadOnly="True" Background="{StaticResource Back01_03}" VerticalAlignment="Center" Foreground="{StaticResource Accent04_03}" Text="{Binding ServerId}"></TextBox>
-                                                            </Grid>
+                                                                <Grid Margin="0,2">
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition SharedSizeGroup="DD1" Width="Auto"></ColumnDefinition>
+                                                                        <ColumnDefinition></ColumnDefinition>
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <TextBlock TextTrimming="CharacterEllipsis"  Foreground="{StaticResource Fore01_02}" Text="{loc:Loc ServerId}" ></TextBlock>
+                                                                    <TextBox HorizontalAlignment="Left" Grid.Column="1" Margin="4,0,0,0" Padding="2,0" IsReadOnly="True" Background="{StaticResource Back01_03}" VerticalAlignment="Center" Foreground="{StaticResource Accent04_03}" Text="{Binding ServerId}"></TextBox>
+                                                                </Grid>
 
-                                                            <Grid Margin="0,2">
-                                                                <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition SharedSizeGroup="DD1" Width="Auto"></ColumnDefinition>
-                                                                    <ColumnDefinition></ColumnDefinition>
-                                                                </Grid.ColumnDefinitions>
-                                                                <TextBlock TextTrimming="CharacterEllipsis"  Foreground="{StaticResource Fore01_03}" Text="{loc:Loc IPAddresses}" ></TextBlock>
-                                                                <ItemsControl Grid.Column="1" ItemsSource="{Binding ServerIPs}">
-                                                                    <ItemsControl.ItemsPanel>
-                                                                        <ItemsPanelTemplate>
-                                                                            <WrapPanel Orientation="Horizontal" IsItemsHost="True"></WrapPanel>
-                                                                        </ItemsPanelTemplate>
-                                                                    </ItemsControl.ItemsPanel>
-                                                                    <ItemsControl.ItemTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBox Text="{Binding Path=.}" Margin="4,0,0,0" Padding="2,0" IsReadOnly="True" Background="{StaticResource Back01_03}" VerticalAlignment="Center" Foreground="{StaticResource Accent04_03}"></TextBox>
-                                                                        </DataTemplate>
-                                                                    </ItemsControl.ItemTemplate>
-                                                                </ItemsControl>
-                                                            </Grid>
+                                                                <Grid Margin="0,2">
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition SharedSizeGroup="DD1" Width="Auto"></ColumnDefinition>
+                                                                        <ColumnDefinition></ColumnDefinition>
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <TextBlock TextTrimming="CharacterEllipsis"  Foreground="{StaticResource Fore01_03}" Text="{loc:Loc IPAddresses}" ></TextBlock>
+                                                                    <ItemsControl Grid.Column="1" ItemsSource="{Binding ServerIPs}">
+                                                                        <ItemsControl.ItemsPanel>
+                                                                            <ItemsPanelTemplate>
+                                                                                <WrapPanel Orientation="Horizontal" IsItemsHost="True"></WrapPanel>
+                                                                            </ItemsPanelTemplate>
+                                                                        </ItemsControl.ItemsPanel>
+                                                                        <ItemsControl.ItemTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBox Text="{Binding Path=.}" Margin="4,0,0,0" Padding="2,0" IsReadOnly="True" Background="{StaticResource Back01_03}" VerticalAlignment="Center" Foreground="{StaticResource Accent04_03}"></TextBox>
+                                                                            </DataTemplate>
+                                                                        </ItemsControl.ItemTemplate>
+                                                                    </ItemsControl>
+                                                                </Grid>
 
-                                                        </StackPanel>
+                                                            </StackPanel>
+                                                        </DockPanel>
                                                     </Border>
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
@@ -344,10 +364,10 @@
                                     <telerik:RadButton Margin="0,12,2,2" Command="{Binding AddIndexerRoleCommand}" Content="{loc:Loc AddIndexerRoleToThisComputer}" >
                                         <telerik:RadButton.Style>
                                             <Style TargetType="telerik:RadButton" BasedOn="{StaticResource FormButtonInner}">
-                                                <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
+                                                <Setter Property="IsEnabled" Value="False"></Setter>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding RolesHelper.IsIndexerRoleThisComputer}" Value="False">
-                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        <Setter Property="IsEnabled" Value="True"></Setter>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -449,7 +469,7 @@
                                         <Run Text="{loc:Loc IfYouDidntInstallDatabaseRoleToAnyComput}"></Run>
                                     </TextBlock>
                                     <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
-                                        <telerik:RadButton Style="{DynamicResource FormButtonInner}" Margin="0" Command="{Binding EnterConnectionParamatersCommand}" Content="{loc:Loc EnterConnectionInfo}" >
+                                        <telerik:RadButton Style="{DynamicResource FormButtonInner}" Margin="0" Command="{Binding EnterConnectionParamatersCommand}" Content="{loc:Loc ReEnterConnectionInfo}" >
                                         </telerik:RadButton>
                                         <telerik:RadButton Style="{DynamicResource FormButtonInner}" Margin="12,0,0,0" Command="{Binding AddDatabaseRoleCommand}" Content="{loc:Loc AddDatabaseRoleToThisComputer}" >
                                         </telerik:RadButton>

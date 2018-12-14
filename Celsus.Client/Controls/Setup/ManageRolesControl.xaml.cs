@@ -63,7 +63,7 @@ namespace Celsus.Client.Controls.Setup
             var encryptedInfo = EncryptionHelper.Encrypt(SettingsHelper.Instance.ConnectionString);
             OpenFileDialog myDialog = new OpenFileDialog
             {
-                Filter = LocHelper.GetWord("CelsusInfoFiles") + " (*.clsinfo)|*.clsinfo",
+                Filter = TranslationSource.Instance["CelsusInfoFiles"] + " (*.clsinfo)|*.clsinfo",
                 CheckFileExists = false,
                 Multiselect = false
             };

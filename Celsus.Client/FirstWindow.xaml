@@ -14,7 +14,6 @@
         d:DataContext="{d:DesignInstance local:FirstWindowModel}"
         Title="{Binding Title}" Height="800" Width="1000" WindowStartupLocation="CenterScreen">
     <Window.Resources>
-
         <Style x:Key="CloseButton" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -98,12 +97,17 @@
                     <TextBlock Text="{Binding IndexerHelper.Status}" Foreground="{StaticResource Fore01_01}"></TextBlock>
                 </StackPanel>
             </StackPanel>
-            <Border Background="Transparent" Cursor="Hand" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,0,24,0">
+            <Border Background="Transparent" Cursor="Hand" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="6" Margin="0,0,24,0">
                 <telerik:EventToCommandBehavior.EventBindings>
                     <telerik:EventBinding Command="{Binding HelpCommand}" EventName="MouseLeftButtonUp" PassEventArgsToCommand="True" />
                 </telerik:EventToCommandBehavior.EventBindings>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="GET HELP" FontSize="11"  VerticalAlignment="Center" Foreground="{StaticResource Back01_04}" Margin="4,0,0,0" FontWeight="Medium" FontFamily="Montserrat Light"></TextBlock>
+                    <Path Style="{StaticResource help-circle}" VerticalAlignment="Center" Fill="{StaticResource Back01_03}" Height="20" Width="20" Stretch="Fill" Cursor="Hand" >
+                        <telerik:EventToCommandBehavior.EventBindings>
+                            <telerik:EventBinding Command="{Binding HelpForDisabledAddNewSourceCommand}" EventName="MouseLeftButtonUp" PassEventArgsToCommand="True" />
+                        </telerik:EventToCommandBehavior.EventBindings>
+                    </Path>
+                    <!--<TextBlock Text="GET HELP" FontSize="11"  VerticalAlignment="Center" Foreground="{StaticResource Back01_04}" Margin="4,0,0,0" FontWeight="Medium" FontFamily="Montserrat Light"></TextBlock>-->
                 </StackPanel>
             </Border>
         </DockPanel>
@@ -120,40 +124,38 @@
                     <StackPanel.Resources>
                         <SolidColorBrush x:Key="ControlBackground_Checked" Color="Red"></SolidColorBrush>
                     </StackPanel.Resources>
-                    <telerik:RadRadioButton IsEnabled="{Binding LicenseHelper.Instance.IsLicensed}" IsBackgroundVisible="False"  GroupName="Menu"  Focusable="False" FocusVisualStyle="{x:Null}" HorizontalContentAlignment="Center" Padding="0,12" Background="Transparent" BorderThickness="0" Command="{Binding SearchCommand}">
+                    <telerik:RadRadioButton IsBackgroundVisible="False" GroupName="Menu"  Focusable="False" FocusVisualStyle="{x:Null}" HorizontalContentAlignment="Center" Padding="0,12" Background="Transparent" BorderThickness="0" Command="{Binding SearchCommand}">
+                        <telerik:RadRadioButton.Style >
+                            <Style TargetType="telerik:RadRadioButton" BasedOn="{StaticResource RadRadioButtonStyle}">
+                                <Setter Property="IsEnabled" Value="False"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SetupHelper.Status}" Value="{x:Static types:SetupHelperStatusEnum.SetupHelperOk}">
+                                        <Setter Property="IsEnabled" Value="True"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </telerik:RadRadioButton.Style>
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition SharedSizeGroup="A" Height="Auto"></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Path Style="{StaticResource database-search}" VerticalAlignment="Center" Height="20" Stretch="Uniform" Fill="{telerik1:FluentResource ResourceKey=AccentBrush}" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Unspecified" >
-                                <!--<Path.Style>
-                                    <Style TargetType="Path" BasedOn="{StaticResource database-search}">
-                                        <Setter Property="Fill" Value="{telerik1:FluentResource ResourceKey=AccentBrush}"></Setter>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=telerik:RadRadioButton}, Path=IsChecked}" Value="True">
-                                                <Setter Property="Fill" Value="{DynamicResource Fore01_01}"></Setter>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Path.Style>-->
-                            </Path>
-                            <TextBlock Grid.Row="1" Text="{loc:Loc Search}" VerticalAlignment="Center" FontSize="11" Margin="0,4,0,0" FontWeight="Medium" FontFamily="Montserrat Light">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock" >
-                                        <Setter Property="Foreground" Value="{DynamicResource Fore01_04}"></Setter>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=telerik:RadRadioButton}, Path=IsChecked}" Value="True">
-                                                <Setter Property="Foreground" Value="{DynamicResource Fore01_05}"></Setter>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                            <Path Style="{StaticResource database-search}" VerticalAlignment="Center" Height="20" Stretch="Uniform" Fill="{telerik1:FluentResource ResourceKey=AccentBrush}" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Unspecified" />
+                            <TextBlock Grid.Row="1" Text="{loc:Loc Search}" VerticalAlignment="Center" FontSize="11" Margin="0,4,0,0" Foreground="{DynamicResource Fore01_03}" FontWeight="Medium" FontFamily="Montserrat Light"/>
                         </Grid>
                     </telerik:RadRadioButton>
 
-                    <telerik:RadRadioButton IsEnabled="{Binding LicenseHelper.Instance.IsLicensed}" IsBackgroundVisible="False" GroupName="Menu" Focusable="False" FocusVisualStyle="{x:Null}" HorizontalContentAlignment="Center" Padding="0,12" Background="Transparent" BorderThickness="0" Command="{Binding SourcesCommand}">
+                    <telerik:RadRadioButton IsBackgroundVisible="False" GroupName="Menu" Focusable="False" FocusVisualStyle="{x:Null}" HorizontalContentAlignment="Center" Padding="0,12" Background="Transparent" BorderThickness="0" Command="{Binding SourcesCommand}">
+                        <telerik:RadRadioButton.Style>
+                            <Style TargetType="telerik:RadRadioButton" BasedOn="{StaticResource RadRadioButtonStyle}">
+                                <Setter Property="IsEnabled" Value="False"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SetupHelper.Status}" Value="{x:Static types:SetupHelperStatusEnum.SetupHelperOk}">
+                                        <Setter Property="IsEnabled" Value="True"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </telerik:RadRadioButton.Style>
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition SharedSizeGroup="A" Height="Auto"></RowDefinition>
@@ -161,6 +163,18 @@
                             </Grid.RowDefinitions>
                             <Path Style="{StaticResource harddisk}" VerticalAlignment="Center" Height="20" Stretch="Uniform" Fill="{telerik1:FluentResource ResourceKey=AccentBrush}" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Unspecified"  />
                             <TextBlock Grid.Row="1" Text="{loc:Loc Sources}" VerticalAlignment="Center" FontSize="11" Margin="0,4,0,0" Foreground="{DynamicResource Fore01_03}" FontWeight="Medium" FontFamily="Montserrat Light"></TextBlock>
+                        </Grid>
+                    </telerik:RadRadioButton>
+
+
+                    <telerik:RadRadioButton IsBackgroundVisible="False" GroupName="Menu" Focusable="False" FocusVisualStyle="{x:Null}" HorizontalContentAlignment="Center" Padding="0,12" Background="Transparent" BorderThickness="0" Command="{Binding SystemMonitorCommand}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition SharedSizeGroup="A" Height="Auto"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Path Style="{StaticResource      monitor-dashboard}" VerticalAlignment="Center" Height="20" Stretch="Uniform" Fill="{telerik1:FluentResource ResourceKey=AccentBrush}"  />
+                            <TextBlock Grid.Row="1" Text="{loc:Loc SystemMonitor}" VerticalAlignment="Center" FontSize="11" Margin="0,4,0,0" Foreground="{DynamicResource Fore01_03}" FontWeight="Medium" FontFamily="Montserrat Light"></TextBlock>
                         </Grid>
                     </telerik:RadRadioButton>
 
@@ -186,30 +200,7 @@
                             </Path>
                         </Grid>
                     </telerik:RadRadioButton>
-
-                    <telerik:RadRadioButton IsBackgroundVisible="False" GroupName="Menu" Focusable="False" FocusVisualStyle="{x:Null}" HorizontalContentAlignment="Center" Padding="0,12" Background="Transparent" BorderThickness="0" Command="{Binding SystemMonitorCommand}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition SharedSizeGroup="A" Height="Auto"></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Path Style="{StaticResource      monitor-dashboard}" VerticalAlignment="Center" Height="20" Stretch="Uniform" Fill="{telerik1:FluentResource ResourceKey=AccentBrush}"  />
-                            <TextBlock Grid.Row="1" Text="{loc:Loc SystemMonitor}" VerticalAlignment="Center" FontSize="11" Margin="0,4,0,0" Foreground="{DynamicResource Fore01_03}" FontWeight="Medium" FontFamily="Montserrat Light"></TextBlock>
-                            <!--<Path Margin="24,-20,0,0" VerticalAlignment="Center" Height="16" Stretch="Uniform" Fill="{DynamicResource Accent07_05}"  >
-                                <Path.Style>
-                                    <Style TargetType="Path" BasedOn="{StaticResource alert-circle}">
-                                        <Setter Property="Visibility" Value="Visible"></Setter>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding SetupHelper.Status}" Value="{x:Static types:SetupHelperStatusEnum.SetupHelperOk}">
-                                                <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Path.Style>
-                            </Path>-->
-                        </Grid>
-                    </telerik:RadRadioButton>
-
+                    
                 </StackPanel>
             </DockPanel>
             <Border  Grid.Column="1" BorderThickness="0,0,0,0" >

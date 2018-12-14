@@ -1,8 +1,13 @@
 ﻿using Celsus.Client.Shared.Lex;
 using Celsus.Client.Shared.Types;
 using Celsus.Client.Types;
+using Celsus.Client.Types.CryptlexApi;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -93,6 +98,23 @@ namespace Celsus.Client.Controls.Licensing
                 NotifyPropertyChanged(() => ActivateTrialLicenseCommand);
             }
         }
+
+        bool eMailAlreadyExists;
+        public bool EMailAlreadyExists
+        {
+            get
+            {
+                return eMailAlreadyExists;
+            }
+            set
+            {
+                if (Equals(value, eMailAlreadyExists)) return;
+                eMailAlreadyExists = value;
+                NotifyPropertyChanged(() => EMailAlreadyExists);
+                NotifyPropertyChanged(() => EMailErrorVisibility);
+            }
+        }
+
         string organization;
         public string Organization
         {
@@ -107,6 +129,22 @@ namespace Celsus.Client.Controls.Licensing
                 NotifyPropertyChanged(() => Organization);
                 NotifyPropertyChanged(() => OrganizationErrorVisibility);
                 NotifyPropertyChanged(() => ActivateTrialLicenseCommand);
+            }
+        }
+
+        bool organizationAlreadyExists;
+        public bool OrganizationAlreadyExists
+        {
+            get
+            {
+                return organizationAlreadyExists;
+            }
+            set
+            {
+                if (Equals(value, organizationAlreadyExists)) return;
+                organizationAlreadyExists = value;
+                NotifyPropertyChanged(() => OrganizationAlreadyExists);
+                NotifyPropertyChanged(() => OrganizationErrorVisibility);
             }
         }
 
@@ -142,6 +180,10 @@ namespace Celsus.Client.Controls.Licensing
                         return Visibility.Visible;
                     }
                 }
+                if (EMailAlreadyExists)
+                {
+                    return Visibility.Visible;
+                }
                 return Visibility.Collapsed;
             }
         }
@@ -150,7 +192,7 @@ namespace Celsus.Client.Controls.Licensing
         {
             get
             {
-                return string.IsNullOrWhiteSpace(Organization) ? Visibility.Visible : Visibility.Collapsed;
+                return string.IsNullOrWhiteSpace(Organization) || OrganizationAlreadyExists ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
@@ -226,6 +268,8 @@ namespace Celsus.Client.Controls.Licensing
             }
         }
 
+
+
         private bool CanActivateTrialLicense(object obj)
         {
             if (string.IsNullOrWhiteSpace(FirstName) == false && string.IsNullOrWhiteSpace(LastName) == false && string.IsNullOrWhiteSpace(EMail) == false && string.IsNullOrWhiteSpace(Organization) == false)
@@ -242,23 +286,90 @@ namespace Celsus.Client.Controls.Licensing
             }
             return false;
         }
+        private string CreateRandomPassword(int length)
+        {
+            // Create a string of characters, numbers, special characters that allowed in the password  
+            string validChars = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*?_-";
+            Random random = new Random();
 
-        private void ActivateTrialLicense(object obj)
+            // Select one random character at a time from the string  
+            // and create an array of chars  
+            char[] chars = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                chars[i] = validChars[random.Next(0, validChars.Length)];
+            }
+            return new string(chars);
+        }
+
+        private async void ActivateTrialLicense(object obj)
         {
             IsBusy = true;
 
-            var activateTrialLicense = LicenseHelper.Instance.ActivateTrialLicense(out bool hasError, out int status, firstName, lastName, EMail, organization);
+            var hasErrors = false;
+
+            var getAllUsersResult = await CryptlexHelper.GetAllUsersAsync();
+            if (getAllUsersResult.Error != null)
+            {
+                Status = "CannotConnectLicenseServer".ConvertToBindableText();
+                IsBusy = false;
+                return;
+            }
+
+            var users = getAllUsersResult.Result;
+
+            if (users.Count(x => x.Company != null && x.Company.Equals(organization, StringComparison.InvariantCultureIgnoreCase)) > 0)
+            {
+                Status = "OrganizationAlreadyExists".ConvertToBindableText();
+                OrganizationAlreadyExists = true;
+                hasErrors = true;
+            }
+            else
+            {
+                OrganizationAlreadyExists = false;
+            }
+
+            if (users.Count(x => x.Email.Equals(EMail, StringComparison.InvariantCultureIgnoreCase)) > 0)
+            {
+                Status = "EMailAlreadyExists".ConvertToBindableText();
+                EMailAlreadyExists = true;
+                hasErrors = true;
+            }
+            else
+            {
+                EMailAlreadyExists = false;
+            }
+
+            if (hasErrors)
+            {
+                IsBusy = false;
+                return;
+            }
+
+            var password = CreateRandomPassword(8);
+
+            var createUserResult = await CryptlexHelper.CreateUserAsync(FirstName, LastName, EMail, Organization, password);
+            if (createUserResult.Error != null || createUserResult.Result == null)
+            {
+                Status = "CannotConnectLicenseServer".ConvertToBindableText();
+                IsBusy = false;
+                return;
+            }
+
+            var userId = createUserResult.Result.Id;
+
+            var activateTrialLicense = LicenseHelper.Instance.ActivateTrialLicense(out bool hasError, out int status, firstName, lastName, EMail, organization, userId);
 
             if (activateTrialLicense == false)
             {
                 if (hasError)
                 {
-                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
-                    {
-                        IsBusy = false;
-                        SendErrorLogVisibility = Visibility.Visible;
-                        Status = "ErrorSettingTrialActivationData".ConvertToBindableText();
-                    }));
+                    await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                     {
+                         IsBusy = false;
+                         SendErrorLogVisibility = Visibility.Visible;
+                         Status = "ErrorSettingTrialActivationData".ConvertToBindableText();
+                     }));
 
                     var statusEnum = (StatusCodesEnum)status;
 
@@ -285,6 +396,9 @@ namespace Celsus.Client.Controls.Licensing
             }
             else
             {
+
+
+
                 Status = "YouHaveSuccessfullyStartedYourTrialLicen".ConvertToBindableText();
                 IsBusy = false;
 
@@ -297,6 +411,8 @@ namespace Celsus.Client.Controls.Licensing
             }
             NotifyPropertyChanged(() => ActivateTrialLicenseCommand);
         }
+
+
 
         private void AlertClosed(object sender, WindowClosedEventArgs e)
         {
@@ -311,4 +427,16 @@ namespace Celsus.Client.Controls.Licensing
             DataContext = RequestTrialLicenseControlModel.Instance;
         }
     }
+
+    // <auto-generated />
+    //
+    // To parse this JSON data, add NuGet 'Newtonsoft.Json' then do:
+    //
+    //    using QuickType;
+    //
+    //    var httpsApiCryptlexComV3Users = HttpsApiCryptlexComV3Users.FromJson(jsonString);
+
+
+
 }
+

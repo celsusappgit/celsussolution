@@ -696,6 +696,18 @@ ul.social-icons li.instagram:hover {
     opacity: 0.9;
 }
 
+.overlaygray {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: -moz-linear-gradient( -29deg, rgb(0, 15, 15) 0%, rgb(35, 59, 136) 100%);
+    background-image: -webkit-linear-gradient( -29deg, rgb(0, 15, 15) 0%, rgb(35, 59, 136) 100%);
+    background-image: -ms-linear-gradient( -29deg, rgb(0, 15, 15) 0%, rgb(35, 59, 136) 100%);
+    opacity: 0.9;
+}
+
 #home_banner h3 {
     font-size: 55px;
     color: #fff;
@@ -1086,7 +1098,7 @@ ul.social-icons li.instagram:hover {
 }
 
 #testimonial .testimonial-slider .owl-dots .owl-dot.active span {
-    background: #bf095d;
+    background: #bfa95d;
 }
 
 

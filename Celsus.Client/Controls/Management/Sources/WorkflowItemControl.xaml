@@ -25,7 +25,32 @@
                     <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" Style="{StaticResource RadBusyIndicator}">
                         <DockPanel >
                             <Border DockPanel.Dock="Top" Margin="24,24,24,12"  >
-                                <TextBlock Text="{loc:Loc CreateNewWorkflow}" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
+                                <Grid>
+                                    <TextBlock Text="{loc:Loc CreateNewWorkflow}" Margin="0">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockTitle01}">
+                                                <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsNew}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock Text="{Binding Title}" Margin="0">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockTitle01}">
+                                                <Setter Property="Visibility" Value="{Binding CollapsedButVisibleInDesign}"></Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsNew}" Value="False">
+                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
                             </Border>
                             <Border DockPanel.Dock="Bottom" Padding="24,12" Background="{StaticResource Back01_03}" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" Visibility="{Binding StatusVisibility}">
                                 <ContentPresenter TextElement.FontFamily="Montserrat Light" TextElement.FontSize="12" Content="{Binding Status}"></ContentPresenter>

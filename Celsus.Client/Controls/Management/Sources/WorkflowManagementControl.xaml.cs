@@ -25,6 +25,20 @@ namespace Celsus.Client.Controls.Management.Sources
     {
         public int SourceId { get; internal set; }
 
+        public string SourceName
+        {
+            get
+            {
+                var source = Repo.Instance.Sources.SingleOrDefault(x => x.SourceDto.Id == SourceId);
+                if (source != null)
+                {
+                    return $"({source.SourceDto.Name})";
+                }
+                return string.Empty;
+            }
+
+        }
+
         private ICollectionView workflowsView;
         public ICollectionView Workflows
         {

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Windows;
 
 namespace Celsus.Client.Shared.Types
@@ -15,6 +17,57 @@ namespace Celsus.Client.Shared.Types
             sqlConnectionStringBuilder = new SqlConnectionStringBuilder();
         }
 
+        public string MachineName
+        {
+            get
+            {
+                string nameToCheck = "";
+                if (Server.Contains(@"\"))
+                {
+                    nameToCheck = Server.Split('\\').FirstOrDefault();
+                }
+                else
+                {
+                    nameToCheck = Server;
+                }
+                return nameToCheck;
+            }
+        }
+
+        public bool MachineNameIsAnIPAddress
+        {
+            get
+            {
+                if (IPAddress.TryParse(MachineName, out IPAddress ipAddress))
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        public bool IsServerCurrentMachine
+        {
+            get
+            {
+                string nameToCheck = MachineName;
+                if (
+                        string.IsNullOrWhiteSpace(nameToCheck) == false &&
+                        (
+                            nameToCheck.Equals(".", StringComparison.InvariantCultureIgnoreCase) ||
+                            nameToCheck.Equals("local", StringComparison.InvariantCultureIgnoreCase) ||
+                            nameToCheck.Equals("localhost", StringComparison.InvariantCultureIgnoreCase) ||
+                            nameToCheck.Equals("127.0.0.1", StringComparison.InvariantCultureIgnoreCase)
+                        )
+                    )
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
         public string Server
         {
             get
@@ -27,6 +80,9 @@ namespace Celsus.Client.Shared.Types
                 NotifyPropertyChanged(() => Server);
                 NotifyPropertyChanged(() => IsOK);
                 NotifyPropertyChanged(() => ServerErrorVisibility);
+                NotifyPropertyChanged(() => IsServerCurrentMachine);
+                NotifyPropertyChanged(() => MachineName);
+                NotifyPropertyChanged(() => MachineNameIsAnIPAddress);
             }
         }
 

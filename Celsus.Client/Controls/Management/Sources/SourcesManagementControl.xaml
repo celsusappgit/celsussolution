@@ -4,32 +4,47 @@
              xmlns:mat="clr-namespace:Telerik.Windows.Controls.MaterialControls;assembly=Telerik.Windows.Controls" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:loc="clr-namespace:Celsus.Client.Types"
+             xmlns:converters="clr-namespace:Celsus.Client.Types.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Celsus.Client.Controls.Management.Sources"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:common="clr-namespace:Celsus.Client.Controls.Common"
              xmlns:telerikControls="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="1000" d:DesignWidth="1000"
              d:DataContext="{d:DesignInstance local:SourcesManagementControlModel}">
+    <UserControl.Resources>
+        <converters:ServerId2NameConverter x:Key="ServerId2NameConverter"></converters:ServerId2NameConverter>
+    </UserControl.Resources>
     <ScrollViewer VerticalAlignment="Stretch" BorderThickness="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" telerikControls:StyleManager.Theme="Fluent" Margin="0,0,0,0">
         <Grid Background="{StaticResource Back01_02}">
             <Border Style="{StaticResource BorderPage}">
                 <DockPanel Style="{StaticResource DockPanelPage}">
                     <Border Style="{StaticResource BorderPageHeader}" Padding="0,12">
                         <DockPanel Style="{DynamicResource TopDockPanel}">
-                            <telerik:RadButton Content="{loc:Loc AddNewSource}" Style="{DynamicResource TopButtonForPage}" Command="{Binding AddNewSourceCommand}" />
-                            <Path DockPanel.Dock="Right" Visibility="{Binding HelpForDisabledAddNewSourceVisibility}" Style="{StaticResource help-circle}" VerticalAlignment="Center" Fill="{StaticResource Accent07_03}" Height="20" Width="20" Stretch="Fill" Cursor="Hand" >
+                            <telerik:RadButton Content="{loc:Loc AddNewSource}" Style="{DynamicResource TopButtonForPage}" Command="{Binding AddNewSourceCommand}" Cursor="Hand" />
+                            <Border DockPanel.Dock="Right" Visibility="{Binding HelpForDisabledAddNewSourceVisibility}" Padding="4" Cursor="Hand">
                                 <telerik:EventToCommandBehavior.EventBindings>
                                     <telerik:EventBinding Command="{Binding HelpForDisabledAddNewSourceCommand}" EventName="MouseLeftButtonUp" PassEventArgsToCommand="True" />
                                 </telerik:EventToCommandBehavior.EventBindings>
-                            </Path>
+                                <Path  Style="{StaticResource help-circle}" VerticalAlignment="Center" Fill="{StaticResource Back01_05}" Height="20" Width="20" Stretch="Fill"  >
 
+                                </Path>
+                            </Border>
+                            <Border DockPanel.Dock="Right" Padding="4" Background="Transparent" Cursor="Hand" Margin="0,0,8,0">
+                                <telerik:EventToCommandBehavior.EventBindings>
+                                    <telerik:EventBinding Command="{Binding RefreshCommand}" EventName="MouseLeftButtonUp" PassEventArgsToCommand="True" />
+                                </telerik:EventToCommandBehavior.EventBindings>
+                                <Path Style="{StaticResource refresh}" VerticalAlignment="Center" Fill="{StaticResource Accent02_03}" Height="20" Width="20" Stretch="Fill" >
+
+                                </Path>
+                            </Border>
                             <TextBlock Text="{loc:Loc Sources}" Style="{DynamicResource TextBlockTitleOfPage}" Margin="0,18"/>
                         </DockPanel>
                     </Border>
 
                     <Border Style="{DynamicResource BorderContent}" Margin="0" Padding="0">
-                        <ItemsControl ItemsSource="{Binding Repo.Sources}">
+                        <ItemsControl ItemsSource="{Binding Repo.Sources}" >
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,0,0,24" >
@@ -90,8 +105,24 @@
 
 
 
-                                                <StackPanel DockPanel.Dock="Top" Grid.IsSharedSizeScope="True" Margin="24,12,24,24">
-                                                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding SourceDto.Path}"></TextBlock>
+                                                <StackPanel DockPanel.Dock="Top" Margin="24,12,24,24" Grid.IsSharedSizeScope="True">
+                                                    <Grid ShowGridLines="False">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" SharedSizeGroup="SSA"></ColumnDefinition>
+                                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0" TextWrapping="WrapWithOverflow" Text="Server" Foreground="{StaticResource Fore01_01}"></TextBlock>
+                                                        <!--<TextBlock Grid.Column="1" TextWrapping="WrapWithOverflow" Text="{Binding SourceDto.ServerId, Converter={StaticResource ServerId2NameConverter}}" Margin="12,0,0,0"></TextBlock>-->
+                                                        <common:ServerControl Grid.Column="1" ServerId="{Binding SourceDto.ServerId}"  Margin="12,0,0,0"></common:ServerControl>
+                                                    </Grid>
+                                                    <Grid Margin="0,6,0,0" ShowGridLines="False">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" SharedSizeGroup="SSA"></ColumnDefinition>
+                                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0" TextWrapping="WrapWithOverflow" Text="Path" Foreground="{StaticResource Fore01_01}"></TextBlock>
+                                                        <TextBlock Grid.Column="1" TextWrapping="WrapWithOverflow" Text="{Binding SourceDto.Path}" Margin="12,0,0,0"></TextBlock>
+                                                    </Grid>
 
                                                     <StackPanel Orientation="Horizontal">
 

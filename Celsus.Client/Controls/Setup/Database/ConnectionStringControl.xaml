@@ -35,7 +35,7 @@
                                 <telerik:RadButton Style="{DynamicResource FormButtonInner}" Command="{Binding ImportSettingsFileCommand}" >
                                     <HeaderedContentControl Style="{DynamicResource HeaderedContentControlStyle2}">
                                         <HeaderedContentControl.Header>
-                                            <Path Data="{DynamicResource Geoarrow-right-bold-circle}" Style="{StaticResource ButtonPath}" />
+                                            <Path Data="{DynamicResource Geoimport}" Style="{StaticResource ButtonPath}" />
                                         </HeaderedContentControl.Header>
                                         <TextBlock Text="{loc:Loc ImportConnectionInfo}" Style="{StaticResource ButtonTextBlock}" />
                                     </HeaderedContentControl>

@@ -23,7 +23,7 @@
                     <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" Style="{StaticResource RadBusyIndicator}">
                         <DockPanel >
                             <Border DockPanel.Dock="Top" Margin="24,24,24,12"  >
-                                <TextBlock Text="{loc:Loc EnterSerialKey}" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
+                                <TextBlock Text="{loc:Loc EnterSerialControl}" Style="{StaticResource TextBlockTitle01}" Margin="0"></TextBlock>
                             </Border>
                             <Border DockPanel.Dock="Bottom" Padding="24,12" Background="{StaticResource Back01_03}" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" Visibility="{Binding StatusVisibility}">
                                 <ContentPresenter TextElement.FontFamily="Montserrat Light" TextElement.FontSize="12" Content="{Binding Status}"></ContentPresenter>

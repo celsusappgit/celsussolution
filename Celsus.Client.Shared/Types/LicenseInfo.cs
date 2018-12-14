@@ -16,5 +16,15 @@ namespace Celsus.Client.Shared.Types
         public string LicenseKey { get; internal set; }
         public string LicenseUserEmail { get; internal set; }
         public string LicenseUserName { get; internal set; }
+        public int? MaxAllowedIndexerRoleCount { get;  set; }
+        public List<string> Indexers { get; internal set; }
+        public void AddIndexer(string serverId)
+        {
+            if (Indexers==null)
+            {
+                Indexers = new List<string>();
+            }
+            Indexers.Add(serverId);
+        }
     }
 }

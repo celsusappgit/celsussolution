@@ -33,7 +33,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Celsus.Service", "Celsus.Se
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Celsus.Tool.LocalizationHelper", "Celsus.Tool.LocalizationHelper\Celsus.Tool.LocalizationHelper.csproj", "{6A4E53D2-0470-4C40-87F6-96BC871D4817}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Celsus.Net", "Celsus.Net\Celsus.Net.csproj", "{FB7A3C37-3BBA-4DDE-B932-52162A4F4D83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Celsus.Net", "Celsus.Net\Celsus.Net.csproj", "{FB7A3C37-3BBA-4DDE-B932-52162A4F4D83}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Celsus.Hub", "Celsus.Hub\Celsus.Hub.csproj", "{C852F469-D46A-4A1F-8B3D-AE6619B9AA1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +109,10 @@ Global
 		{FB7A3C37-3BBA-4DDE-B932-52162A4F4D83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB7A3C37-3BBA-4DDE-B932-52162A4F4D83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB7A3C37-3BBA-4DDE-B932-52162A4F4D83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C852F469-D46A-4A1F-8B3D-AE6619B9AA1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C852F469-D46A-4A1F-8B3D-AE6619B9AA1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C852F469-D46A-4A1F-8B3D-AE6619B9AA1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C852F469-D46A-4A1F-8B3D-AE6619B9AA1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

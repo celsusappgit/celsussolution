@@ -1,26 +1,17 @@
 ﻿using Celsus.Client.Shared.Types;
 using Celsus.Client.Types;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Deployment.Application;
-using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Resources;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.Navigation;
@@ -178,17 +169,43 @@ namespace Celsus.Client.Controls.Setup.Database
             get
             {
                 if (setAsDatabaseRoleCommand == null)
-                    setAsDatabaseRoleCommand = new RelayCommand(param => SetAsDatabaseRole(param), param => { return !IsBusy;  });
+                    setAsDatabaseRoleCommand = new RelayCommand(param => SetAsDatabaseRole(param), param => { return !IsBusy && RolesHelper.DatabaseRoleCount == 0; });
                 return setAsDatabaseRoleCommand;
             }
         }
 
+
         private async void SetAsDatabaseRole(object param)
         {
             IsBusy = true;
+            string serverId = string.Empty;
+            string ipAddress = string.Empty;
+            string machineName = string.Empty;
             try
             {
-                await RolesHelper.Instance.AddServerRole(Celsus.Types.ServerRoleEnum.Database);
+                if (DatabaseHelper.ConnectionInfo.IsServerCurrentMachine)
+                {
+                    serverId = ComputerHelper.Instance.ServerId;
+                    ipAddress = ComputerHelper.Instance.IPAddress;
+                    machineName = Environment.MachineName;
+                }
+                else
+                {
+                    serverId = Guid.Empty.ToString().ToUpper();
+
+                    if (DatabaseHelper.ConnectionInfo.MachineNameIsAnIPAddress)
+                    {
+                        ipAddress = DatabaseHelper.ConnectionInfo.MachineName;
+                        machineName = ComputerHelper.Instance.GetMachineNameFromIPAddress(ipAddress);
+                    }
+                    else
+                    {
+                        ipAddress = ComputerHelper.Instance.GetIPAddressFromMachineName(DatabaseHelper.ConnectionInfo.MachineName);
+                        machineName = DatabaseHelper.ConnectionInfo.MachineName;
+                    }
+                }
+
+                await RolesHelper.Instance.AddDatabaseRole(serverId, ipAddress, machineName);
             }
             catch (Exception)
             {
@@ -220,14 +237,15 @@ namespace Celsus.Client.Controls.Setup.Database
                 var result = await DatabaseHelper.Instance.Upgrade();
                 if (result)
                 {
-                    UpdateStatus = "Database upgraded successfully.".ConvertToBindableText();
+                    UpdateStatus = "DatabaseUpgradedSuccessfully".ConvertToBindableText();
                     //Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => UpdateStatus = "Database upgraded successfully.".ConvertToBindableText()));
                 }
                 return result;
             }
             catch (Exception ex)
             {
-                UpdateStatus = "Database upgrade error.".ConvertToBindableText();
+                UpdateStatus = "DatabaseUpgradeError".ConvertToBindableText();
+                logger.Error(ex, "Error in UpdateCelsusDatabaseHelper");
                 //Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => Status = "Database upgrade error.".ConvertToBindableText()));
             }
             return false;
@@ -249,7 +267,7 @@ namespace Celsus.Client.Controls.Setup.Database
             newWindow.ShowDialog();
             if (DatabaseHelper.Instance.Status == DatabaseHelperStatusEnum.CelsusDatabaseReachable)
             {
-                
+
             }
         }
 
@@ -270,7 +288,7 @@ namespace Celsus.Client.Controls.Setup.Database
 
             logger.Trace($"Install SQL Server started.");
 
-            InstallStatus = "Starting download.".ConvertToBindableText();
+            InstallStatus = "StartingDownload".ConvertToBindableText();
 
             var sqlSetupPath = FileHelper.GetUnusedFileName(System.IO.Path.GetTempPath(), "SqlExe.zip");
 
@@ -310,7 +328,7 @@ namespace Celsus.Client.Controls.Setup.Database
             catch (Exception ex)
             {
                 IsBusy = false;
-                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => InstallStatus = "Error in starting download.".ConvertToBindableText()));
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => InstallStatus = "ErrorInStartingDownload".ConvertToBindableText()));
                 logger.Error(ex, $"Exception has been thrown when downloading SQL Server setup file.");
             }
         }
@@ -326,7 +344,7 @@ namespace Celsus.Client.Controls.Setup.Database
             var exceptionString = string.Empty;
             if (e.Error != null)
             {
-                InstallStatus = "Error downlading setup file.".ConvertToBindableText();
+                InstallStatus = "ErrorInStartingDownload".ConvertToBindableText();
                 //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => InstallStatus = "Error downlading setup file.".ConvertToBindableText()));
                 exceptionString = e.Error.ToString();
                 logger.Error(e.Error, $"SQL Server setup file downloaded with error. IsCancelled: {e.Cancelled}. Error: {exceptionString}");
@@ -334,7 +352,7 @@ namespace Celsus.Client.Controls.Setup.Database
             }
             else
             {
-                InstallStatus = "SQL Server setup file downloaded.".ConvertToBindableText();
+                InstallStatus = "SQLServerSetupFileDownloaded".ConvertToBindableText();
                 //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => InstallStatus = "SQL Server setup file downloaded.".ConvertToBindableText()));
                 logger.Trace($"SQL Server setup file downloaded. IsCancelled: {e.Cancelled}");
                 //IsBusy = false;
@@ -342,7 +360,7 @@ namespace Celsus.Client.Controls.Setup.Database
 
             if (e.Cancelled == false && e.Error == null)
             {
-                InstallStatus = "Extracting setup file.".ConvertToBindableText();
+                InstallStatus = "ExtractingSetupFile".ConvertToBindableText();
                 //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => InstallStatus = "Extracting setup file.".ConvertToBindableText()));
 
                 var extractPath = FileHelper.GetUnusedFolderName(System.IO.Path.GetTempPath(), "SqlExtract");
@@ -357,7 +375,7 @@ namespace Celsus.Client.Controls.Setup.Database
                     //ZipFile.ExtractToDirectory(e.UserState.ToString(), extractPath);
                     logger.Trace($"SQL Server setup file extracted. ExtractPath: {extractPath}");
 
-                    InstallStatus = "SQL Server setup file extracted.".ConvertToBindableText();
+                    InstallStatus = "SQLServerSetupFileExtracted".ConvertToBindableText();
                     //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => InstallStatus = "SQL Server setup file extracted.".ConvertToBindableText()));
                 }
                 catch (Exception ex)
@@ -369,7 +387,7 @@ namespace Celsus.Client.Controls.Setup.Database
                     return;
                 }
 
-                InstallStatus = "Creating config file.".ConvertToBindableText();
+                InstallStatus = "CreatingConfigFile".ConvertToBindableText();
                 //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => InstallStatus = "Creating config file.".ConvertToBindableText()));
 
                 var uri = new Uri("/Resources/Setup/Database/Config.ini", UriKind.Relative);
@@ -381,7 +399,7 @@ namespace Celsus.Client.Controls.Setup.Database
                 }
                 catch (Exception ex)
                 {
-                    InstallStatus = "Config file resource error.".ConvertToBindableText();
+                    InstallStatus = "ConfigFileResourceError".ConvertToBindableText();
                     //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => InstallStatus = "Config file resource error.".ConvertToBindableText()));
                     logger.Error(ex, $"Config file resource error.");
                     IsBusy = false;
@@ -399,12 +417,12 @@ namespace Celsus.Client.Controls.Setup.Database
                         var text = reader.ReadToEnd();
                         File.WriteAllText(configFilePath, text);
                     }
-                    InstallStatus = "Config file saved.".ConvertToBindableText();
+                    InstallStatus = "ConfigFileSaved".ConvertToBindableText();
                     //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => InstallStatus = "Config file saved.".ConvertToBindableText()));
                 }
                 catch (Exception ex)
                 {
-                    InstallStatus = "Config file write error.".ConvertToBindableText();
+                    InstallStatus = "ConfigFileWriteError".ConvertToBindableText();
                     //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => InstallStatus = "Config file write error.".ConvertToBindableText()));
                     logger.Error(ex, $"Config file write error.");
                     IsBusy = false;
@@ -435,11 +453,11 @@ namespace Celsus.Client.Controls.Setup.Database
 
                 BusyContent = null;
 
-                InstallStatus = "Setup completed successfully.".ConvertToBindableText();
+                InstallStatus = "SetupCompletedSuccessfully".ConvertToBindableText();
 
                 if (processHelper.Exception != null)
                 {
-                    InstallStatus = "Process error.".ConvertToBindableText();
+                    InstallStatus = "ProcessError".ConvertToBindableText();
                     //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => InstallStatus = "Process error.".ConvertToBindableText()));
                     logger.Error(processHelper.Exception, $"Process error while installing SQL Server.");
                     return;
@@ -469,7 +487,7 @@ namespace Celsus.Client.Controls.Setup.Database
                     SettingsHelper.Instance.ConnectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=Celsus;Integrated Security=True;Connect Timeout=15";
                 }
 
-                InstallStatus = "We will update Celsus database now.".ConvertToBindableText();
+                InstallStatus = "WeWillUpdateCelsusDatabaseNow".ConvertToBindableText();
 
                 var updateResult = await UpdateCelsusDatabaseHelper();
 

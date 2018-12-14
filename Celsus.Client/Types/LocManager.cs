@@ -13,6 +13,8 @@ namespace Celsus.Client.Types
 {
     public class LocManager
     {
+        protected static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         private List<SmartText> smartTexts = null;
         public static LocManager Instance { get; } = new LocManager();
 
@@ -113,6 +115,7 @@ namespace Celsus.Client.Types
             }
             catch (Exception ex)
             {
+                logger.Error(ex, "Error in ReadFile");
             }
             smartTexts = JsonConvert.DeserializeObject<List<SmartText>>(fileContent);
         }
@@ -181,11 +184,13 @@ namespace Celsus.Client.Types
                     }
                     catch (Exception ex)
                     {
+                        logger.Error(ex, "Error in ReadFile2");
                     }
                 }
             }
             catch (Exception ex)
             {
+                logger.Error(ex, "Error in ReadFile2");
             }
         }
 
@@ -249,11 +254,13 @@ namespace Celsus.Client.Types
                     }
                     catch (Exception ex)
                     {
+                        logger.Error(ex, "Error in ReadFileFromTextFile");
                     }
                 }
             }
             catch (Exception ex)
             {
+                logger.Error(ex, "Error in ReadFileFromTextFile");
             }
             return null;
         }

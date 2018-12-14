@@ -36,7 +36,7 @@ namespace Celsus.Client.Types.Models
             }
         }
 
-        
+
         ObservableCollection<WorkflowModel> workflows;
         public ObservableCollection<WorkflowModel> Workflows
         {
@@ -51,6 +51,8 @@ namespace Celsus.Client.Types.Models
                 NotifyPropertyChanged(() => Workflows);
             }
         }
+
+
 
         ObservableCollection<SourceDto> internalSources;
         private ObservableCollection<SourceDto> InternalSources
@@ -259,6 +261,12 @@ namespace Celsus.Client.Types.Models
             await GetSources();
             await GetWorkflows();
         }
+
+        internal async Task RefreshSources()
+        {
+            await GetSources();
+        }
+
         private async Task GetSources()
         {
             if (DatabaseHelper.Instance.Status == DatabaseHelperStatusEnum.CelsusDatabaseVersionOk)
@@ -281,6 +289,29 @@ namespace Celsus.Client.Types.Models
                     semaphoreGetAll.Release();
                 }
             }
+        }
+
+        public async Task<ServerRoleDto> GetServer(string serverId)
+        {
+            if (DatabaseHelper.Instance.Status == DatabaseHelperStatusEnum.CelsusDatabaseVersionOk)
+            {
+                try
+                {
+                    using (var context = new SqlDbContext(DatabaseHelper.Instance.ConnectionInfo.ConnectionString))
+                    {
+                        return await context.ServerRoles.FirstOrDefaultAsync(x => x.ServerId == serverId);
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    logger.Error(ex, $"Error occured connecting SQL Server.");
+                }
+                finally
+                {
+                }
+            }
+            return null;
         }
 
         private async Task GetWorkflows()

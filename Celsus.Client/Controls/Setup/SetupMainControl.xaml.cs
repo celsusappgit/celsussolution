@@ -27,7 +27,7 @@ namespace Celsus.Client.Controls.Setup
 
         private readonly object balanceLock = new object();
 
-        private bool isInitted = false;
+        //private bool isInitted = false;
 
         #endregion
 
@@ -235,12 +235,21 @@ namespace Celsus.Client.Controls.Setup
             {
                 System.Diagnostics.Process.Start("https://www.celsusapp.com/shop");
             }
-            catch (System.ComponentModel.Win32Exception noBrowser)
+            catch (Win32Exception noBrowser)
             {
-                if (noBrowser.ErrorCode == -2147467259) ;
+                if (noBrowser.ErrorCode == -2147467259)
+                {
+
+                }
+                if (noBrowser.ErrorCode == -2147467259)
+                {
+
+                }
+                logger.Error(noBrowser, "Error in PurchaseNewLicense");
             }
-            catch (Exception other)
+            catch (Exception ex)
             {
+                logger.Error(ex, "Error in PurchaseNewLicense");
             }
         }
 

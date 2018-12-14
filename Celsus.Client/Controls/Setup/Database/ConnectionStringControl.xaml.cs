@@ -25,6 +25,7 @@ namespace Celsus.Client.Controls.Setup.Database
 {
     public class ConnectionStringControlModel : BaseModel
     {
+
         ConnectionInfo connectionInfo;
         public ConnectionInfo ConnectionInfo
         {
@@ -92,7 +93,8 @@ namespace Celsus.Client.Controls.Setup.Database
 
         private void CloseWindow(object param)
         {
-            RadWindowManager.Current.GetWindows().Last().Close();
+            //RadWindowManager.Current.GetWindows().Last().Close();
+            NeedsClose = true;
         }
 
         ICommand importSettingsFileCommand;
@@ -111,7 +113,7 @@ namespace Celsus.Client.Controls.Setup.Database
             var encryptedInfo = string.Empty;
             OpenFileDialog myDialog = new OpenFileDialog
             {
-                Filter = LocHelper.GetWord("CelsusInfoFiles") + " (*.clsinfo)|*.clsinfo",
+                Filter = TranslationSource.Instance["CelsusInfoFiles"] + " (*.clsinfo)|*.clsinfo",
                 CheckFileExists = true,
                 Multiselect = false
             };
@@ -119,7 +121,7 @@ namespace Celsus.Client.Controls.Setup.Database
             {
                 if (!string.IsNullOrWhiteSpace(myDialog.FileName))
                 {
-                    encryptedInfo= System.IO.File.ReadAllText(myDialog.FileName);
+                    encryptedInfo = System.IO.File.ReadAllText(myDialog.FileName);
                 }
             }
             if (string.IsNullOrWhiteSpace(encryptedInfo) == false)
@@ -144,6 +146,20 @@ namespace Celsus.Client.Controls.Setup.Database
             }
         }
 
+        bool needsClose;
+        public bool NeedsClose
+        {
+            get
+            {
+                return needsClose;
+            }
+            set
+            {
+                needsClose = value;
+                NotifyPropertyChanged(() => NeedsClose);
+            }
+        }
+
         private async void CheckConnection(object param)
         {
 
@@ -154,7 +170,7 @@ namespace Celsus.Client.Controls.Setup.Database
                 using (var sqlConnection = new SqlConnection(ConnectionInfo.ConnectionStringForMasterWithSmallTimeOut))
                 {
                     await sqlConnection.OpenAsync();
-                    Status = $"Successfully connected to SQL Server.".ConvertToBindableText();
+                    Status = $"SuccessfullyConnectedToSQLServer".ConvertToBindableText();
                     SettingsHelper.Instance.ConnectionString = ConnectionInfo.ConnectionString;
                 }
             }
@@ -162,16 +178,17 @@ namespace Celsus.Client.Controls.Setup.Database
             {
                 if (sqlException.Number == 4060)
                 {
-                    Status = $"Login failed to SQL Server.".ConvertToBindableText();
+                    Status = $"LoginFailedToSQLServer".ConvertToBindableText();
                 }
                 else
                 {
-                    Status = $"SQL Server. is not reachable.".ConvertToBindableText();
+                    Status = $"SQLServerIsNotReachable".ConvertToBindableText();
                 }
             }
             catch (Exception ex)
             {
-                Status = $"Error occured connecting SQL Server.".ConvertToBindableText();
+                Status = $"ErrorOccuredConnectingSQLServer".ConvertToBindableText();
+                logger.Error(ex, "Error in CheckConnection");
             }
             finally
             {
@@ -190,10 +207,28 @@ namespace Celsus.Client.Controls.Setup.Database
     }
     public partial class ConnectionStringControl : UserControl
     {
+        private ConnectionStringControlModel model;
+
         public ConnectionStringControl()
         {
             InitializeComponent();
-            DataContext = new ConnectionStringControlModel();
+            model = new ConnectionStringControlModel();
+            DataContext = model;
+            Loaded += ConnectionStringControl_Loaded;
+        }
+
+        private void ConnectionStringControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            model.PropertyChanged += ConnectionStringControlModel_PropertyChanged;
+        }
+
+        private void ConnectionStringControlModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "NeedsClose")
+            {
+                (Parent as RadWindow).DialogResult = true;
+                (Parent as RadWindow).Close();
+            }
         }
     }
 }

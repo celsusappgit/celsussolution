@@ -136,7 +136,7 @@ namespace Celsus.Client.Controls.Common
                     //Status = $"Found {metadatas.Count} items";
                     if (clearText == null)
                     {
-                        Status = "There is no items found for search term".ConvertToBindableText();
+                        Status = "ThereIsNoItemsFoundForSearchTerm".ConvertToBindableText();
                     }
                     IsBusy = false;
                     TextContent = clearText.TextInFile;
@@ -145,6 +145,7 @@ namespace Celsus.Client.Controls.Common
             catch (Exception ex)
             {
                 Status = $"Error in search.".ConvertToBindableText();
+                logger.Error(ex, "Error in search");
             }
 
         }
